@@ -22,7 +22,7 @@ PLUGIN_SLOTS.add_items([
                 id: 'custom_footer',
                 type: DIRECT_PLUGIN,
                 RenderWidget: () => (
-                    <h1>This is the footer.</h1>
+                    <h1>Ceci est le pied de page.</h1>
                 ),
             },
         }"""
