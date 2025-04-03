@@ -1,30 +1,45 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from utils import load_file
+
 from tutormfe.hooks import PLUGIN_SLOTS
 
-PLUGIN_SLOTS.add_items([
-    # Hide the default footer
+footer = [
     (
         "all",
         "footer_slot",
         """
         {
-            op: PLUGIN_OPERATIONS.Hide,
-            widgetId: 'default_contents',
+          op: PLUGIN_OPERATIONS.Hide,
+          widgetId: 'default_contents',
         }"""
     ),
-    # Insert a custom footer
     (
         "all",
         "footer_slot",
-        """
-        {
-            op: PLUGIN_OPERATIONS.Insert,
-            widget: {
-                id: 'custom_footer',
-                type: DIRECT_PLUGIN,
-                RenderWidget: () => (
-                    <h1>Ceci est un pied de page.</h1>
-                ),
-            },
-        }"""
+        f"""
+        {{
+          op: PLUGIN_OPERATIONS.Insert,
+          widget: {{
+            id: 'custom_footer',
+            type: DIRECT_PLUGIN,
+            RenderWidget: () => (
+            <>
+                <style>
+                {
+                    {load_file("footer/footer.css")}
+                }
+                </style>
+                {load_file("footer/footer.html")}
+            </>
+            ),
+          }},
+        }}"""
     )
-])
+]
+
+PLUGIN_SLOTS.add_items(
+    footer
+)
+
