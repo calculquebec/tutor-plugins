@@ -1,7 +1,7 @@
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from utils import load_file
+from theming.utils import load_file
 
 from tutormfe.hooks import PLUGIN_SLOTS
 
