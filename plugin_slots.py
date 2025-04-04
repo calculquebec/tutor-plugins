@@ -28,10 +28,10 @@ footer = [
             <>
                 <style>
                 {
-                    {load_file("theming/footer/footer.css")}
+                    {load_file("footer/footer.css")}
                 }
                 </style>
-                {load_file("theming/footer/footer.html")}
+                {load_file("footer/footer.html")}
             </>
             ),
           }},
