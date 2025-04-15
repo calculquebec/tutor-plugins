@@ -83,6 +83,7 @@ footer = [(
         }}"""
     )
 ]
+#comment to trigger a rebuild
 
 PLUGIN_SLOTS.add_items(
     header + footer + mobile_header
