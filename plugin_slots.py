@@ -1,12 +1,64 @@
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from tutormfe.hooks import PLUGIN_SLOTS
 from theming.utils import load_file
 
-from tutormfe.hooks import PLUGIN_SLOTS
-
-footer = [
+header = [
     (
+        "all",
+        "desktop_header_slot",
+        """
+        {
+          op: PLUGIN_OPERATIONS.Hide,
+          widgetId: 'desktop_header_slot',
+        }"""
+    ),
+    (
+        "all",
+        "desktop_header_slot",
+        f"""
+        {{
+          op: PLUGIN_OPERATIONS.Insert,
+          widget: {{
+            id: 'custom_header',
+            type: DIRECT_PLUGIN,
+            RenderWidget: () => {{
+                {load_file("header/header.jsx")}
+            }},
+          }},
+        }}"""
+    )
+]
+
+mobile_header = [
+    (
+        "all",
+        "mobile_header_slot",
+        """
+        {
+          op: PLUGIN_OPERATIONS.Hide,
+          widgetId: 'mobile_header_slot',
+        }"""
+    ),
+    (
+        "all",
+        "mobile_header_slot",
+        f"""
+        {{
+          op: PLUGIN_OPERATIONS.Insert,
+          widget: {{
+            id: 'custom_mobile_header',
+            type: DIRECT_PLUGIN,
+            RenderWidget: () => {{
+                {load_file("header/mobileHeader.jsx")}
+            }},
+          }},
+        }}"""
+    )
+]
+    
+footer = [(
         "all",
         "footer_slot",
         """
@@ -24,22 +76,14 @@ footer = [
           widget: {{
             id: 'custom_footer',
             type: DIRECT_PLUGIN,
-            RenderWidget: () => (
-            <>
-                <style>
-                {
-                    {load_file("footer/footer.css")}
-                }
-                </style>
-                {load_file("footer/footer.html")}
-            </>
-            ),
+            RenderWidget: () => {{
+                {load_file("footer/footer.jsx")}
+            }},
           }},
         }}"""
     )
 ]
 
 PLUGIN_SLOTS.add_items(
-    footer
+    header + footer + mobile_header
 )
-
