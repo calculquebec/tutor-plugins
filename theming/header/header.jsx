@@ -131,7 +131,7 @@ return (
           fill: var(--text-light);
         }
 
-        #root body.indigo-dark-theme,
+        body.indigo-dark-theme #root,
         body.indigo-dark-theme main,
         body.indigo-dark-theme .page-back,
         body.indigo-dark-theme .footer,
