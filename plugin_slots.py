@@ -57,6 +57,33 @@ mobile_header = [
         }}"""
     )
 ]
+
+learning_header = [
+    (
+        "all",
+        "desktop_header_slot",
+        """
+        {
+          op: PLUGIN_OPERATIONS.Hide,
+          widgetId: 'desktop_header_slot',
+        }"""
+    ),
+    (
+        "all",
+        "header_slot",
+        f"""
+        {{
+          op: PLUGIN_OPERATIONS.Insert,
+          widget: {{
+            id: 'custom_header',
+            type: DIRECT_PLUGIN,
+            RenderWidget: () => {{
+                {load_file("header/header.jsx")}
+            }},
+          }},
+        }}"""
+    )
+]
     
 footer = [(
         "all",
@@ -86,5 +113,5 @@ footer = [(
 #comment to trigger a rebuild
 
 PLUGIN_SLOTS.add_items(
-    header + footer + mobile_header
+    header + mobile_header + learning_header + footer 
 )
