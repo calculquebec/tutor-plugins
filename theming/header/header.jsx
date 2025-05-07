@@ -1,16 +1,12 @@
 const getLanguage = () => {
-  const languageCookie = document.cookie
-    .split("; ")
-    .find((cookie) => cookie.startsWith("openedx-language-preference="));
+  const languageCookie = document.cookie.split('; ').find((cookie) => cookie.startsWith('openedx-language-preference='));
 
-  const languageFromCookie = languageCookie
-    ? languageCookie.split("=")[1]
-    : "fr-ca";
+  const languageFromCookie = languageCookie ? languageCookie.split('=')[1] : 'fr-ca';
 
-  if (languageFromCookie === "fr" || languageFromCookie === "fr-ca") {
-    return "fr-ca";
+  if (languageFromCookie === 'fr' || languageFromCookie === 'fr-ca') {
+    return 'fr-ca';
   } else {
-    return "en";
+    return 'en';
   }
 };
 
@@ -19,7 +15,7 @@ const language = getLanguage();
 const pageTitle = document.title;
 
 const langIsFrench = () => {
-  return language === "fr-ca" || language === "fr";
+  return language === 'fr-ca' || language === 'fr';
 };
 
 const pageBack = () => {
@@ -42,6 +38,7 @@ return (
 
           /* Overlay colors */
           --banner-overlay: rgba(10, 45, 93, 0.7);
+          --dark-mode-overlay: rgba(255, 255, 255, 0.1);
 
           /* Text colors */
           --text-light: #ffffff;
@@ -57,7 +54,7 @@ return (
           font-optical-sizing: auto;
         }
 
-        #root header.site-header-desktop .logo img,
+        #root header.site-h</svg>eader-desktop .logo img,
         body.indigo-dark-theme #root header.site-header-desktop .logo img {
           height: 30px;
         }
@@ -178,6 +175,7 @@ return (
         }
 
         .theme-toggle-button {
+          display: none;
           gap: 0.5rem;
         }
 
@@ -239,7 +237,29 @@ return (
             color: var(--primary-blue) !important;
             border-color: var(--primary-blue) !important;
         }
-    `}
+
+        .raised-card .rounded-bottom, .raised-card .pgn__data-table-footer {
+          background-color: var(--primary-blue) !important;
+          border-radius: 0 0 8px 0 !important;  
+        }
+
+        #weighted-grade-summary, text {
+          color: white !important;
+        }
+
+        body.indigo-dark-theme .course-card-banners > div:first-of-type, body.indigo-dark-theme div[data-testid=instructor-toolbar] .bg-primary, body.indigo-dark-theme .bg-primary, body.indigo-dark-theme .course-tabs-navigation+.container-xl>.row>.col-12.col-md-4.p-0.px-md-4 section.mb-4.x-small {
+          background-color: var(--dark-blue) !important;
+        }
+
+        body.indigo-dark-theme .course-tabs-navigation+.container-xl .donut-ring.incomplete-stroke {
+          background-color: var(--dark-mode-overlay) !important;
+        }
+
+        body.indigo-dark-theme * {
+          accent-color: var(--primary-blue) !important;
+        }
+
+      `}
     </style>
     <div>
       <div class='banner'>

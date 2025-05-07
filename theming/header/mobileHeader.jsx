@@ -170,6 +170,7 @@ return (
         }
 
         .theme-toggle-button {
+          display: none;
           gap: 0.5rem;
         }
 

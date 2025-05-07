@@ -52,7 +52,7 @@ return (
           background: white;
           color: #052147;
           padding: 32px 16px;
-          margin-top: 200px;
+          margin-top: 300px;
         }
 
         .top {
@@ -187,6 +187,7 @@ return (
     `}
     </style>
     <footer class='footer'>
+      <div className='plugins'></div>
       <div class='top'>
         <img
           width='321'
