@@ -68,6 +68,10 @@ return (
           border-bottom: 2px solid var(--hover-border-color);
         }
 
+        .masquerade-bar {
+          justify-content: center;
+        }
+
         .banner {
           background: url("https://edx.edu-dev.calculquebec.cloud/static/indigocq/images/servers_background.d2974bb5ca88.png")
             no-repeat center 40% !important;
