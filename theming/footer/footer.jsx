@@ -52,6 +52,7 @@ return (
           background: white;
           color: #052147;
           padding: 32px 16px;
+          margin-top: 200px;
         }
 
         .top {
