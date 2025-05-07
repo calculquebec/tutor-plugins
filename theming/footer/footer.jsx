@@ -41,6 +41,7 @@ const languages = {
 
 return (
   <>
+    <script src='https://kit.fontawesome.com/91003a351d.js' crossorigin='anonymous'></script>
     <style>
       {`
         .wrapper-footer {
@@ -184,59 +185,48 @@ return (
         }
     `}
     </style>
-    <footer class="footer">
-      <div class="top">
+    <footer class='footer'>
+      <div class='top'>
         <img
-          width="321"
+          width='321'
           src={
             langIsFrench()
-              ? "https://www.calculquebec.ca/wp-content/themes/calcul_quebec/assets/img/logo-fr.png"
-              : "https://www.calculquebec.ca/wp-content/themes/calcul_quebec/assets/img/logo-en.png"
+              ? 'https://www.calculquebec.ca/wp-content/themes/calcul_quebec/assets/img/logo-fr.png'
+              : 'https://www.calculquebec.ca/wp-content/themes/calcul_quebec/assets/img/logo-en.png'
           }
-          alt="Logo Calcul Québec"
+          alt='Logo Calcul Québec'
         />
-        <ul class="top-links">
+        <ul class='top-links'>
           {/* <li>
             <a href="#">{languages[language].help}</a>
           </li> */}
           <li>
-            <a
-              href={
-                langIsFrench()
-                  ? "https://www.calculquebec.ca/contact/"
-                  : "https://www.calculquebec.ca/en/contact/"
-              }
-              target="_blank"
-            >
+            <a href={langIsFrench() ? 'https://www.calculquebec.ca/contact/' : 'https://www.calculquebec.ca/en/contact/'} target='_blank'>
               {languages[language].contact}
             </a>
           </li>
           <li>
             <a
-              href={
-                langIsFrench()
-                  ? "https://www.calculquebec.ca/a-propos/qui-sommes-nous/"
-                  : "https://www.calculquebec.ca/en/about-us/who-are-we/"
-              }
-              target="_blank"
+              href={langIsFrench() ? 'https://www.calculquebec.ca/a-propos/qui-sommes-nous/' : 'https://www.calculquebec.ca/en/about-us/who-are-we/'}
+              target='_blank'
             >
               {languages[language].about}
             </a>
           </li>
         </ul>
       </div>
-      <div class="line"></div>
-      <div class="bottom">
-        <p class="desktop">&copy; Calcul Québec 2025</p>
-        <ul class="bottom-links">
+      <div class='line'></div>
+      <div class='bottom'>
+        <p class='desktop'>&copy; Calcul Québec 2025</p>
+        <ul class='bottom-links'>
           <li>
             <a
               href={
                 langIsFrench()
-                  ? "https://www.calculquebec.ca/wp-content/uploads/2024/08/conditions-utilisation.pdf"
-                  : "https://www.calculquebec.ca/wp-content/uploads/2024/08/terms-of-use.pdf"
+                  ? 'https://www.calculquebec.ca/wp-content/uploads/2024/08/conditions-utilisation.pdf'
+                  : 'https://www.calculquebec.ca/wp-content/uploads/2024/08/terms-of-use.pdf'
               }
-              target="_blank"
+              target='_blank'
             >
               {languages[language].terms}
             </a>
@@ -245,38 +235,34 @@ return (
             <a
               href={
                 langIsFrench()
-                  ? "https://www.calculquebec.ca/a-propos/politiques-et-publications/"
-                  : "https://www.calculquebec.ca/en/about-us/policies-and-publications/"
+                  ? 'https://www.calculquebec.ca/a-propos/politiques-et-publications/'
+                  : 'https://www.calculquebec.ca/en/about-us/policies-and-publications/'
               }
-              target="_blank"
+              target='_blank'
             >
               {languages[language].policies}
             </a>
           </li>
         </ul>
-        <ul class="logo-list">
-          <li class="powered">{languages[language].poweredBy}</li>
+        <ul class='logo-list'>
+          <li class='powered'>{languages[language].poweredBy}</li>
           <li>
-            <a href="https://docs.tutor.edly.io" rel="noopener" target="_blank">
+            <a href='https://docs.tutor.edly.io' rel='noopener' target='_blank'>
               <img
-                src="https://repository-images.githubusercontent.com/96100263/4f41d9c4-98d1-4934-a681-47b4f0917f78"
-                alt="Runs on Tutor"
-                width="57"
+                src='https://repository-images.githubusercontent.com/96100263/4f41d9c4-98d1-4934-a681-47b4f0917f78'
+                alt='Runs on Tutor'
+                width='57'
               />
             </a>
           </li>
-          <li class="vertical-line"></li>
-          <li class="openedx">
-            <a href="https://openedx.org/" rel="noopener" target="_blank">
-              <img
-                src="https://logos.openedx.org/edx-openedx-logo-tag.png"
-                alt={languages[language].poweredBy + " Open edX"}
-                width="110"
-              />
+          <li class='vertical-line'></li>
+          <li class='openedx'>
+            <a href='https://openedx.org/' rel='noopener' target='_blank'>
+              <img src='https://logos.openedx.org/edx-openedx-logo-tag.png' alt={languages[language].poweredBy + ' Open edX'} width='110' />
             </a>
           </li>
         </ul>
-        <p class="mobile">&copy; Calcul Québec 2025</p>
+        <p class='mobile'>&copy; Calcul Québec 2025</p>
       </div>
     </footer>
   </>
