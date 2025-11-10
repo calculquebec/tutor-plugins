@@ -73,7 +73,7 @@ return (
         }
 
         .banner {
-          background: url("https://edx.edu-dev.calculquebec.cloud/static/indigocq/images/servers_background.d2974bb5ca88.png")
+          background: url("https://raw.githubusercontent.com/calculquebec/tutor-indigo/refs/heads/calculquebec/tutorindigo/templates/indigo/lms/static/images/servers_background.png")
             no-repeat center 40% !important;
           background-size: cover !important;
           height: 170px;
