@@ -75,7 +75,6 @@ return (
         }
 
         .banner .cover-filter {
-          background: var(--banner-overlay) !important;
           background-size: cover;
           height: 100px;
         }
