@@ -88,6 +88,7 @@ return (
 
         .banner img {
           max-width: 527px;
+          max-height: 128px;
           position: absolute;
           top: 50%;
           left: 50%;
