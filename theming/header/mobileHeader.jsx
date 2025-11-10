@@ -67,7 +67,7 @@ return (
         }
 
         .banner {
-          background: url("https://raw.githubusercontent.com/calculquebec/tutor-indigo/refs/heads/calculquebec/tutorindigo/templates/indigo/lms/static/images/servers_background.png")
+          background: url("https://raw.githubusercontent.com/calculquebec/tutor-indigo/refs/heads/calculquebec/tutorindigo/templates/indigo/lms/static/images/image_bandeau.png")
             no-repeat center 40% !important;
           background-size: cover !important;
           height: 100px;
@@ -81,7 +81,6 @@ return (
         }
 
         .banner img {
-          filter: brightness(0) invert(1);
           max-width: 75%;
           max-height: 75px;
           position: absolute;
@@ -240,8 +239,8 @@ return (
         <img
           src={
             langIsFrench()
-              ? 'https://www.calculquebec.ca/wp-content/themes/calcul_quebec/assets/img/logo-fr.png'
-              : 'https://www.calculquebec.ca/wp-content/themes/calcul_quebec/assets/img/logo-en.png'
+              ? 'https://raw.githubusercontent.com/calculquebec/tutor-indigo/refs/heads/calculquebec/tutorindigo/templates/indigo/lms/static/images/logo_bandeau.png'
+              : 'https://raw.githubusercontent.com/calculquebec/tutor-indigo/refs/heads/calculquebec/tutorindigo/templates/indigo/lms/static/images/logo_bandeau.png'
           }
           alt='Logo'
         />
