@@ -113,7 +113,7 @@ footer = [(
 #comment to trigger a rebuild
 
 PLUGIN_SLOTS.add_items(
-    header + mobile_header + learning_header + footer 
+    header + mobile_header + learning_header + footer
 )
 
 from tutormfe.hooks import MFE_APPS
@@ -123,6 +123,6 @@ def _add_my_mfe(mfes):
     mfes["authn"] = {
         "repository": "https://github.com/calculquebec/frontend-app-authn.git",  # your public/private repo link
         "port":1999,
-        "version": "master", # optional, will default to the Open edX current tag.
+        "version": "dev", # optional, will default to the Open edX current tag.
     }
     return mfes
