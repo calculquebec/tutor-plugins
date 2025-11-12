@@ -87,7 +87,7 @@ return (
 
         .banner img {
           max-width: 527px;
-          max-height: 128px;
+          max-height: 100%;
           position: absolute;
           top: 50%;
           left: 50%;
@@ -110,7 +110,7 @@ return (
         }
 
         .back-icon {
-          display: flex;
+          display: none;
           padding: 8px;
           flex-direction: column;
           justify-content: center;
