@@ -261,6 +261,11 @@ return (
         body.indigo-dark-theme * {
           accent-color: var(--primary-blue) !important;
         }
+	
+	/* hide informations from profile page */
+	div#basic-information > div + div + div + div, div#basic-information > div > div > div > div > button, div#profile-information, div#social-media, div#delete-account, div#linked-accounts {
+	  display: none;
+	}
 
       `}
     </style>
