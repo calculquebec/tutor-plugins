@@ -266,12 +266,14 @@ return (
 	div#basic-information > div + div + div + div, div#basic-information > div > div > div > div > button, div#profile-information, div#social-media, div#delete-account, div#linked-accounts {
 	  display: none;
 	}
+	.page__account-settings .row .col-md-2 {
+	  display: none;
+	}
 
 	/* issue https://github.com/calculquebec/edx/issues/56 */
 	section.course-info.about.container {
 	  padding-top: 25px !important;
 	}
-
       `}
     </style>
     <div>
