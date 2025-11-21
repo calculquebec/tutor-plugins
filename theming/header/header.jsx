@@ -267,6 +267,11 @@ return (
 	  display: none;
 	}
 
+	/* issue https://github.com/calculquebec/edx/issues/56 */
+	section.course-info.about.container {
+	  padding-top: 25px !important;
+	}
+
       `}
     </style>
     <div>
