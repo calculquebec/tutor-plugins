@@ -120,9 +120,9 @@ from tutormfe.hooks import MFE_APPS
 
 @MFE_APPS.add()
 def _add_my_mfe(mfes):
-    mfes["authn"] = {
-        "repository": "https://github.com/calculquebec/frontend-app-authn.git",  # your public/private repo link
-        "port":1999,
-        "version": "dev", # optional, will default to the Open edX current tag.
-    }
+    mfe_version = "cq/sumac.dev"
+    mfes["authn"]["repository"] = "https://github.com/calculquebec/frontend-app-authn.git",  # your public/private repo link
+    mfes["authn"]["version"] = mfe_version
+    mfes["account"]["repository"] = "https://github.com/calculquebec/frontend-app-account.git",  # your public/private repo link
+    mfes["account"]["version"] = mfe_version
     return mfes
