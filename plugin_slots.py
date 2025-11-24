@@ -120,7 +120,7 @@ from tutormfe.hooks import MFE_APPS
 
 @MFE_APPS.add()
 def _add_my_mfe(mfes):
-    mfe_version = "cq/sumac.dev"
+    mfe_version = "cq-sumac.dev"
     mfes["authn"]["repository"] = "https://github.com/calculquebec/frontend-app-authn.git",  # your public/private repo link
     mfes["authn"]["version"] = mfe_version
     mfes["account"]["repository"] = "https://github.com/calculquebec/frontend-app-account.git",  # your public/private repo link
