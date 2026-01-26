@@ -259,7 +259,6 @@ return (
           </li> */}
         </ul>
       </div>
-      <div class='line'></div>
       <div class='middle'>
         <a href={langIsFrench() ? 'https://www.alliancecan.ca//fr/' : 'https://www.alliancecan.ca//' } target='_blank'>
           <img src="https://www.calculquebec.ca/wp-content/uploads/2022/04/Alliance_partner_logo_Regional-French-first.svg" alt="Partenaire de l'Alliance" />
@@ -271,6 +270,7 @@ return (
           <img src="https://www.calculquebec.ca/wp-content/themes/calcul_quebec/assets/img/fond_de_recherche_du_quebec.png" alt="Fonds de recherche du Québec" />
         </a>
       </div>
+      <div class='line'></div>
       <div class='bottom'>
         <p class='desktop'>&copy; Calcul Québec 2026</p>
         <ul class='bottom-links'>
