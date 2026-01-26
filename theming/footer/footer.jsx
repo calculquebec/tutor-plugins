@@ -28,6 +28,9 @@ const languages = {
     terms: "Conditions d'utilisation",
     policies: "Politiques et publications",
     poweredBy: "Propulsé par",
+    wiki: "WIKI TECHNIQUE",
+    serverstatus: "ETAT DES SERVEURS",
+    bulletins: "BULLETINS D'INFORMATION",
   },
   en: {
     help: "Help",
@@ -36,6 +39,9 @@ const languages = {
     terms: "Terms of use",
     policies: "Policies and publications",
     poweredBy: "Powered by",
+    wiki: 'TECHNICAL WIKI',
+    serverstatus: "SERVER STATUS",
+    bulletins: "SUBSCRIBE TO OUR NEWSLETTERS",
   },
 };
 
@@ -59,6 +65,7 @@ return (
           display: flex;
           justify-content: space-between;
           margin-bottom: 24px;
+	  background-color: #502147;
         }
 
         .top-links {
@@ -77,7 +84,7 @@ return (
 
         .top-links a {
           text-decoration: none;
-          color: #052147;
+          color: #FFFFFF;
           font-size: 14px;
           font-weight: 500;
         }
@@ -93,6 +100,19 @@ return (
           background-color: #013d5b;
           opacity: 0.16;
         }
+
+	.middle {
+	  display: flex;
+	  justify-content: space-between;
+	  align-items: center;
+	  text-align: center;
+	  padding: 20px 0;
+	  background: #FFFFFF;
+	}
+	
+	.middle a {
+	  width: 50%;
+	}
 
         .bottom {
           display: flex;
@@ -189,7 +209,7 @@ return (
     <footer class='footer'>
       <div className='plugins'></div>
       <div class='top'>
-        <img
+	{/*        <img
           width='321'
           src={
             langIsFrench()
@@ -197,16 +217,34 @@ return (
               : 'https://www.calculquebec.ca/wp-content/themes/calcul_quebec/assets/img/logo-en.png'
           }
           alt='Logo Calcul Québec'
-        />
+        />*/}
         <ul class='top-links'>
+	  <li>
+	    <a href={langIsFrench() ? 'https://docs.alliancecan.ca/wiki/Technical_documentation/fr' : 'https://docs.alliancecan.ca/wiki/Technical_documentation'} target='_blank'>
+	      {languages[language].wiki}
+	    </a>
+	  </li>
+	  <li>
+	    <a href='https://status.alliancecan.ca' target='_blank'>
+	      {languages[language].serverstatus}
+	    </a>
+	  </li>
+	  <li>
+	    <a href={langIsFrench() ? 'https://www.calculquebec.ca/salles-de-presses/infolettres/' : 'https://www.calculquebec.ca/en/pressroom/subscribe-to-our-newsletter/' target='_blank'>
+	      {languages[language].bulletins}
+	    </a>
+	  </li>
           {/* <li>
             <a href="#">{languages[language].help}</a>
           </li> */}
+	  {/*
           <li>
             <a href={langIsFrench() ? 'https://www.calculquebec.ca/contact/' : 'https://www.calculquebec.ca/en/contact/'} target='_blank'>
               {languages[language].contact}
             </a>
           </li>
+	  */}
+	  {/*
           <li>
             <a
               href={langIsFrench() ? 'https://www.calculquebec.ca/a-propos/qui-sommes-nous/' : 'https://www.calculquebec.ca/en/about-us/who-are-we/'}
@@ -214,12 +252,23 @@ return (
             >
               {languages[language].about}
             </a>
-          </li>
+          </li> */}
         </ul>
       </div>
       <div class='line'></div>
+      <div class='middle'>
+        <a href={langIsFrench() ? 'https://www.alliancecan.ca//fr/' : 'https://www.alliancecan.ca//' } target='_blank'>
+          <img src="https://www.calculquebec.ca/wp-content/uploads/2022/04/Alliance_partner_logo_Regional-French-first.svg" alt="Partenaire de l'Alliance" />
+        </a>
+        <a href="https://www.quebec.ca" target="_blank">
+          <img src="https://www.calculquebec.ca/wp-content/themes/calcul_quebec/assets/img/logo-quebec.png" alt="Gouvernement du Québec" />
+        </a>
+        <a href="https://frq.gouv.qc.ca/" target="_blank">
+          <img src="https://www.calculquebec.ca/wp-content/themes/calcul_quebec/assets/img/fond_de_recherche_du_quebec.png" alt="Fonds de recherche du Québec" />
+        </a>
+      </div>
       <div class='bottom'>
-        <p class='desktop'>&copy; Calcul Québec 2025</p>
+        <p class='desktop'>&copy; Calcul Québec 2026</p>
         <ul class='bottom-links'>
           <li>
             <a
