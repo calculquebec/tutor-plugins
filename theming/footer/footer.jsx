@@ -23,7 +23,7 @@ const langIsFrench = () => {
 const languages = {
   "fr-ca": {
     help: "Aide",
-    contact: "Nous contacter",
+    contact: "NOUS CONTACTER",
     about: "À propos",
     terms: "Conditions d'utilisation",
     policies: "Politiques et publications",
@@ -34,7 +34,7 @@ const languages = {
   },
   en: {
     help: "Help",
-    contact: "Contact us",
+    contact: "CONTACT US",
     about: "About",
     terms: "Terms of use",
     policies: "Policies and publications",
@@ -65,7 +65,7 @@ return (
           display: flex;
           justify-content: space-between;
           margin-bottom: 24px;
-	  background-color: #502147;
+	  background-color: #052147;
         }
 
         .top-links {
@@ -112,6 +112,12 @@ return (
 	
 	.middle a {
 	  width: 50%;
+	}
+
+	.middle img {
+	  max-width: 500px;
+	  height: auto;
+	  max-height: 80px;
 	}
 
         .bottom {
@@ -237,13 +243,11 @@ return (
           {/* <li>
             <a href="#">{languages[language].help}</a>
           </li> */}
-	  {/*
           <li>
-            <a href={langIsFrench() ? 'https://www.calculquebec.ca/contact/' : 'https://www.calculquebec.ca/en/contact/'} target='_blank'>
+            <a href="mailto:formation@calculquebec.ca" target='_blank'>
               {languages[language].contact}
             </a>
           </li>
-	  */}
 	  {/*
           <li>
             <a
