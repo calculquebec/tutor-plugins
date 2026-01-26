@@ -230,7 +230,7 @@ return (
 	    </a>
 	  </li>
 	  <li>
-	    <a href={langIsFrench() ? 'https://www.calculquebec.ca/salles-de-presses/infolettres/' : 'https://www.calculquebec.ca/en/pressroom/subscribe-to-our-newsletter/' target='_blank'>
+	    <a href={langIsFrench() ? 'https://www.calculquebec.ca/salles-de-presses/infolettres/' : 'https://www.calculquebec.ca/en/pressroom/subscribe-to-our-newsletter/'} target='_blank'>
 	      {languages[language].bulletins}
 	    </a>
 	  </li>
