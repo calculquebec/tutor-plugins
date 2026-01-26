@@ -138,7 +138,7 @@ def _add_catalog_mfe(mfes):
     return mfes
 
 catalog_mfe_url = """
-CATALOG_MICROFRONTEND_URL = "http://{{ MFE_HOST }}:{{ get_mfe('catalog').port }}/catalog"
+CATALOG_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/catalog"
 """
 
 env_items = [
