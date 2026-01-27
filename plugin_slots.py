@@ -130,6 +130,8 @@ def _add_my_mfe(mfes):
     mfes["catalog"]["repository"] = "https://github.com/calculquebec/frontend-app-catalog.git"  # your public/private repo link
     mfes["catalog"]["version"] = mfe_version
     mfes["catalog"]["port"] = 1998
+    mfes["discussions"]["repository"] = "https://github.com/calculquebec/frontend-app-discussions.git"  # your public/private repo link
+    mfes["discussions"]["version"] = mfe_version
     mfes["learner-dashboard"]["repository"] = "https://github.com/calculquebec/frontend-app-learner-dashboard.git"  # your public/private repo link
     mfes["learner-dashboard"]["version"] = mfe_version
     mfes["learning"]["repository"] = "https://github.com/calculquebec/frontend-app-learning.git"  # your public/private repo link
