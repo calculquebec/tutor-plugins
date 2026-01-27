@@ -84,7 +84,7 @@ learning_header = [
         }}"""
     )
 ]
-    
+
 footer = [(
         "all",
         "footer_slot",
@@ -132,6 +132,8 @@ def _add_my_mfe(mfes):
     mfes["catalog"]["port"] = 1998
     mfes["learner-dashboard"]["repository"] = "https://github.com/calculquebec/frontend-app-learner-dashboard.git"  # your public/private repo link
     mfes["learner-dashboard"]["version"] = mfe_version
+    mfes["learning"]["repository"] = "https://github.com/calculquebec/frontend-app-learning.git"  # your public/private repo link
+    mfes["learning"]["version"] = mfe_version
     return mfes
 
 #@MFE_APPS.add()
