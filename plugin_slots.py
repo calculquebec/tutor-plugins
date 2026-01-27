@@ -101,6 +101,7 @@ footer = [(
         {
           op: PLUGIN_OPERATIONS.Hide,
           widgetId: 'custom_footer',
+          priority: 2,
         }"""
     ),
     (
@@ -115,6 +116,7 @@ footer = [(
             RenderWidget: () => {{
                 {load_file("footer/footer.jsx")}
             }},
+            priority: 3,
           }},
         }}"""
     )
