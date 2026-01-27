@@ -29,7 +29,6 @@ const pageBack = () => {
 return (
   <>
     <script src='https://kit.fontawesome.com/91003a351d.js' crossorigin='anonymous'></script>
-    <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/8e6d217a9bb547e1fbe6dca7733bf748/script.js"></script>
     <style>
       {`
         @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
