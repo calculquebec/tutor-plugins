@@ -126,6 +126,7 @@ def _add_my_mfe(mfes):
     mfes["authn"]["version"] = mfe_version
     mfes["account"]["repository"] = "https://github.com/calculquebec/frontend-app-account.git"  # your public/private repo link
     mfes["account"]["version"] = mfe_version
+    mfes["catalog"] = {}
     mfes["catalog"]["repository"] = "https://github.com/calculquebec/frontend-app-catalog.git"  # your public/private repo link
     mfes["account"]["version"] = mfe_version
     return mfes
