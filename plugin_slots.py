@@ -126,15 +126,8 @@ def _add_my_mfe(mfes):
     mfes["authn"]["version"] = mfe_version
     mfes["account"]["repository"] = "https://github.com/calculquebec/frontend-app-account.git"  # your public/private repo link
     mfes["account"]["version"] = mfe_version
-    return mfes
-
-@MFE_APPS.add()
-def _add_catalog_mfe(mfes):
-    mfes["catalog"] = {
-        "repository": "https://github.com/openedx/frontend-app-catalog.git",
-        "port": 1998,
-        "version": "master", # optional, will default to the Open edX current tag.
-    }
+    mfes["catalog"]["repository"] = "https://github.com/calculquebec/frontend-app-catalog.git"  # your public/private repo link
+    mfes["account"]["version"] = mfe_version
     return mfes
 
 catalog_mfe_url = """
