@@ -97,11 +97,20 @@ footer = [(
     (
         "all",
         "footer_slot",
+        """
+        {
+          op: PLUGIN_OPERATIONS.Hide,
+          widgetId: 'custom_footer',
+        }"""
+    ),
+    (
+        "all",
+        "footer_slot",
         f"""
         {{
           op: PLUGIN_OPERATIONS.Insert,
           widget: {{
-            id: 'custom_footer',
+            id: 'cq_footer',
             type: DIRECT_PLUGIN,
             RenderWidget: () => {{
                 {load_file("footer/footer.jsx")}
