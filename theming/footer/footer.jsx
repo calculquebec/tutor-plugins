@@ -206,7 +206,7 @@ return (
 	
 	.footer {
 	    overflow: hidden;
-	    margin-top: -94px;
+	    margin-top: 0;
 	    height: 94px;
 	    line-height: 94px;
 	    background: #052147;
@@ -252,7 +252,7 @@ return (
 	    padding: 0 19px;
 	    text-decoration: none;
 	    color: #fff;
-	    opacity: 0.5;
+	    opacity: 1;
 	    -webkit-transition: all 0.25s;
 	    transition: all 0.25s;
 	}
@@ -390,6 +390,7 @@ return (
     <footer class='footer'>
       <div className='plugins'></div>
       <div class='container'>
+	{/*
 	<div class="fll">
 	  <ul class="social-nav">
 	    <li class="social-nav__item">
@@ -404,7 +405,7 @@ return (
               </a>
             </li>
           </ul>
-	</div>
+	</div>*/}
 	{/*        <img
           width='321'
           src={
