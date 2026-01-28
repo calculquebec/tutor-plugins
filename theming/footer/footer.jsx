@@ -54,13 +54,6 @@ return (
           display: none !important;
         }
 
-        .footer {
-          background: white;
-          color: #052147;
-          padding: 32px 16px;
-          margin-top: 300px;
-        }
-
         .top {
           display: flex;
           justify-content: space-between;
@@ -210,11 +203,145 @@ return (
         body.indigo-dark-theme .footer .line, body.indigo-dark-theme .footer .vertical-line {
           background-color: #fff !important;
         }
+	
+	.footer {
+	    overflow: hidden;
+	    margin-top: -94px;
+	    height: 94px;
+	    line-height: 94px;
+	    background: #2f373f;
+	    padding: 0 19px;
+	    color: #fff;
+	}
+	.footer .social-nav__link {
+	    color: #000;
+	}
+	.footer .container {
+	    display: -webkit-box;
+	    display: -ms-flexbox;
+	    display: flex;
+	    -webkit-box-pack: justify;
+	    -ms-flex-pack: justify;
+	    justify-content: space-between;
+	}
+	.footer .container:after {
+	    display: none;
+	}
+	.footer__nav {
+	    list-style: none;
+	    font-size: 0.875em;
+	}
+	.footer__list-item {
+	    display: inline-block;
+	}
+	.footer__list-item .footer__link {
+	    display: inline-block;
+	    height: 24px;
+	    line-height: 22px;
+	    border-right: 1px solid rgba(255, 255, 255, 0.5);
+	}
+	.footer__list-item:first-child .footer__link {
+	    padding-left: 0;
+	}
+	.footer__list-item:last-child .footer__link {
+	    border-right: 0;
+	    padding-right: 0;
+	}
+	.footer__link {
+	    font-weight: 700;
+	    padding: 0 19px;
+	    text-decoration: none;
+	    color: #fff;
+	    opacity: 0.5;
+	    -webkit-transition: all 0.25s;
+	    transition: all 0.25s;
+	}
+	.footer__link:hover {
+	    color: #fff;
+	    opacity: 1;
+	}
+	.footer__copy {
+	    font-weight: 900;
+	    opacity: 0.5;
+	}
+	@media (max-width: 1200px) {
+	    .footer .container {
+		-ms-flex-wrap: wrap;
+		flex-wrap: wrap;
+	    }
+	    .footer .container > * {
+		text-align: center;
+		flex-basis: 100%;
+	    }
+	    .footer .footer__list-item {
+		text-align: center;
+		display: block;
+		margin: 0;
+		line-height: 1em;
+		border: none;
+	    }
+	    .footer .footer__list-item .footer__link {
+		border: none;
+		padding: 5px;
+	    }
+	    .footer .footer__copy {
+		line-height: 1em;
+		margin: 19px 0 38px;
+	    }
+	    .footer .social-nav {
+		margin: 38px 0 19px;
+	    }
+	    .footer {
+		height: auto;
+		line-height: 1em;
+		margin-top: 0;
+	    }
+	}
+
+	.post-footer {
+	    background: #FFFFFF;
+	}
+	.post-footer-wrapper {
+	    display: flex;
+	    justify-content: space-between;
+	    align-items: center;
+	    text-align: center;
+	    padding: 20px 0;
+	}
+	.post-footer-wrapper a {
+	    width: 50%;
+	}
+	.post-footer-wrapper img {
+	    max-width: 500px;
+	    height: auto;
+	    max-height: 80px;
+	}
+
+	@media (max-width: 937px) {
+	    .post-footer-wrapper {
+		display: block;
+	    }
+	}
     `}
     </style>
     <footer class='footer'>
       <div className='plugins'></div>
-      <div class='top'>
+      <div class='container'>
+	<div class="fll">
+	  <ul class="social-nav">
+	    <li class="social-nav__item">
+	      <a href="http://www.facebook.com/calculquebec/" target="_blank" class="social-nav__link">
+	        <i class="icon icon-facebook" aria-hidden="true"></i><span class="social-nav__descriptor">Facebook</span>
+	      </a>
+            </li>
+	    <li class="social-nav__item">
+              <a href="http://linkedin.com/company/calcul-qu%C3%A9bec" target="_blank" class="social-nav__link">
+               <i class="icon icon-linkedin" aria-hidden="true"></i>
+               <span class="social-nav__descriptor">LinkedIn</span>
+              </a>
+            </li>
+          </ul>
+	</div>
 	{/*        <img
           width='321'
           src={
@@ -224,27 +351,27 @@ return (
           }
           alt='Logo Calcul Québec'
         />*/}
-        <ul class='top-links'>
-	  <li>
-	    <a href={langIsFrench() ? 'https://docs.alliancecan.ca/wiki/Technical_documentation/fr' : 'https://docs.alliancecan.ca/wiki/Technical_documentation'} target='_blank'>
+	<ul class="footer__nav fll ul-reset">
+	  <li class="footer__list-item">
+	    <a href={langIsFrench() ? 'https://docs.alliancecan.ca/wiki/Technical_documentation/fr' : 'https://docs.alliancecan.ca/wiki/Technical_documentation'} target='_blank' class="footer__link">
 	      {languages[language].wiki}
 	    </a>
 	  </li>
-	  <li>
-	    <a href='https://status.alliancecan.ca' target='_blank'>
+	  <li class="footer__list-item">
+	    <a href='https://status.alliancecan.ca' target='_blank' class="footer__link">
 	      {languages[language].serverstatus}
 	    </a>
 	  </li>
-	  <li>
-	    <a href={langIsFrench() ? 'https://www.calculquebec.ca/salles-de-presses/infolettres/' : 'https://www.calculquebec.ca/en/pressroom/subscribe-to-our-newsletter/'} target='_blank'>
+	  <li class="footer__list-item">
+	    <a href={langIsFrench() ? 'https://www.calculquebec.ca/salles-de-presses/infolettres/' : 'https://www.calculquebec.ca/en/pressroom/subscribe-to-our-newsletter/'} target='_blank' class="footer__link">
 	      {languages[language].bulletins}
 	    </a>
 	  </li>
           {/* <li>
             <a href="#">{languages[language].help}</a>
           </li> */}
-          <li>
-            <a href="mailto:formation@calculquebec.ca" target='_blank'>
+	  <li class="footer__list-item">
+            <a href="mailto:formation@calculquebec.ca" target='_blank' class="footer__link">
               {languages[language].contact}
             </a>
           </li>
@@ -259,7 +386,9 @@ return (
           </li> */}
         </ul>
       </div>
-      <div class='middle'>
+    </footer>
+    <div class='post-footer'>
+      <div class="post-footer-wrapper">
         <a href={langIsFrench() ? 'https://www.alliancecan.ca//fr/' : 'https://www.alliancecan.ca//' } target='_blank'>
           <img src="https://www.calculquebec.ca/wp-content/uploads/2022/04/Alliance_partner_logo_Regional-French-first.svg" alt="Partenaire de l'Alliance" />
         </a>
@@ -270,7 +399,8 @@ return (
           <img src="https://www.calculquebec.ca/wp-content/themes/calcul_quebec/assets/img/fond_de_recherche_du_quebec.png" alt="Fonds de recherche du Québec" />
         </a>
       </div>
-      <div class='line'></div>
+    </div>
+    <div class='line'></div>
       <div class='bottom'>
         <p class='desktop'>&copy; Calcul Québec 2026</p>
         <ul class='bottom-links'>
@@ -319,6 +449,5 @@ return (
         </ul>
         <p class='mobile'>&copy; Calcul Québec 2025</p>
       </div>
-    </footer>
   </>
 );
