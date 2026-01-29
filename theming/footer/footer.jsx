@@ -222,7 +222,7 @@ return (
 	    display: flex;
 	    -webkit-box-pack: justify;
 	    -ms-flex-pack: justify;
-	    justify-content: space-between;
+	    justify-content: center;
 	}
 	.footer .container:after {
 	    display: none;
