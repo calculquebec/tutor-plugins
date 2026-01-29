@@ -143,6 +143,8 @@ def _add_my_mfe(mfes):
     mfes["learner-dashboard"]["version"] = mfe_version
     mfes["learning"]["repository"] = "https://github.com/calculquebec/frontend-app-learning.git"  # your public/private repo link
     mfes["learning"]["version"] = mfe_version
+    mfes["profile"]["repository"] = "https://github.com/calculquebec/frontend-app-profile.git"  # your public/private repo link
+    mfes["profile"]["version"] = mfe_version
     return mfes
 
 #@MFE_APPS.add()
