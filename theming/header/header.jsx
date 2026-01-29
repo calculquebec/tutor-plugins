@@ -100,6 +100,7 @@ return (
           font-weight: 400;
           line-height: 30px;
           margin: 0;
+          display: none;
         }
 
         .page-back {
