@@ -117,6 +117,13 @@ PLUGIN_SLOTS.add_items(
     header + mobile_header + learning_header + footer
 )
 
+hooks.Filters.ENV_PATCHES.add_item(
+    (
+        "mfe-dockerfile-post-npm-install-authn",
+        "RUN npm install '@edx/brand@github:@edly-io/brand-openedx#ulmo/indigo'",
+    )
+)
+
 from tutormfe.hooks import MFE_APPS
 from tutor import hooks
 
