@@ -511,7 +511,7 @@ return (
             </a>
           </li>
         </ul>
-        <p class='mobile'>&copy; Calcul Québec 2025</p>
+        <p class='mobile'>&copy; Calcul Québec 2026</p>
       </div>
   </>
 );

@@ -77,80 +77,64 @@
 % else:
 <!-- NEW IN INDIGO update footer -->
 <footer class="footer">
-  <div class="indigo"></div>
-  <div class="top">
-    <img
-      width="321"
-      src="${'https://www.calculquebec.ca/wp-content/themes/calcul_quebec/assets/img/logo-fr.png' if LANGUAGE_CODE.startswith('fr') else 'https://www.calculquebec.ca/wp-content/themes/calcul_quebec/assets/img/logo-en.png'}"
-      alt="Logo"
-    />
-    <ul class="top-links">
-      <!-- <li>
-        <a href="#" data-i18n="help">Aide</a>
-      </li> -->
-      <li>
-        <a
-          data-i18n="contact"
-          href="https://www.calculquebec.ca/contact/"
-          target="_blank"
-          >Nous contacter</a
-        >
+  <div className='plugins'></div>
+  <div class='container'>
+    <ul class="footer__nav fll ul-reset">
+      <li class="footer__list-item">
+        <a href="${'https://docs.alliancecan.ca/wiki/Technical_documentation/fr' if LANGUAGE_CODE.startswith('fr') else 'https://docs.alliancecan.ca/wiki/Technical_documentation'}" target='_blank' class="footer__link" data-i18n="wiki" >WIKI TECHNIQUE</a>
       </li>
-      <li>
-        <a
-          href="https://www.calculquebec.ca/a-propos/qui-sommes-nous/"
-          target="_blank"
-          data-i18n="about"
-          >À propos</a
-        >
+      <li class="footer__list-item">
+        <a href='https://status.alliancecan.ca' target='_blank' class="footer__link" data-i18n="serverstatus">ÉTAT DES SERVEURS</a>
+      </li>
+      <li class="footer__list-item">
+        <a href="${'https://www.calculquebec.ca/salles-de-presses/infolettres/' if LANGUAGE_CODE.startswith('fr') else 'https://www.calculquebec.ca/en/pressroom/subscribe-to-our-newsletter/'}" target='_blank' class="footer__link" data-i18n="bulletins">BULLETINS D'INFORMATION</a>
+      </li>
+      <li class="footer__list-item">
+        <a href="mailto:formation@calculquebec.ca" target='_blank' class="footer__link" data-i18n="contact">NOUS CONTACTER</a>
       </li>
     </ul>
   </div>
-  <div class="line"></div>
-  <div class="bottom">
-    <p class="desktop">&copy; Calcul Québec 2025</p>
-    <ul class="bottom-links">
-      <li>
-        <a
-          href="https://www.calculquebec.ca/wp-content/uploads/2024/08/conditions-utilisation.pdf"
-          target="_blank"
-          data-i18n="terms"
-          >Conditions d'utilisation</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://www.calculquebec.ca/a-propos/politiques-et-publications/"
-          target="_blank"
-          data-i18n="policies"
-          >Politiques et publications</a
-        >
-      </li>
-    </ul>
-    <ul class="logo-list">
-      <li class="powered" data-i18n="poweredBy">Propulsé par</li>
-      <li>
-        <a href="https://docs.tutor.edly.io" rel="noopener" target="_blank">
-          <img
-            src="https://repository-images.githubusercontent.com/96100263/4f41d9c4-98d1-4934-a681-47b4f0917f78"
-            alt="Runs on Tutor"
-            width="57"
-          />
-        </a>
-      </li>
-      <li class="vertical-line"></li>
-      <li class="openedx">
-        <a href="https://openedx.org/" rel="noopener" target="_blank">
-          <img
-            src="https://logos.openedx.org/edx-openedx-logo-tag.png"
-            alt="Powered by Open edX"
-            width="110"
-          />
-        </a>
-      </li>
-    </ul>
-    <p class="mobile">&copy; Calcul Québec 2025</p>
+</footer>
+<div class='post-footer'>
+  <div class="post-footer-wrapper">
+    <a href={langIsFrench() ? 'https://www.alliancecan.ca//fr/' : 'https://www.alliancecan.ca//' } target='_blank'>
+      <img src="https://www.calculquebec.ca/wp-content/uploads/2022/04/Alliance_partner_logo_Regional-French-first.svg" alt="Partenaire de l'Alliance" />
+    </a>
+    <a href="https://www.quebec.ca" target="_blank">
+      <img src="https://www.calculquebec.ca/wp-content/themes/calcul_quebec/assets/img/logo-quebec.png" alt="Gouvernement du Québec" />
+    </a>
+    <a href="https://frq.gouv.qc.ca/" target="_blank">
+      <img src="https://www.calculquebec.ca/wp-content/themes/calcul_quebec/assets/img/fond_de_recherche_du_quebec.png" alt="Fonds de recherche du Québec" />
+    </a>
   </div>
+</div>
+<div class='line'></div>
+<div class='bottom'>
+  <p class='desktop'>&copy; Calcul Québec 2026</p>
+  <ul class='bottom-links'>
+    <li>
+      <a href="${'https://www.calculquebec.ca/wp-content/uploads/2024/08/conditions-utilisation.pdf' if LANGUAGE_CODE.startswith('fr') else 'https://www.calculquebec.ca/wp-content/uploads/2024/08/terms-of-use.pdf'}" target='_blank' data-i18n="terms">Conditions d'utilisation</a>
+    </li>
+    <li>
+      <a href="${'https://www.calculquebec.ca/a-propos/politiques-et-publications/' if LANGUAGE_CODE.startswith('fr') else 'https://www.calculquebec.ca/en/about-us/policies-and-publications/'}" target='_blank' data-i18n="policies">Politiques et publications</a>
+    </li>
+  </ul>
+  <ul class='logo-list'>
+    <li class='powered' data-i18n="poweredBy">Propulsé par</li>
+    <li>
+      <a href='https://docs.tutor.edly.io' rel='noopener' target='_blank'>
+        <img src='https://repository-images.githubusercontent.com/96100263/4f41d9c4-98d1-4934-a681-47b4f0917f78' alt='Runs on Tutor' width='57'/>
+      </a>
+    </li>
+    <li class='vertical-line'></li>
+    <li class='openedx'>
+      <a href='https://openedx.org/' rel='noopener' target='_blank'>
+        <img src='https://logos.openedx.org/edx-openedx-logo-tag.png' alt='Open edX'} width='110' />
+      </a>
+    </li>
+  </ul>
+  <p class='mobile'>&copy; Calcul Québec 2026</p>
+</div>
   <script>
     const getLanguage = () => {
         const languageCookie = document.cookie
@@ -173,22 +157,28 @@
     };
 
     const languages = {
-      "fr-ca": {
-        help: "Aide",
-        contact: "Nous contacter",
-        about: "À propos",
-        terms: "Conditions d'utilisation",
-        policies: "Politiques et publications",
-        poweredBy: "Propulsé par",
-      },
-      en: {
-        help: "Help",
-        contact: "Contact us",
-        about: "About",
-        terms: "Terms of use",
-        policies: "Policies and publications",
-        poweredBy: "Powered by",
-      },
+	  "fr-ca": {
+	    help: "Aide",
+	    contact: "NOUS CONTACTER",
+	    about: "À propos",
+	    terms: "Conditions d'utilisation",
+	    policies: "Politiques et publications",
+	    poweredBy: "Propulsé par",
+	    wiki: "WIKI TECHNIQUE",
+	    serverstatus: "ETAT DES SERVEURS",
+	    bulletins: "BULLETINS D'INFORMATION",
+	  },
+	  en: {
+	    help: "Help",
+	    contact: "CONTACT US",
+	    about: "About",
+	    terms: "Terms of use",
+	    policies: "Policies and publications",
+	    poweredBy: "Powered by",
+	    wiki: 'TECHNICAL WIKI',
+	    serverstatus: "SERVER STATUS",
+	    bulletins: "SUBSCRIBE TO OUR NEWSLETTERS",
+	  },
     };
 
   document.addEventListener('DOMContentLoaded', function() {
