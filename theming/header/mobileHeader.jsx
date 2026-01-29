@@ -66,6 +66,11 @@ return (
           border-bottom: 2px solid var(--hover-border-color);
         }
 
+	/* hide register link */
+	li.nav-item.px-3.my-2 > a.btn.btn-block.btn-primary {
+	    display: none;
+	}
+
         .banner {
           background: url("https://raw.githubusercontent.com/calculquebec/tutor-plugins/refs/heads/cq/ulmo.dev/theming/templates/lms/static/images/image_bandeau.png")
             no-repeat center 40% !important;

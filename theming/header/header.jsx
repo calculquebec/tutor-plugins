@@ -67,6 +67,12 @@ return (
         #root header.site-header-desktop .main-nav a.nav-link:hover {
           border-bottom: 2px solid var(--hover-border-color);
         }
+	
+	/* hide register link */
+	a.btn.mr-2.btn-outline-primary
+	{
+	  display: none;
+	}
 
         .masquerade-bar {
           justify-content: center;
