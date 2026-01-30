@@ -128,7 +128,7 @@ hooks.Filters.ENV_PATCHES.add_item(
 
 @MFE_APPS.add()
 def _add_my_mfe(mfes):
-    mfe_version = "cq/ulmo.dev"
+    mfe_version = "cq/ulmo.prod"
     mfes["authn"]["repository"] = "https://github.com/calculquebec/frontend-app-authn.git"  # your public/private repo link
     mfes["authn"]["version"] = mfe_version
     mfes["account"]["repository"] = "https://github.com/calculquebec/frontend-app-account.git"  # your public/private repo link
