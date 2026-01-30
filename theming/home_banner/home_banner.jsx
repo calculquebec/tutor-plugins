@@ -24,14 +24,14 @@ const languages = {
   "fr-ca": {
     bannerwelcome: "Bienvenue sur evolo, la plateforme de formation de Calcul Québec.",
     bannercourses: "Vous trouverez ci-dessous les cours que nous proposons.",
-    bannerconnect: "Pour débuter, cliquez sur le lien Connexion, en haut à droite de cette page, puis sur CILogon",
-    bannercilogon: "IMPORTANT: Vous devez ensuite sélectionner votre établissement académique et vous connecter avec les identifiants de votre établissement."
+    bannerconnect: "Pour débuter, cliquez sur le lien <i>Se connecter</i>, en haut à droite de cette page, puis sur <i>CILogon</i>",
+    bannercilogon: "IMPORTANT: Vous devez ensuite sélectionner <b><u>votre</u></b> établissement académique et vous connecter avec les identifiants de votre établissement."
   },
   en: {
     bannerwelcome: "Welcome to evolo, Calcul Québec's learning platform.",
     bannercourses: "Here are the classes that you can follow.",
-    bannerconnect: "To start, click on Login, at the top right of this page, then on CILogon",
-    bannercilogon: "IMPORTANT: You must then select your academic institution in the list, and connect through the credentials of your institution."
+    bannerconnect: "To start, click on <i>Login</i>, at the top right of this page, then on <i>CILogon</i>",
+    bannercilogon: "IMPORTANT: You must then select <b><u>your</u></b> academic institution in the list, and connect through the credentials of your institution."
   },
 }
 return (
@@ -46,7 +46,7 @@ return (
 	  padding: 2em;
 	  border-top: 1px solid black;
 	  border-bottom: 1px solid black;
-	  font-size: 1.2em;
+	  font-size: 1em;
 	}
     `}
     </style>
