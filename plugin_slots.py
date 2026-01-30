@@ -111,6 +111,33 @@ footer = [(
         }}"""
     )
 ]
+
+home_banner = [
+    (
+        "catalog",
+        "org.openedx.frontend.catalog.home_page.banner",
+        """
+        {
+          op: PLUGIN_OPERATIONS.Hide,
+          widgetId: 'default_contents',
+        }"""
+    ),
+    (
+        "catalog",
+        "org.openedx.frontend.catalog.home_page.banner",
+        f"""
+        {{
+          op: PLUGIN_OPERATIONS.Insert,
+          widget: {{
+            id: 'custom_footer',
+            type: DIRECT_PLUGIN,
+            RenderWidget: () => {{
+                {load_file("home_banner/home_banner.jsx")}
+            }},
+          }},
+        }}"""
+    )
+]
 #comment to trigger a rebuild
 
 PLUGIN_SLOTS.add_items(
