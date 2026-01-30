@@ -22,10 +22,16 @@ const langIsFrench = () => {
 
 const languages = {
   "fr-ca": {
-    bannertext: "Bienvenue sur evolo, la plateforme de formation de Calcul Québec.",
+    bannerwelcome: "Bienvenue sur evolo, la plateforme de formation de Calcul Québec.",
+    bannercourses: "Vous trouverez ci-dessous les cours que nous proposons.",
+    bannerconnect: "Pour débuter, cliquez sur le lien Connexion, en haut à droite de cette page, puis sur CILogon",
+    bannercilogon: "IMPORTANT: Vous devez ensuite sélectionner votre établissement académique et vous connecter avec les identifiants de votre établissement."
   },
   en: {
-    bannertext: "Welcome to evolo, Calcul Québec's learning platform.",
+    bannerwelcome: "Welcome to evolo, Calcul Québec's learning platform.",
+    bannercourses: "Here are the classes that you can follow.",
+    bannerconnect: "To start, click on Login, at the top right of this page, then on CILogon",
+    bannercilogon: "IMPORTANT: You must then select your academic institution in the list, and connect through the credentials of your institution."
   },
 }
 return (
@@ -33,14 +39,22 @@ return (
     <script src='https://kit.fontawesome.com/91003a351d.js' crossorigin='anonymous'></script>
     <style>
       {`
-        .home-banner {
+        .cq-banner {
 	  display: block;
-	  background-color: #ffffff;
+	  background-color: #eeeeee;
+	  text-align: center;
+	  padding: 2em;
+	  border-top: 1px solid black;
+	  border-bottom: 1px solid black;
+	  font-size: 1.2em;
 	}
     `}
     </style>
-    <div class="home-banner">
-      {languages[language].bannertext}
+    <div class="cq-banner">
+      {languages[language].bannerwelcome} <br/>
+      {languages[language].bannercourses} <br/>
+      {languages[language].bannerconnect} <br/>
+      {languages[language].bannercilogon} <br/>
     </div>
   </>
 );
