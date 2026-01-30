@@ -141,7 +141,7 @@ home_banner = [
 #comment to trigger a rebuild
 
 PLUGIN_SLOTS.add_items(
-    header + mobile_header + learning_header + footer
+    header + mobile_header + learning_header + footer + home_banner
 )
 
 from tutormfe.hooks import MFE_APPS
