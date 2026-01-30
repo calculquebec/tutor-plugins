@@ -25,11 +25,11 @@ const languages = {
     bannerwelcome: "Bienvenue sur evolo, la plateforme de formation de Calcul Québec.",
     bannercourses: "Vous trouverez ci-dessous les cours que nous proposons.",
     bannerconnect1: "Pour débuter, cliquez sur le lien",
-    bannerocnnect2: "Se connecter, en haut à droite de cette page, puis sur",
+    bannerconnect2: "Se connecter, en haut à droite de cette page, puis sur",
     bannercilogon1: "IMPORTANT: Vous devez ensuite sélectionner",
-    bannercilogon2: "établissement académique et vous connecter avec les identifiants de votre établissement.",
+    bannercilogon2: "et vous connecter avec les identifiants de votre établissement.",
     login: "Se connecter",
-    your: "votre",
+    your_institution: "votre établissement académique",
   },
   en: {
     bannerwelcome: "Welcome to evolo, Calcul Québec's learning platform.",
@@ -37,9 +37,9 @@ const languages = {
     bannerconnect1: "To start, click on",
     bannerconnect2: ", at the top right of this page, then on",
     bannercilogon1: "IMPORTANT: You must then select",
-    bannercilogon2: "academic institution in the list, and connect through the credentials of your institution.",
+    bannercilogon2: "in the list, and connect through the credentials of your institution.",
     login: "Login",
-    your: "you",
+    your_institution: "your acadmic institution",
   },
 }
 return (
@@ -62,7 +62,7 @@ return (
       {languages[language].bannerwelcome} <br/>
       {languages[language].bannercourses} <br/>
       {languages[language].bannerconnect1} <i>{languages[language].login}</i> {languages[language].bannerconnect2} <i>CILogon.</i><br/>
-      {languages[language].bannercilogon1} <b><u>{languages[language].your}</u></b> {languages[language].bannercilogon2}<br/>
+      {languages[language].bannercilogon1} <b><u>{languages[language].your_institution}</u></b> {languages[language].bannercilogon2}<br/>
     </div>
   </>
 );
