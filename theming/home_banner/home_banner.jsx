@@ -25,7 +25,7 @@ const languages = {
     bannerwelcome: "Bienvenue sur evolo, la plateforme de formation de Calcul Québec.",
     bannercourses: "Vous trouverez ci-dessous les cours que nous proposons.",
     bannerconnect1: "Pour débuter, cliquez sur le lien",
-    bannerconnect2: "Se connecter, en haut à droite de cette page, puis sur",
+    bannerconnect2: ", en haut à droite de cette page, puis sur",
     bannercilogon1: "IMPORTANT: Vous devez ensuite sélectionner",
     bannercilogon2: "et vous connecter avec les identifiants de votre établissement.",
     login: "Se connecter",
