@@ -67,13 +67,19 @@ return (
         #root header.site-header-desktop .main-nav a.nav-link:hover {
           border-bottom: 2px solid var(--hover-border-color);
         }
+	
+	/* hide register link */
+	a.btn.mr-2.btn-outline-primary
+	{
+	  display: none;
+	}
 
         .masquerade-bar {
           justify-content: center;
         }
 
         .banner {
-          background: url("https://raw.githubusercontent.com/calculquebec/tutor-indigo/refs/heads/calculquebec/tutorindigo/templates/indigo/lms/static/images/servers_background.png")
+          background: url("https://raw.githubusercontent.com/calculquebec/tutor-plugins/refs/heads/cq/ulmo.dev/theming/templates/lms/static/images/image_bandeau.png")
             no-repeat center 40% !important;
           background-size: cover !important;
           height: 170px;
@@ -81,14 +87,13 @@ return (
         }
 
         .banner .cover-filter {
-          background: var(--banner-overlay) !important;
           background-size: cover;
           height: 170px;
         }
 
         .banner img {
-          filter: brightness(0) invert(1);
           max-width: 527px;
+          max-height: 100%;
           position: absolute;
           top: 50%;
           left: 50%;
@@ -101,6 +106,7 @@ return (
           font-weight: 400;
           line-height: 30px;
           margin: 0;
+          display: none;
         }
 
         .page-back {
@@ -111,7 +117,7 @@ return (
         }
 
         .back-icon {
-          display: flex;
+          display: none;
           padding: 8px;
           flex-direction: column;
           justify-content: center;
@@ -263,6 +269,11 @@ return (
           accent-color: var(--primary-blue) !important;
         }
 
+	/* issue https://github.com/calculquebec/edx/issues/56 */
+	section.course-info.about.container {
+	  padding-top: 25px !important;
+	}
+
       `}
     </style>
     <div>
@@ -271,8 +282,8 @@ return (
         <img
           src={
             langIsFrench()
-              ? 'https://www.calculquebec.ca/wp-content/themes/calcul_quebec/assets/img/logo-fr.png'
-              : 'https://www.calculquebec.ca/wp-content/themes/calcul_quebec/assets/img/logo-en.png'
+              ? 'https://raw.githubusercontent.com/calculquebec/tutor-plugins/refs/heads/cq/ulmo.dev/theming/templates/lms/static/images/logo_bandeau.png'
+              : 'https://raw.githubusercontent.com/calculquebec/tutor-plugins/refs/heads/cq/ulmo.dev/theming/templates/lms/static/images/logo_bandeau.png'
           }
           alt='Logo'
         />

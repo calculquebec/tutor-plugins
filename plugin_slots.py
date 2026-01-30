@@ -84,7 +84,7 @@ learning_header = [
         }}"""
     )
 ]
-    
+
 footer = [(
         "all",
         "footer_slot",
@@ -106,6 +106,7 @@ footer = [(
             RenderWidget: () => {{
                 {load_file("footer/footer.jsx")}
             }},
+            priority: 3,
           }},
         }}"""
     )
@@ -113,16 +114,73 @@ footer = [(
 #comment to trigger a rebuild
 
 PLUGIN_SLOTS.add_items(
-    header + mobile_header + learning_header + footer 
+    header + mobile_header + learning_header + footer
 )
 
 from tutormfe.hooks import MFE_APPS
+from tutor import hooks
+hooks.Filters.ENV_PATCHES.add_item(
+    (
+        "mfe-dockerfile-post-npm-install-authn",
+        "RUN npm install '@edx/brand@github:@edly-io/brand-openedx#ulmo/indigo'",
+    )
+)
 
 @MFE_APPS.add()
 def _add_my_mfe(mfes):
-    mfes["authn"] = {
-        "repository": "https://github.com/calculquebec/frontend-app-authn.git",  # your public/private repo link
-        "port":1999,
-        "version": "master", # optional, will default to the Open edX current tag.
-    }
+    mfe_version = "cq/ulmo.dev"
+    mfes["authn"]["repository"] = "https://github.com/calculquebec/frontend-app-authn.git"  # your public/private repo link
+    mfes["authn"]["version"] = mfe_version
+    mfes["account"]["repository"] = "https://github.com/calculquebec/frontend-app-account.git"  # your public/private repo link
+    mfes["account"]["version"] = mfe_version
+    mfes["catalog"] = {}
+    mfes["catalog"]["repository"] = "https://github.com/calculquebec/frontend-app-catalog.git"  # your public/private repo link
+    mfes["catalog"]["version"] = mfe_version
+    mfes["catalog"]["port"] = 1998
+    mfes["discussions"]["repository"] = "https://github.com/calculquebec/frontend-app-discussions.git"  # your public/private repo link
+    mfes["discussions"]["version"] = mfe_version
+    mfes["learner-dashboard"]["repository"] = "https://github.com/calculquebec/frontend-app-learner-dashboard.git"  # your public/private repo link
+    mfes["learner-dashboard"]["version"] = mfe_version
+    mfes["learning"]["repository"] = "https://github.com/calculquebec/frontend-app-learning.git"  # your public/private repo link
+    mfes["learning"]["version"] = mfe_version
+    mfes["profile"]["repository"] = "https://github.com/calculquebec/frontend-app-profile.git"  # your public/private repo link
+    mfes["profile"]["version"] = mfe_version
     return mfes
+
+#@MFE_APPS.add()
+#def _add_catalog_mfe(mfes):
+#    mfes["catalog"] = {
+#        "repository": "https://github.com/openedx/frontend-app-catalog.git",
+#        "port": 1998,
+#        "version": "master", # optional, will default to the Open edX current tag.
+#    }
+
+catalog_mfe_url = """
+CATALOG_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/catalog"
+"""
+
+env_items = [
+    (
+        "openedx-common-settings",
+        catalog_mfe_url,
+    ),
+    (
+        "openedx-lms-common-settings",
+        "ENABLE_CATALOG_MICROFRONTEND = True",
+    ),
+]
+
+for item in env_items:
+    hooks.Filters.ENV_PATCHES.add_item(item)
+
+# Workaround for broken edx-search for catalog frontend in ulmo.1
+# https://discuss.openedx.org/t/backend-not-ready-for-catalog-mfe-in-latest-version-ulmo-1/18287/8
+INSTALL_SEARCH_440 = r"""
+RUN --mount=type=cache,target=/openedx/.cache/pip,sharing=shared \
+    pip install "edx-search==4.4.0"
+"""
+
+hooks.Filters.ENV_PATCHES.add_items([
+    ("openedx-dockerfile-post-python-requirements", INSTALL_SEARCH_440),
+    ("openedx-dev-dockerfile-post-python-requirements", INSTALL_SEARCH_440),
+])
