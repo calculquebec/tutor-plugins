@@ -49,7 +49,7 @@ const languages = {
     serverstatus: "ETAT DES SERVEURS",
     bulletins: "BULLETINS D'INFORMATION",
     langswitch: "ENGLISH",
-    langswitchcode: 'document.cookie = "openedx-language-preference=en; expires=" + (new Date(Date.now() + 14*24*60*60*1000)).toUTCString() + "; path=/"; reload()',
+    langswitchcode: 'javascript:setLanguage("en")',
   },
   en: {
     help: "Help",
@@ -62,13 +62,25 @@ const languages = {
     serverstatus: "SERVER STATUS",
     bulletins: "SUBSCRIBE TO OUR NEWSLETTERS",
     langswitch: "FRANÇAIS",
-    langswitchcode: 'document.cookie = "openedx-language-preference=fr-ca; expires=" + (new Date(Date.now() + 14*24*60*60*1000)).toUTCString() + "; path=/"; reload()',
+    langswitchcode: 'javascript:setLanguage("fr-ca")',
   },
 };
 
 return (
   <>
     <script src='https://kit.fontawesome.com/91003a351d.js' crossorigin='anonymous'></script>
+    <script>
+    {`
+    function setLanguage(lang) {
+      var expires = "";
+      var date = new Date();
+      date.setTime(date.getTime() + (14*24*60*60*1000));
+      expires = "; expires=" + date.toUTCString();
+      document.cookie = "openedx-language-preference=" + lang + expires + "; path=/";
+      reload();
+    }
+    `}
+    </script>
     <style>
       {`
         .wrapper-footer {
@@ -461,7 +473,7 @@ return (
             </a>
           </li>
 	  <li class="footer__list-item">
-	    <a href="#" onclick={languages[language].langswitchcode} class="footer__link">{languages[language].langswitch}</a>
+	    <a href={languages[language].langswitchcode}>{languages[language].langswitch}</a>
 	  </li>
 	  {/*
           <li>
