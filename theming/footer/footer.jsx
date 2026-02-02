@@ -47,7 +47,7 @@ const setCookieFunction = (name, value, days) => {
   let domain_parts = window.location.hostname.split('.');
   domain_parts = domain_parts.shift();
   let domain = "";
-  domain = "; domain=" + domain_parts.join('.');
+  domain = "; domain=." + domain_parts.join('.');
   document.cookie = name + "=" + value + expires + domain + "; path=/";
   window.location.reload();
 };
