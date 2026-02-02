@@ -69,18 +69,6 @@ const languages = {
 return (
   <>
     <script src='https://kit.fontawesome.com/91003a351d.js' crossorigin='anonymous'></script>
-    <script type='text/javascript'>
-    {`
-    function setLanguage(lang) {
-      var expires = "";
-      var date = new Date();
-      date.setTime(date.getTime() + (14*24*60*60*1000));
-      expires = "; expires=" + date.toUTCString();
-      document.cookie = "openedx-language-preference=" + lang + expires + "; path=/";
-      reload();
-    }
-    `}
-    </script>
     <style>
       {`
         .wrapper-footer {
@@ -473,7 +461,9 @@ return (
             </a>
           </li>
 	  <li class="footer__list-item">
-	    <a href={languages[language].langswitchcode}>{languages[language].langswitch}</a>
+	    <a href={languages[language].langswitchcode}>
+	      {languages[language].langswitch}
+	    </a>
 	  </li>
 	  {/*
           <li>
