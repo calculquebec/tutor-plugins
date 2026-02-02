@@ -160,6 +160,21 @@ return (
           fill: var(--text-light);
         }
 
+	.btn-link {
+	  font-weight: var(--pgn-typography-font-weight-normal);
+	  -webkit-text-decoration: var(--pgn-typography-link-decoration-base);
+	  text-decoration: var(--pgn-typography-link-decoration-base);
+	  background: #052047;
+	  color: #ffffff;
+	}
+
+	.btn-link:hover {
+	  color: #052047;
+	  background: #ffffff;
+	  border: #052047 solid 1px;
+	  text-decoration: none !important;
+	}
+
         body.indigo-dark-theme #root,
         body.indigo-dark-theme main,
         body.indigo-dark-theme .page-back,
