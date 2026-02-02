@@ -76,9 +76,8 @@ return (
     </style>
     <div class="cq-banner">
       <div class="cq-title">
-      {languages[language].bannerwelcome}
+      {languages[language].bannerwelcome}, {languages[language].bannerplatform}
       </div><br/>
-      {languages[language].bannerplatform} <br/>
       {languages[language].bannercomeback} <br/>
     </div>
   </>
