@@ -39,24 +39,12 @@ const langIsFrench = () => {
 
 const languages = {
   "fr-ca": {
-    bannerwelcome: "Bienvenue sur evolo, la plateforme de formation de Calcul Québec.",
-    bannercourses: "Vous trouverez ci-dessous les cours que nous proposons.",
-    bannerconnect1: "Pour débuter, cliquez sur le lien",
-    bannerconnect2: ", en haut à droite de cette page, puis sur",
-    bannercilogon1: "IMPORTANT: Vous devez ensuite sélectionner",
-    bannercilogon2: "et vous connecter avec les identifiants de votre établissement.",
-    login: "Se connecter",
-    your_institution: "votre établissement académique",
+    bannerwelcome: "Bienvenue sur evolo, la plateforme de formation gratuite de Calcul Québec destinée à la communauté de la recherche.",
+    bannercomeback: "Revenez régulièrement : de nouveaux cours sont en préparation !",
   },
   en: {
-    bannerwelcome: "Welcome to evolo, Calcul Québec's learning platform.",
-    bannercourses: "Here are the classes that you can follow.",
-    bannerconnect1: "To start, click on",
-    bannerconnect2: ", at the top right of this page, then on",
-    bannercilogon1: "IMPORTANT: You must then select",
-    bannercilogon2: "in the list, and connect through the credentials of your institution.",
-    login: "Login",
-    your_institution: "your acadmic institution",
+    bannerwelcome: "Welcome to evolo, Calcul Québec's free learning platform aimed at the research community.",
+    bannercomeback: "Come back often: new content is being prepared!",
   },
 }
 return (
@@ -66,20 +54,18 @@ return (
       {`
         .cq-banner {
 	  display: block;
-	  background-color: #eeeeee;
+	  background-color: #ffffff;
 	  text-align: center;
 	  padding: 2em;
 	  border-top: 1px solid black;
 	  border-bottom: 1px solid black;
-	  font-size: 1em;
+	  font-size: 1.5em;
 	}
     `}
     </style>
     <div class="cq-banner">
       {languages[language].bannerwelcome} <br/>
-      {languages[language].bannercourses} <br/>
-      {languages[language].bannerconnect1} <i>{languages[language].login}</i> {languages[language].bannerconnect2} <i>CILogon.</i><br/>
-      {languages[language].bannercilogon1} <b><u>{languages[language].your_institution}</u></b> {languages[language].bannercilogon2}<br/>
+      {languages[language].bannercomeback} <br/>
     </div>
   </>
 );
