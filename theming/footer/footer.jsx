@@ -48,6 +48,8 @@ const languages = {
     wiki: "WIKI TECHNIQUE",
     serverstatus: "ETAT DES SERVEURS",
     bulletins: "BULLETINS D'INFORMATION",
+    langswitch: "ENGLISH",
+    langswitchcode: 'javascript:setLanguage("en")',
   },
   en: {
     help: "Help",
@@ -59,12 +61,26 @@ const languages = {
     wiki: 'TECHNICAL WIKI',
     serverstatus: "SERVER STATUS",
     bulletins: "SUBSCRIBE TO OUR NEWSLETTERS",
+    langswitch: "FRANÇAIS",
+    langswitchcode: 'javascript:setLanguage("fr-ca")',
   },
 };
 
 return (
   <>
     <script src='https://kit.fontawesome.com/91003a351d.js' crossorigin='anonymous'></script>
+    <sript>
+    {`
+    function setLanguage(lang) {
+      var expires = "";
+      var date = new Date();
+      date.setTime(date.getTime() + (14*24*60*60*1000));
+      expires = "; expires=" + date.toUTCString();
+      document.cookie = "openedx-language-preference=" + lang + expires + "; path=/";
+      reload();
+    }
+    `}
+    </script>
     <style>
       {`
         .wrapper-footer {
@@ -456,6 +472,9 @@ return (
               {languages[language].contact}
             </a>
           </li>
+	  <li class="footer__list-item">
+	    <a href={languages[language].langswitchcode}>{languages[language].langswitch}</a>
+	  </li>
 	  {/*
           <li>
             <a
