@@ -69,7 +69,7 @@ const languages = {
 return (
   <>
     <script src='https://kit.fontawesome.com/91003a351d.js' crossorigin='anonymous'></script>
-    <sript>
+    <script>
     {`
     function setLanguage(lang) {
       var expires = "";

@@ -56,12 +56,10 @@ return (
       {`
         .cq-banner {
 	  display: block;
-	  background-color: #052147;
-	  color: #ffffff;
+	  background-color: #E4E9EB;
+	  color: #000000;
 	  text-align: center;
 	  padding: 1.2em;
-	  border-top: 1px solid black;
-	  border-bottom: 1px solid black;
 	  font-size: 1.0em;
 	}
 
