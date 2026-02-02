@@ -37,6 +37,26 @@ const langIsFrench = () => {
   return language === "fr-ca" || language === "fr";
 };
 
+const setCookieFunction = (name, value, days) => {
+  let expires = "";
+  if (days) {
+    const date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + value + expires + "; path=/";
+  window.location.reload();
+};
+
+const toggleLanguage = () => {
+  if (langIsFrench()) {
+    setCookieFunction('openedx-language-preference', 'en', 14);
+  }
+  else {
+    setCookieFunction('openedx-language-preference', 'fr-ca', 14);
+  }
+}
+
 const languages = {
   "fr-ca": {
     help: "Aide",
@@ -461,7 +481,7 @@ return (
             </a>
           </li>
 	  <li class="footer__list-item">
-	    <a href={languages[language].langswitchcode}>
+	    <a href="#" onClick={toggleLanguage} class="footer__link">
 	      {languages[language].langswitch}
 	    </a>
 	  </li>
