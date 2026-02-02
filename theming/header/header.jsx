@@ -1,6 +1,6 @@
 const getLanguage = () => {
   // Fonction utilitaire pour normaliser les codes de langue
-  const normalizeLang = (lang?: string | null) => {
+  const normalizeLang = (lang) => {
     if (!lang) return null;
 
     const lower = lang.toLowerCase();
