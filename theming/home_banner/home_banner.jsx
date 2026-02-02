@@ -39,11 +39,13 @@ const langIsFrench = () => {
 
 const languages = {
   "fr-ca": {
-    bannerwelcome: "Bienvenue sur evolo, la plateforme de formation gratuite de Calcul Québec destinée à la communauté de la recherche.",
+    bannerwelcome: "Bienvenue sur evolo",
+    bannerplatform: "La plateforme de formation gratuite de Calcul Québec destinée à la communauté de la recherche.",
     bannercomeback: "Revenez régulièrement : de nouveaux cours sont en préparation !",
   },
   en: {
-    bannerwelcome: "Welcome to evolo, Calcul Québec's free learning platform aimed at the research community.",
+    bannerwelcome: "Welcome to evolo",
+    bannerplatform: "Calcul Québec's free learning platform aimed at the research community.",
     bannercomeback: "Come back often: new content is being prepared!",
   },
 }
@@ -54,17 +56,31 @@ return (
       {`
         .cq-banner {
 	  display: block;
-	  background-color: #ffffff;
+	  background-color: #052147;
+	  color: #ffffff;
 	  text-align: center;
-	  padding: 2em;
+	  padding: 1.2em;
 	  border-top: 1px solid black;
 	  border-bottom: 1px solid black;
+	  font-size: 1.0em;
+	}
+
+	@media (max-width: 937px) {
+	  .cq-banner {
+	    display: none;
+	  }
+	}
+	
+	.cq-title {
 	  font-size: 1.5em;
 	}
     `}
     </style>
     <div class="cq-banner">
-      {languages[language].bannerwelcome} <br/>
+      <div class="cq-title">
+      {languages[language].bannerwelcome}
+      </div><br/>
+      {languages[language].bannerplatform} <br/>
       {languages[language].bannercomeback} <br/>
     </div>
   </>
