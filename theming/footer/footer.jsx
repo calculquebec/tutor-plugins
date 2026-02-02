@@ -44,8 +44,10 @@ const setCookieFunction = (name, value, days) => {
     date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
     expires = "; expires=" + date.toUTCString();
   }
+  let domain_parts = window.location.hostname.split('.');
+  domain_parts = domain_parts.shift();
   let domain = "";
-  domain = "; domain=" + window.location.hostname.split('.').shift().join('.');
+  domain = "; domain=" + domain_parts.join('.');
   document.cookie = name + "=" + value + expires + domain + "; path=/";
   window.location.reload();
 };
