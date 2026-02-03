@@ -40,7 +40,7 @@ const langIsFrench = () => {
 const languages = {
   "fr-ca": {
     bannerwelcome: "Bienvenue sur evolo",
-    bannerplatform: "La plateforme de formation gratuite de Calcul Québec destinée à la communauté de la recherche.",
+    bannerplatform: "la plateforme de formation gratuite de Calcul Québec destinée à la communauté de la recherche.",
     bannercomeback: "Revenez régulièrement : de nouveaux cours sont en préparation !",
   },
   en: {
