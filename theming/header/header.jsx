@@ -1,13 +1,34 @@
 const getLanguage = () => {
+  // Fonction utilitaire pour normaliser les codes de langue
+  const normalizeLang = (lang) => {
+    if (!lang) return null;
+
+    const lower = lang.toLowerCase();
+
+    if (lower === 'fr' || lower.startsWith('fr-')) {
+      return 'fr-ca';
+    }
+
+    if (lower === 'en' || lower.startsWith('en-')) {
+      return 'en';
+    }
+
+    return null;
+  };
+
+  // On essaye d'abord de récupérer la langue depuis le cookie
   const languageCookie = document.cookie.split('; ').find((cookie) => cookie.startsWith('openedx-language-preference='));
+  const languageFromCookie = languageCookie ? decodeURIComponent(languageCookie.split('=')[1]) : null;
+  const fromCookie = normalizeLang(languageFromCookie);
+  if (fromCookie) return fromCookie;
 
-  const languageFromCookie = languageCookie ? languageCookie.split('=')[1] : 'fr-ca';
+  // Ensuite, on essaye de récupérer la langue depuis le navigateur
+  const browserLang = navigator.languages?.[0] || navigator.language || null;
+  const fromBrowser = normalizeLang(browserLang);
+  if (fromBrowser) return fromBrowser;
 
-  if (languageFromCookie === 'fr' || languageFromCookie === 'fr-ca') {
-    return 'fr-ca';
-  } else {
-    return 'en';
-  }
+  // Par défaut, on retourne 'fr-ca'
+  return 'fr-ca';
 };
 
 const language = getLanguage();
@@ -138,6 +159,21 @@ return (
         .back-icon:hover svg path {
           fill: var(--text-light);
         }
+
+	.btn-link {
+	  font-weight: var(--pgn-typography-font-weight-normal);
+	  -webkit-text-decoration: var(--pgn-typography-link-decoration-base);
+	  text-decoration: var(--pgn-typography-link-decoration-base);
+	  background: #052047;
+	  color: #ffffff;
+	}
+
+	.btn-link:hover {
+	  color: #052047;
+	  background: #ffffff;
+	  border: #052047 solid 1px;
+	  text-decoration: none !important;
+	}
 
         body.indigo-dark-theme #root,
         body.indigo-dark-theme main,

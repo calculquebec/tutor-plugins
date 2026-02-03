@@ -111,10 +111,37 @@ footer = [(
         }}"""
     )
 ]
+
+home_banner = [
+    (
+        "catalog",
+        "org.openedx.frontend.catalog.home_page.banner",
+        """
+        {
+          op: PLUGIN_OPERATIONS.Hide,
+          widgetId: 'default_contents',
+        }"""
+    ),
+    (
+        "catalog",
+        "org.openedx.frontend.catalog.home_page.banner",
+        f"""
+        {{
+          op: PLUGIN_OPERATIONS.Insert,
+          widget: {{
+            id: 'custom_footer',
+            type: DIRECT_PLUGIN,
+            RenderWidget: () => {{
+                {load_file("home_banner/home_banner.jsx")}
+            }},
+          }},
+        }}"""
+    )
+]
 #comment to trigger a rebuild
 
 PLUGIN_SLOTS.add_items(
-    header + mobile_header + learning_header + footer
+    header + mobile_header + learning_header + footer + home_banner
 )
 
 from tutormfe.hooks import MFE_APPS
