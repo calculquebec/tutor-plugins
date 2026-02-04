@@ -138,10 +138,24 @@ home_banner = [
         }}"""
     )
 ]
+
+logo_href = [
+    (
+        "all",
+        "org.openedx.frontend.layout.header_logo.v1",
+        """
+        {
+          op: PLUGIN_OPERATIONS.Modify,
+          widgetId: 'default_contents',
+          fn: modifyLogoHref,
+        }
+        """
+    ),
+]
 #comment to trigger a rebuild
 
 PLUGIN_SLOTS.add_items(
-    header + mobile_header + learning_header + footer + home_banner
+    header + mobile_header + learning_header + footer + home_banner + logo_href
 )
 
 from tutormfe.hooks import MFE_APPS
@@ -195,6 +209,14 @@ env_items = [
         "openedx-lms-common-settings",
         "ENABLE_CATALOG_MICROFRONTEND = True",
     ),
+    (
+        "mfe-env-config-buildtime-definitions",
+        """
+const modifyLogoHref = ( widget ) => {
+  widget.content.href = '/';
+  return widget;
+};"""
+    )
 ]
 
 for item in env_items:
