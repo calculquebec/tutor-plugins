@@ -129,7 +129,7 @@ home_banner = [
         {{
           op: PLUGIN_OPERATIONS.Insert,
           widget: {{
-            id: 'custom_footer',
+            id: 'custom_home_banner',
             type: DIRECT_PLUGIN,
             RenderWidget: () => {{
                 {load_file("home_banner/home_banner.jsx")}
