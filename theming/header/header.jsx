@@ -160,7 +160,7 @@ return (
           fill: var(--text-light);
         }
 
-	.btn-link {
+	.secondary-menu-container .btn-link {
 	  font-weight: var(--pgn-typography-font-weight-normal);
 	  -webkit-text-decoration: var(--pgn-typography-link-decoration-base);
 	  text-decoration: var(--pgn-typography-link-decoration-base);
@@ -168,7 +168,7 @@ return (
 	  color: #ffffff;
 	}
 
-	.btn-link:hover {
+	.secondary-menu-container .btn-link:hover {
 	  color: #052047;
 	  background: #ffffff;
 	  border: #052047 solid 1px;
