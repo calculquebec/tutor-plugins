@@ -222,14 +222,3 @@ const modifyLogoHref = ( widget ) => {
 for item in env_items:
     hooks.Filters.ENV_PATCHES.add_item(item)
 
-# Workaround for broken edx-search for catalog frontend in ulmo.1
-# https://discuss.openedx.org/t/backend-not-ready-for-catalog-mfe-in-latest-version-ulmo-1/18287/8
-INSTALL_SEARCH_440 = r"""
-RUN --mount=type=cache,target=/openedx/.cache/pip,sharing=shared \
-    pip install "edx-search==4.4.0"
-"""
-
-hooks.Filters.ENV_PATCHES.add_items([
-    ("openedx-dockerfile-post-python-requirements", INSTALL_SEARCH_440),
-    ("openedx-dev-dockerfile-post-python-requirements", INSTALL_SEARCH_440),
-])
