@@ -206,6 +206,18 @@ env_items = [
         catalog_mfe_url,
     ),
     (
+        "openedx-common-settings",
+"""FEATURES["ENABLE_FEEDBACK_INSTRUCTOR_VIEW"] = True
+OPEN_EDX_FILTERS_CONFIG = {
+    "org.openedx.learning.instructor.dashboard.render.started.v1": {
+        "fail_silently": False,
+        "pipeline": [
+            "feedback.extensions.filters.AddFeedbackTab",
+        ]
+    },
+}"""
+    ),
+    (
         "openedx-lms-common-settings",
         "ENABLE_CATALOG_MICROFRONTEND = True",
     ),
