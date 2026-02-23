@@ -70,7 +70,7 @@ return (
         }
 
         * {
-          font-family: "Roboto", sans-serif !important;
+          font-family: "Roboto", sans-serif;
           font-optical-sizing: auto;
         }
 

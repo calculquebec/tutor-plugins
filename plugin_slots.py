@@ -205,6 +205,18 @@ env_items = [
         "openedx-common-settings",
         catalog_mfe_url,
     ),
+#    (
+#        "openedx-common-settings",
+#"""FEATURES["ENABLE_FEEDBACK_INSTRUCTOR_VIEW"] = True
+#OPEN_EDX_FILTERS_CONFIG = {
+#    "org.openedx.learning.instructor.dashboard.render.started.v1": {
+#        "fail_silently": False,
+#        "pipeline": [
+#            "feedback.extensions.filters.AddFeedbackTab",
+#        ]
+#    },
+#}"""
+#    ),
     (
         "openedx-lms-common-settings",
         "ENABLE_CATALOG_MICROFRONTEND = True",
@@ -222,14 +234,3 @@ const modifyLogoHref = ( widget ) => {
 for item in env_items:
     hooks.Filters.ENV_PATCHES.add_item(item)
 
-# Workaround for broken edx-search for catalog frontend in ulmo.1
-# https://discuss.openedx.org/t/backend-not-ready-for-catalog-mfe-in-latest-version-ulmo-1/18287/8
-INSTALL_SEARCH_440 = r"""
-RUN --mount=type=cache,target=/openedx/.cache/pip,sharing=shared \
-    pip install "edx-search==4.4.0"
-"""
-
-hooks.Filters.ENV_PATCHES.add_items([
-    ("openedx-dockerfile-post-python-requirements", INSTALL_SEARCH_440),
-    ("openedx-dev-dockerfile-post-python-requirements", INSTALL_SEARCH_440),
-])
