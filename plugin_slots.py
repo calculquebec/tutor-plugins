@@ -152,10 +152,22 @@ logo_href = [
         """
     ),
 ]
+
+help_slot = [
+    (
+        "learning",
+        "org.openedx.frontend.layout.header_learning_help.v1",
+        """
+        {
+          op: PLUGIN_OPERATIONS.Hide,
+          widgetId: 'default_contents',
+        }"""
+    )
+]
 #comment to trigger a rebuild
 
 PLUGIN_SLOTS.add_items(
-    header + mobile_header + learning_header + footer + home_banner + logo_href
+    header + mobile_header + learning_header + footer + home_banner + logo_href + help_slot
 )
 
 from tutormfe.hooks import MFE_APPS
