@@ -252,6 +252,18 @@ return (
             color: var(--primary-blue) !important;
             border-color: var(--primary-blue) !important;
         }
+        
+	/* hide "Types de cours / Audit" */
+	.pgn__data-table-filters-dropdown-item:nth-child(2) {
+	  visibility: hidden;
+	  height: 0;
+	  padding: 0;
+	}
+	.pgn__data-table-side-filters-item:nth-child(4) {
+	  visibility: hidden;
+	  height: 0;
+	  padding: 0;
+	}
     `}
     </style>
     <div>
