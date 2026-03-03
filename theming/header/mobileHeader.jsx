@@ -281,6 +281,21 @@ return (
 	  visibility: hidden;
 	  height: 0;
 	}
+	/* styles of xblock elements */
+	.xblock h3, li, p {
+	  color: #052147 !important;
+	}
+	.xblock h3 {
+	  font-size: 1.4em !important;
+	  font-weight: bold;
+	}
+	.xblock h4 {
+	  font-size: 1.3em !important;
+	  font-weight: bold;
+	}
+	.xblock li, p {
+	  font-size: 1.2em !important;
+	}
     `}
     </style>
     <div>
