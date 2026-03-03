@@ -321,6 +321,23 @@ return (
 	  height: 0;
 	  padding: 0;
 	}
+	/* hide dates links in various places */
+	/* top tab */
+	.nav-underline-tabs .nav-link:nth-child(3) {
+	  visibility: hidden;
+	  width: 0;
+	  padding: 0;
+	}
+	/* sidebar progress page */
+	div.px-md-4 > section.mb-4 > ul.pl-4 > li:nth-child(1) {
+	  visibility: hidden;
+	  height: 0;
+	}
+	/* home page pre-start */
+	div#courseHome-dates {
+	  visibility: hidden;
+	  height: 0;
+	}
       `}
     </style>
     <div>
