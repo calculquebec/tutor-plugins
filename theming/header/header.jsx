@@ -354,6 +354,11 @@ return (
 	.xblock li, p {
 	  font-size: 1.2em !important;
 	}
+
+	/* style of unit headers */
+	.unit .h3 {
+	  color: #052147;
+	}
       `}
     </style>
     <div>
