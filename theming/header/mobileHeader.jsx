@@ -21,7 +21,7 @@ const getLanguage = () => {
   const languageFromCookie = languageCookie ? decodeURIComponent(languageCookie.split('=')[1]) : null;
   const fromCookie = normalizeLang(languageFromCookie);
   if (fromCookie) {
-    setCookieFunction('openedx-language-preference', fromCookie, 14);
+    if (fromCookie != languageFromCookie) setCookieFunction('openedx-language-preference', fromCookie, 14);
     return fromCookie;
   }
 
@@ -29,7 +29,7 @@ const getLanguage = () => {
   const browserLang = navigator.languages?.[0] || navigator.language || null;
   const fromBrowser = normalizeLang(browserLang);
   if (fromBrowser) {
-    setCookieFunction('openedx-language-preference', fromBrowser, 14);
+    if (fromBrowser != browserLang) setCookieFunction('openedx-language-preference', fromBrowser, 14);
     return fromBrowser;
   }
 
