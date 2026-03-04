@@ -379,6 +379,11 @@ return (
 	.unit .h3 {
 	  color: #052147;
 	}
+
+	/* code with background in grey */
+	code {
+	  background-color: #ecf0f1;
+	}
       `}
     </style>
     <div>
