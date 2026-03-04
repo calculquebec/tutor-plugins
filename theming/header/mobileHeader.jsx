@@ -326,6 +326,8 @@ return (
 	/* style of unit headers */
 	.unit .h3 {
 	  color: #052147;
+	  font-size: 1.6rem;
+	  text-decoration: underline;
 	}
 	/* code with background in grey */
 	code {
