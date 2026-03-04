@@ -322,7 +322,7 @@ return (
 	}
 	/* code with background in grey */
 	code {
-	  background-color: #ecf0f1;
+	  background-color: #ecf0f1 !important;
 	}
     `}
     </style>
