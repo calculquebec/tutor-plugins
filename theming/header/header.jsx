@@ -34,7 +34,6 @@ const getLanguage = () => {
   }
 
   // Par défaut, on retourne 'fr-ca'
-  setCookieFunction('openedx-language-preference', 'fr-ca', 14);
   return 'fr-ca';
 };
 const setCookieFunction = (name, value, days) => {
