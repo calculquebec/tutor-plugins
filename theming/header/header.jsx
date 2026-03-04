@@ -360,7 +360,7 @@ return (
 	}
 
 	/* styles of xblock elements */
-	.xblock h3, li, p {
+	.xblock h3, h4, li, p {
 	  color: #052147 !important;
 	}
 	.xblock h3 {
