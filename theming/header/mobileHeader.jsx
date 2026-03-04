@@ -20,15 +20,36 @@ const getLanguage = () => {
   const languageCookie = document.cookie.split('; ').find((cookie) => cookie.startsWith('openedx-language-preference='));
   const languageFromCookie = languageCookie ? decodeURIComponent(languageCookie.split('=')[1]) : null;
   const fromCookie = normalizeLang(languageFromCookie);
-  if (fromCookie) return fromCookie;
+  if (fromCookie) {
+    setCookieFunction('openedx-language-preference', fromCookie, 14);
+    return fromCookie;
+  }
 
   // Ensuite, on essaye de récupérer la langue depuis le navigateur
   const browserLang = navigator.languages?.[0] || navigator.language || null;
   const fromBrowser = normalizeLang(browserLang);
-  if (fromBrowser) return fromBrowser;
+  if (fromBrowser) {
+    setCookieFunction('openedx-language-preference', fromBrowser, 14);
+    return fromBrowser;
+  }
 
   // Par défaut, on retourne 'fr-ca'
+  setCookieFunction('openedx-language-preference', 'fr-ca', 14);
   return 'fr-ca';
+};
+const setCookieFunction = (name, value, days) => {
+  let expires = "";
+  if (days) {
+    const date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = "; expires=" + date.toUTCString();
+  }
+  let domain_parts = (window.location.hostname + '').split('.');
+  domain_parts.shift();
+  let domain = "";
+  domain = "; domain=." + domain_parts.join('.');
+  document.cookie = name + "=" + value + expires + domain + "; path=/";
+  window.location.reload();
 };
 
 const language = getLanguage();
