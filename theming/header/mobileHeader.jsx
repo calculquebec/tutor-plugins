@@ -20,15 +20,35 @@ const getLanguage = () => {
   const languageCookie = document.cookie.split('; ').find((cookie) => cookie.startsWith('openedx-language-preference='));
   const languageFromCookie = languageCookie ? decodeURIComponent(languageCookie.split('=')[1]) : null;
   const fromCookie = normalizeLang(languageFromCookie);
-  if (fromCookie) return fromCookie;
+  if (fromCookie) {
+    if (fromCookie != languageFromCookie) setCookieFunction('openedx-language-preference', fromCookie, 14);
+    return fromCookie;
+  }
 
   // Ensuite, on essaye de récupérer la langue depuis le navigateur
   const browserLang = navigator.languages?.[0] || navigator.language || null;
   const fromBrowser = normalizeLang(browserLang);
-  if (fromBrowser) return fromBrowser;
+  if (fromBrowser) {
+    if (fromBrowser != browserLang) setCookieFunction('openedx-language-preference', fromBrowser, 14);
+    return fromBrowser;
+  }
 
   // Par défaut, on retourne 'fr-ca'
   return 'fr-ca';
+};
+const setCookieFunction = (name, value, days) => {
+  let expires = "";
+  if (days) {
+    const date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = "; expires=" + date.toUTCString();
+  }
+  let domain_parts = (window.location.hostname + '').split('.');
+  domain_parts.shift();
+  let domain = "";
+  domain = "; domain=." + domain_parts.join('.');
+  document.cookie = name + "=" + value + expires + domain + "; path=/";
+  window.location.reload();
 };
 
 const language = getLanguage();
@@ -280,6 +300,29 @@ return (
 	div#courseHome-dates {
 	  visibility: hidden;
 	  height: 0;
+	}
+	/* styles of xblock elements */
+	.xblock h3, li, p {
+	  color: #052147 !important;
+	}
+	.xblock h3 {
+	  font-size: 1.4rem !important;
+	  font-weight: bold;
+	}
+	.xblock h4 {
+	  font-size: 1.3rem !important;
+	  font-weight: bold;
+	}
+	.xblock li, p {
+	  font-size: 1.2rem !important;
+	}
+	/* style of unit headers */
+	.unit .h3 {
+	  color: #052147;
+	}
+	/* code with background in grey */
+	code {
+	  background-color: #ecf0f1 !important;
 	}
     `}
     </style>
