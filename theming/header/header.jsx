@@ -364,15 +364,15 @@ return (
 	  color: #052147 !important;
 	}
 	.xblock h3 {
-	  font-size: 1.4em !important;
+	  font-size: 1.4rem !important;
 	  font-weight: bold;
 	}
 	.xblock h4 {
-	  font-size: 1.3em !important;
+	  font-size: 1.3rem !important;
 	  font-weight: bold;
 	}
 	.xblock li, p {
-	  font-size: 1.2em !important;
+	  font-size: 1.2rem !important;
 	}
 
 	/* style of unit headers */
