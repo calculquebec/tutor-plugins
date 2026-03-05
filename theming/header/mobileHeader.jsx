@@ -340,7 +340,7 @@ return (
 	.xblock a {
 	  border-bottom: 3px solid #5b94e1;
 	}
-	.xblock a. hover {
+	.xblock a:hover {
 	  color: #5b94e1;
 	}
 
