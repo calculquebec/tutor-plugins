@@ -301,38 +301,49 @@ return (
 	  visibility: hidden;
 	  height: 0;
 	}
+
+	/* style of unit headers */
+	.unit .h1 {
+	  color: #052147;
+	  font-size: 2.1rem;
+	  font-weight: 700;
+	}
 	/* styles of xblock elements */
-	.xblock h1, h2, h3, h4, h5, h6, li, p {
+	.xblock h1, h5, h6 {
+	  color: #BBBBBB;
+	  font-size: 0.7rem;
+	}
+	.xblock h2, h3, h4, li, p, a, code {
 	  color: #052147 !important;
 	}
-	.xblock h1, h2, h3, h4, h5, h6 {
-	  font-weight: bold;
-	}
-	.xblock h1 {
-	  font-size: 1.6rem !important;
-	}
 	.xblock h2 {
-	  font-size: 1.5rem !important;
+	  font-size: 1.8rem !important;
+	  font-weight: 600;
 	}
 	.xblock h3 {
-	  font-size: 1.4rem !important;
+	  font-size: 1.6rem !important;
+	  font-weight: 500;
 	}
 	.xblock h4 {
-	  font-size: 1.3rem !important;
+	  font-size: 1.4rem !important;
+	  font-weight: 400;
 	}
-	.xblock li, p {
+	.xblock p, li, a, code {
 	  font-size: 1.2rem !important;
-	}
-	/* style of unit headers */
-	.unit .h3 {
-	  color: #052147;
-	  font-size: 1.6rem;
-	  text-decoration: underline;
+	  line-height: 1.7rem;
 	}
 	/* code with background in grey */
-	code {
-	  background-color: #ecf0f1 !important;
+	.xblock code {
+	  background-color: #cfe2f3 !important;
 	}
+	/* link styling */
+	.xblock a {
+	  border-bottom: 3px solid #5b94e1;
+	}
+	.xblock a. hover {
+	  color: #5b94e1;
+	}
+
     `}
     </style>
     <div>
