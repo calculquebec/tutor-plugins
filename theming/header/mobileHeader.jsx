@@ -272,7 +272,7 @@ return (
             color: var(--primary-blue) !important;
             border-color: var(--primary-blue) !important;
         }
-        
+       
 	/* hide "Types de cours / Audit" */
 	.pgn__data-table-filters-dropdown-item:nth-child(2) {
 	  visibility: hidden;
@@ -301,28 +301,58 @@ return (
 	  visibility: hidden;
 	  height: 0;
 	}
+
+	/* style of unit headers */
+	.unit .h1 {
+	  color: #052147;
+	  font-size: 2.1rem;
+	  font-weight: 700;
+	}
 	/* styles of xblock elements */
-	.xblock h3, li, p {
+	.xblock h1,
+	.xblock h5,
+	.xblock h6 {
+	  color: #BBBBBB !important;
+	  font-size: 0.7rem !important;
+	}
+	.xblock h2,
+	.xblock h3,
+	.xblock h4,
+	.xblock li,
+	.xblock p,
+	.xblock a,
+	.xblock code {
 	  color: #052147 !important;
 	}
+	.xblock h2 {
+	  font-size: 1.8rem !important;
+	  font-weight: 600 !important;
+	}
 	.xblock h3 {
-	  font-size: 1.4rem !important;
-	  font-weight: bold;
+	  font-size: 1.6rem !important;
+	  font-weight: 500 !important;
 	}
 	.xblock h4 {
-	  font-size: 1.3rem !important;
-	  font-weight: bold;
+	  font-size: 1.4rem !important;
+	  font-weight: 400 !important;
 	}
-	.xblock li, p {
+	.xblock p,
+	.xblock li,
+	.xblock a,
+	.xblock code {
 	  font-size: 1.2rem !important;
-	}
-	/* style of unit headers */
-	.unit .h3 {
-	  color: #052147;
+	  line-height: 1.7rem !important;
 	}
 	/* code with background in grey */
-	code {
-	  background-color: #ecf0f1 !important;
+	.xblock code {
+	  background-color: #cfe2f3 !important;
+	}
+	/* link styling */
+	.xblock a {
+	  border-bottom: 3px solid #5b94e1;
+	}
+	.xblock a:hover {
+	  color: #5b94e1 !important;
 	}
     `}
     </style>
