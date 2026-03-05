@@ -164,10 +164,42 @@ help_slot = [
         }"""
     )
 ]
+
+unit_title_slot = [
+    (
+        "learning",
+        "'org.openedx.frontend.learning.unit_title.v1'",
+        """
+        {
+          op: PLUGIN_OPERATIONS.Hide,
+          widgetId: 'default_contents',
+        }"""
+    ),
+    (
+        "learning",
+        "'org.openedx.frontend.learning.unit_title.v1'",
+        """
+        {
+          // Insert custom content after unit title
+          op: PLUGIN_OPERATIONS.Insert,
+          widget: {
+            id: 'custom_unit_title_content',
+            type: DIRECT_PLUGIN,
+            RenderWidget: ({ unitId, unit, renderUnitNavigation }) => (
+              <>
+                {renderUnitNavigation(true)}
+                <h1>{unit.title}</h1>
+              </>
+            ),
+          },
+        }
+        """
+    )
+]
 #comment to trigger a rebuild
 
 PLUGIN_SLOTS.add_items(
-    header + mobile_header + learning_header + footer + home_banner + logo_href + help_slot
+    header + mobile_header + learning_header + footer + home_banner + logo_href + help_slot + unit_title_slot
 )
 
 from tutormfe.hooks import MFE_APPS
