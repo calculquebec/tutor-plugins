@@ -168,7 +168,7 @@ help_slot = [
 unit_title_slot = [
     (
         "learning",
-        "'org.openedx.frontend.learning.unit_title.v1'",
+        "org.openedx.frontend.learning.unit_title.v1",
         """
         {
           op: PLUGIN_OPERATIONS.Hide,
@@ -177,7 +177,7 @@ unit_title_slot = [
     ),
     (
         "learning",
-        "'org.openedx.frontend.learning.unit_title.v1'",
+        "org.openedx.frontend.learning.unit_title.v1",
         """
         {
           // Insert custom content after unit title
