@@ -187,8 +187,12 @@ unit_title_slot = [
             type: DIRECT_PLUGIN,
             RenderWidget: ({ unitId, unit, renderUnitNavigation }) => (
               <>
+                <div class="d-flex justify-content-between">
+                <div class="mb-0">
+                <h1 class="h3">{unit.title}</h1>
+                </div>
                 {renderUnitNavigation(true)}
-                <h1>{unit.title}</h1>
+                </div>
               </>
             ),
           },
