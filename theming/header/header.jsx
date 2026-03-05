@@ -306,7 +306,7 @@ return (
 
         .raised-card .rounded-bottom, .raised-card .pgn__data-table-footer {
           background-color: var(--primary-blue) !important;
-          border-radius: 0 0 8px 0 !important;  
+          border-radius: 0 0 8px 0 !important;
         }
 
         #weighted-grade-summary, text {
@@ -367,28 +367,39 @@ return (
 	  font-weight: 700;
 	}
 	/* styles of xblock elements */
-	.xblock h1, h5, h6 {
-	  color: #BBBBBB;
-	  font-size: 0.7rem;
+	.xblock h1,
+	.xblock h5,
+	.xblock h6 {
+	  color: #BBBBBB !important;
+	  font-size: 0.7rem !important;
 	}
-	.xblock h2, h3, h4, li, p, a, code {
+	.xblock h2,
+	.xblock h3,
+	.xblock h4,
+	.xblock li,
+	.xblock p,
+	.xblock a,
+	.xblock code {
 	  color: #052147 !important;
 	}
 	.xblock h2 {
 	  font-size: 1.8rem !important;
-	  font-weight: 600;
+	  font-weight: 600 !important;
 	}
 	.xblock h3 {
 	  font-size: 1.6rem !important;
-	  font-weight: 500;
+	  font-weight: 500 !important;
 	}
 	.xblock h4 {
 	  font-size: 1.4rem !important;
-	  font-weight: 400;
+	  font-weight: 400 !important;
 	}
-	.xblock p, li, a, code {
+	.xblock p,
+	.xblock li,
+	.xblock a,
+	.xblock code {
 	  font-size: 1.2rem !important;
-	  line-height: 1.7rem;
+	  line-height: 1.7rem !important;
 	}
 	/* code with background in grey */
 	.xblock code {
@@ -399,7 +410,7 @@ return (
 	  border-bottom: 3px solid #5b94e1;
 	}
 	.xblock a:hover {
-	  color: #5b94e1;
+	  color: #5b94e1 !important;
 	}
       `}
     </style>
