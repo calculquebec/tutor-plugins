@@ -353,6 +353,7 @@ return (
 	}
 	.xblock a:hover {
 	  color: #5b94e1 !important;
+	  text-decoration: none !important;
 	}
     `}
     </style>
