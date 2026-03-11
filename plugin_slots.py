@@ -189,7 +189,7 @@ unit_title_slot = [
               <>
                 <div class="d-flex justify-content-between">
                 <div class="mb-0">
-                <h1 class="h1">{unit.title}</h1>
+                <h2 class="h2">{unit.title}</h2>
                 </div>
                 {renderUnitNavigation(true)}
                 </div>

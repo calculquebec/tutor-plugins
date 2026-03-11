@@ -837,36 +837,48 @@ body.indigo-dark-theme {
 }
 
 /* style of unit headers */
-.unit .h1 {
+.unit .h2 {
   color: #052147;
   font-size: 2.1rem;
   font-weight: 700;
 }
 /* styles of xblock elements */
 .xblock h1,
-.xblock h5,
+.xblock h2,
 .xblock h6 {
   color: #BBBBBB !important;
   font-size: 0.7rem !important;
 }
-.xblock h2,
 .xblock h3,
 .xblock h4,
-.xblock li,
+.xblock h5,
 .xblock p,
+.xblock li,
 .xblock a,
-.xblock code {
+.xblock code,
+{
   color: #052147 !important;
 }
-.xblock h2 {
+.xblock h3,
+.xblock h4,
+.xblock h5,
+.xblock p,
+{
+  margin-left: 0.5rem;
+}
+.xblock li
+{
+  margin-left: 2rem;
+}
+.xblock h3 {
   font-size: 1.8rem !important;
   font-weight: 600 !important;
 }
-.xblock h3 {
+.xblock h4 {
   font-size: 1.6rem !important;
   font-weight: 500 !important;
 }
-.xblock h4 {
+.xblock h5 {
   font-size: 1.4rem !important;
   font-weight: 400 !important;
 }
