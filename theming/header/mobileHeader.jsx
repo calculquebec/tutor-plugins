@@ -316,7 +316,6 @@ return (
 	  font-size: 0.7rem !important;
 	}
 	.xblock h3,
-	.xblock h4,
 	.xblock h5,
 	.xblock p,
 	.xblock li,
@@ -325,12 +324,20 @@ return (
 	{
 	  color: #052147 !important;
 	}
+	.xblock h4,
+	{
+	  color: #5b94e1 !important;
+	}
 	.xblock h3,
 	.xblock h4,
 	.xblock h5,
+	{
+	  margin-left: 0.5rem !important;
+	  margin-bottom: 1.4rem !important;
+	}
 	.xblock p,
 	{
-	  margin-left: 0.5rem;
+	  margin-left: 0.5rem !important;
 	}
 	.xblock li
 	{
@@ -357,7 +364,7 @@ return (
 	}
 	/* code with background in grey */
 	.xblock code {
-	  background-color: #cfe2f3 !important;
+	  background-color: #e8f1fc !important;
 	}
 	/* link styling */
 	.xblock a {
