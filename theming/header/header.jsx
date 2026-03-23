@@ -432,6 +432,10 @@ return (
 	  color: #5b94e1 !important;
 	  text-decoration: none !important;
 	}
+	/* ensure the video subtitles in full screen are readable */
+	.xmodule_display.xmodule_VideoBlock .video.video-fullscreen .subtitles li {
+	  color: #aaa !important;
+	}
       `}
     </style>
     <div>
