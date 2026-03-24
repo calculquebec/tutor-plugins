@@ -378,6 +378,10 @@ return (
 	.xmodule_display.xmodule_VideoBlock .video.video-fullscreen .subtitles li {
 	  color: #aaa !important;
 	}
+	/* ensure popup text is readable */
+	.popup-content p {
+	  color: inherit !important;
+	}
     `}
     </style>
     <div>
