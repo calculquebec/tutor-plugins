@@ -219,7 +219,7 @@ desktop_secondary_menu = [
 #comment to trigger a rebuild
 
 PLUGIN_SLOTS.add_items(
-    header + mobile_header + learning_header + footer + home_banner + logo_href + help_slot + unit_title_slot
+    header + mobile_header + learning_header + footer + home_banner + logo_href + help_slot + unit_title_slot + desktop_secondary_menu
 )
 
 from tutormfe.hooks import MFE_APPS
