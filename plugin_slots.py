@@ -216,10 +216,25 @@ desktop_secondary_menu = [
         """
     )
 ]
+desktop_main_menu = [
+    (
+        "all",
+        "org.openedx.frontend.layout.header_desktop_main_menu.v1",
+        "keepDefault: true",
+        """
+        {
+          // Modify content
+          op: PLUGIN_OPERATIONS.Modify,
+          widgetId: 'default_contents',
+          fn: modifyMainMenu,
+        }
+        """
+    )
+]
 #comment to trigger a rebuild
 
 PLUGIN_SLOTS.add_items(
-    header + mobile_header + learning_header + footer + home_banner + logo_href + help_slot + unit_title_slot + desktop_secondary_menu
+    header + mobile_header + learning_header + footer + home_banner + logo_href + help_slot + unit_title_slot + desktop_secondary_menu + desktop_main_menu
 )
 
 from tutormfe.hooks import MFE_APPS
@@ -293,6 +308,16 @@ const modifyLogoHref = ( widget ) => {
   return widget;
 };
 const modifySecondaryMenu = ( widget ) => {
+  widget.content.menu = [
+    {
+      type: 'item',
+      href: 'https://www.calculquebec.ca/a-propos/qui-sommes-nous/',
+      content: 'À propos',
+    },
+  ];
+  return widget;
+};
+const modifyMainMenu = ( widget ) => {
   widget.content.menu = [
     {
       type: 'item',
