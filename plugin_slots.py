@@ -205,7 +205,6 @@ desktop_secondary_menu = [
     (
         "all",
         "org.openedx.frontend.layout.header_desktop_secondary_menu.v1",
-        "keepDefault: true",
         """
         {
           // Modify content
@@ -220,7 +219,6 @@ desktop_main_menu = [
     (
         "all",
         "org.openedx.frontend.layout.header_desktop_main_menu.v1",
-        "keepDefault: true",
         """
         {
           // Modify content
