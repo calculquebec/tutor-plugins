@@ -375,7 +375,7 @@ const addAproposToMenu = ( widget ) => {
   const language = getLanguage();
   const existingMenu = widget.RenderWidget.props.menu || [];
 
-  const newMenuItems {
+  const newMenuItems = {
     'fr-ca': [
     {
       type: 'item',
@@ -390,9 +390,9 @@ const addAproposToMenu = ( widget ) => {
       content: 'About',
     },
     ],
-    }
   };
-  widget.content.menu = [...existingMenu, ...newMenuItems['language']];
+  const menuItems = newMenuItems[language];
+  widget.content.menu = [...existingMenu, ...menuItems];
   return widget;
 };
 """
