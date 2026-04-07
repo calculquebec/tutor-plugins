@@ -306,23 +306,29 @@ const modifyLogoHref = ( widget ) => {
   return widget;
 };
 const modifySecondaryMenu = ( widget ) => {
-  widget.content.menu.push(
+  const existingMenu = widget.RenderWidget.props.menu || [];
+
+  const newMenuItems = [
     {
       type: 'item',
       href: 'https://www.calculquebec.ca/a-propos/qui-sommes-nous/',
       content: 'À propos',
     },
-  );
+  ];
+  widget.content.menu = [...existingMenu, ...newMenuItems];
   return widget;
 };
 const modifyMainMenu = ( widget ) => {
-  widget.content.menu.push(
+  const existingMenu = widget.RenderWidget.props.menu || [];
+
+  const newMenuItems = [
     {
       type: 'item',
       href: 'https://www.calculquebec.ca/a-propos/qui-sommes-nous/',
       content: 'À propos',
     },
-  );
+  ];
+  widget.content.menu = [...existingMenu, ...newMenuItems];
   return widget;
 };
 """
