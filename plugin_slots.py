@@ -201,7 +201,7 @@ unit_title_slot = [
     )
 ]
 
-desktop_secondary_menu = [
+menu_items = [
     (
         "all",
         "org.openedx.frontend.layout.header_desktop_secondary_menu.v1",
@@ -210,12 +210,10 @@ desktop_secondary_menu = [
           // Modify content
           op: PLUGIN_OPERATIONS.Modify,
           widgetId: 'default_contents',
-          fn: modifySecondaryMenu,
+          fn: addAproposToMenu,
         }
         """
-    )
-]
-desktop_main_menu = [
+    ),
     (
         "all",
         "org.openedx.frontend.layout.header_desktop_main_menu.v1",
@@ -224,15 +222,51 @@ desktop_main_menu = [
           // Modify content
           op: PLUGIN_OPERATIONS.Modify,
           widgetId: 'default_contents',
-          fn: modifyMainMenu,
+          fn: addAproposToMenu,
         }
         """
-    )
+    ),
+    (
+        "all",
+        "org.openedx.frontend.layout.header_mobile_main_menu.v1",
+        """
+        {
+          // Modify content
+          op: PLUGIN_OPERATIONS.Modify,
+          widgetId: 'default_contents',
+          fn: addAproposToMenu,
+        }
+        """
+    ),
+    (
+        "catalog",
+        "org.openedx.frontend.layout.header_learning_logged_out_items.v1",
+        """
+        {
+          // modify content
+          op: plugin_operations.modify,
+          widgetid: 'default_contents',
+          fn: addapropostomenu,
+        }
+        """
+    ),
+    (
+        "catalog",
+        "org.openedx.frontend.layout.header_mobile_logged_out_items.v1",
+        """
+        {
+          // modify content
+          op: plugin_operations.modify,
+          widgetid: 'default_contents',
+          fn: addapropostomenu,
+        }
+        """
+    ),
 ]
 #comment to trigger a rebuild
 
 PLUGIN_SLOTS.add_items(
-    header + mobile_header + learning_header + footer + home_banner + logo_href + help_slot + unit_title_slot + desktop_secondary_menu + desktop_main_menu
+    header + mobile_header + learning_header + footer + home_banner + logo_href + help_slot + unit_title_slot + menu_items
 )
 
 from tutormfe.hooks import MFE_APPS
@@ -305,20 +339,7 @@ const modifyLogoHref = ( widget ) => {
   widget.content.href = '/';
   return widget;
 };
-const modifySecondaryMenu = ( widget ) => {
-  const existingMenu = widget.RenderWidget.props.menu || [];
-
-  const newMenuItems = [
-    {
-      type: 'item',
-      href: 'https://www.calculquebec.ca/a-propos/qui-sommes-nous/',
-      content: 'À propos',
-    },
-  ];
-  widget.content.menu = [...existingMenu, ...newMenuItems];
-  return widget;
-};
-const modifyMainMenu = ( widget ) => {
+const addAproposToMenu = ( widget ) => {
   const existingMenu = widget.RenderWidget.props.menu || [];
 
   const newMenuItems = [
