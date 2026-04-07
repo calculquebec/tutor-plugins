@@ -306,23 +306,23 @@ const modifyLogoHref = ( widget ) => {
   return widget;
 };
 const modifySecondaryMenu = ( widget ) => {
-  widget.content.menu = [
+  widget.content.menu.push(
     {
       type: 'item',
       href: 'https://www.calculquebec.ca/a-propos/qui-sommes-nous/',
       content: 'À propos',
     },
-  ];
+  );
   return widget;
 };
 const modifyMainMenu = ( widget ) => {
-  widget.content.menu = [
+  widget.content.menu.push(
     {
       type: 'item',
       href: 'https://www.calculquebec.ca/a-propos/qui-sommes-nous/',
       content: 'À propos',
     },
-  ];
+  );
   return widget;
 };
 """
