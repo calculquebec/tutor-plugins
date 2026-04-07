@@ -200,6 +200,22 @@ unit_title_slot = [
         """
     )
 ]
+
+desktop_secondary_menu = [
+    (
+        "all",
+        "org.openedx.frontend.layout.header_desktop_secondary_menu.v1",
+        "keepDefault: true",
+        """
+        {
+          // Modify content
+          op: PLUGIN_OPERATIONS.Modify,
+          widgetId: 'default_contents',
+          fn: modifySecondaryMenu,
+        }
+        """
+    )
+]
 #comment to trigger a rebuild
 
 PLUGIN_SLOTS.add_items(
@@ -275,7 +291,18 @@ env_items = [
 const modifyLogoHref = ( widget ) => {
   widget.content.href = '/';
   return widget;
-};"""
+};
+const modifySecondaryMenu = ( widget ) => {
+  widget.content.menu = [
+    {
+      type: 'item',
+      href: 'https://www.calculquebec.ca/a-propos/qui-sommes-nous/',
+      content: 'À propos',
+    },
+  ];
+  return widget;
+};
+"""
     )
 ]
 
