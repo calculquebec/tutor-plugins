@@ -335,21 +335,64 @@ env_items = [
     (
         "mfe-env-config-buildtime-definitions",
         """
+const getLanguage = () => {
+  // Fonction utilitaire pour normaliser les codes de langue
+  const normalizeLang = (lang) => {
+    if (!lang) return null;
+
+    const lower = lang.toLowerCase();
+
+    if (lower === 'fr' || lower.startsWith('fr-')) {
+      return 'fr-ca';
+    }
+
+    if (lower === 'en' || lower.startsWith('en-')) {
+      return 'en';
+    }
+
+    return null;
+  };
+
+  // On essaye d'abord de récupérer la langue depuis le cookie
+  const languageCookie = document.cookie.split('; ').find((cookie) => cookie.startsWith('openedx-language-preference='));
+  const languageFromCookie = languageCookie ? decodeURIComponent(languageCookie.split('=')[1]) : null;
+  const fromCookie = normalizeLang(languageFromCookie);
+  if (fromCookie) return fromCookie;
+
+  // Ensuite, on essaye de récupérer la langue depuis le navigateur
+  const browserLang = navigator.languages?.[0] || navigator.language || null;
+  const fromBrowser = normalizeLang(browserLang);
+  if (fromBrowser) return fromBrowser;
+
+  // Par défaut, on retourne 'fr-ca'
+  return 'fr-ca';
+};
 const modifyLogoHref = ( widget ) => {
   widget.content.href = '/';
   return widget;
 };
 const addAproposToMenu = ( widget ) => {
+  const language = getLanguage();
   const existingMenu = widget.RenderWidget.props.menu || [];
 
-  const newMenuItems = [
+  const newMenuItems {
+    'fr-ca': [
     {
       type: 'item',
       href: 'https://www.calculquebec.ca/a-propos/qui-sommes-nous/',
       content: 'À propos',
     },
-  ];
-  widget.content.menu = [...existingMenu, ...newMenuItems];
+    ],
+    'en': [
+    {
+      type: 'item',
+      href: 'https://www.calculquebec.ca/en/about-us/who-are-we/',
+      content: 'About',
+    },
+    ],
+    }
+  };
+  widget.content.menu = [...existingMenu, ...newMenuItems['language']];
   return widget;
 };
 """
