@@ -382,6 +382,13 @@ return (
 	.popup-content p {
 	  color: inherit !important;
 	}
+	/* button to open in new window to the right */
+	div#jupytermc3 button.btn.btn-pl-primary.btn-base.btn-lti-new-window {
+	    margin-top: 1em;
+	    margin-right: 0;
+	    display: block;
+	    margin-left: auto;
+	}
     `}
     </style>
     <div>
