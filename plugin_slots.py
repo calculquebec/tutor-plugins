@@ -215,23 +215,56 @@ hooks.Filters.ENV_PATCHES.add_item(
     )
 )
 
+
+# Add hook to insert external CookieYes script
+from tutormfe.hooks import EXTERNAL_SCRIPTS
+hooks.Filters.ENV_PATCHES.add_item(
+    (
+        "mfe-env-config-buildtime-definitions",
+        """
+class CookieYesScriptLoader {
+  constructor({ config }) {
+    this.config = config;
+  }
+
+  loadScript() {
+    if (!this.config.COOKIEYES_SCRIPT_URL) {
+      return;
+    }
+    const script = document.createElement('script');
+    script.id = 'custom-script';
+    script.src = this.config.COOKIEYES_SCRIPT_URL;
+    document.head.appendChild(script);
+  }
+}
+""",
+    )
+)
+
+EXTERNAL_SCRIPTS.add_items([
+    (
+        "all",
+        "CookieYesScriptLoader",
+    ),
+])
+
 @MFE_APPS.add()
 def _add_my_mfe(mfes):
-    mfe_version = "cq/ulmo.prod"
+    mfe_version = "cq/verawood.dev"
     mfes["authn"]["repository"] = "https://github.com/calculquebec/frontend-app-authn.git"  # your public/private repo link
     mfes["authn"]["version"] = mfe_version
     mfes["account"]["repository"] = "https://github.com/calculquebec/frontend-app-account.git"  # your public/private repo link
     mfes["account"]["version"] = mfe_version
-    mfes["catalog"] = {}
-    mfes["catalog"]["repository"] = "https://github.com/calculquebec/frontend-app-catalog.git"  # your public/private repo link
-    mfes["catalog"]["version"] = mfe_version
-    mfes["catalog"]["port"] = 1998
-    mfes["discussions"]["repository"] = "https://github.com/calculquebec/frontend-app-discussions.git"  # your public/private repo link
-    mfes["discussions"]["version"] = mfe_version
-    mfes["learner-dashboard"]["repository"] = "https://github.com/calculquebec/frontend-app-learner-dashboard.git"  # your public/private repo link
-    mfes["learner-dashboard"]["version"] = mfe_version
-    mfes["learning"]["repository"] = "https://github.com/calculquebec/frontend-app-learning.git"  # your public/private repo link
-    mfes["learning"]["version"] = mfe_version
+#    mfes["catalog"] = {}
+#    mfes["catalog"]["repository"] = "https://github.com/calculquebec/frontend-app-catalog.git"  # your public/private repo link
+#    mfes["catalog"]["version"] = mfe_version
+#    mfes["catalog"]["port"] = 1998
+#    mfes["discussions"]["repository"] = "https://github.com/calculquebec/frontend-app-discussions.git"  # your public/private repo link
+#    mfes["discussions"]["version"] = mfe_version
+#    mfes["learner-dashboard"]["repository"] = "https://github.com/calculquebec/frontend-app-learner-dashboard.git"  # your public/private repo link
+#    mfes["learner-dashboard"]["version"] = mfe_version
+#    mfes["learning"]["repository"] = "https://github.com/calculquebec/frontend-app-learning.git"  # your public/private repo link
+#    mfes["learning"]["version"] = mfe_version
     mfes["profile"]["repository"] = "https://github.com/calculquebec/frontend-app-profile.git"  # your public/private repo link
     mfes["profile"]["version"] = mfe_version
     return mfes
