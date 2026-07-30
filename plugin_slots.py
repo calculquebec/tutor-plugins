@@ -277,15 +277,7 @@ def _add_my_mfe(mfes):
 #        "version": "master", # optional, will default to the Open edX current tag.
 #    }
 
-catalog_mfe_url = """
-CATALOG_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/catalog"
-"""
-
 env_items = [
-    (
-        "openedx-common-settings",
-        catalog_mfe_url,
-    ),
     (
         "openedx-common-settings",
 """FEATURES["ENABLE_FEEDBACK_INSTRUCTOR_VIEW"] = True
@@ -297,10 +289,6 @@ OPEN_EDX_FILTERS_CONFIG = {
         ]
     },
 }"""
-    ),
-    (
-        "openedx-lms-common-settings",
-        "ENABLE_CATALOG_MICROFRONTEND = True",
     ),
     (
         "mfe-env-config-buildtime-definitions",
