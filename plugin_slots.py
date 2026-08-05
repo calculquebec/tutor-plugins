@@ -243,7 +243,11 @@ class CookieYesScriptLoader {
 
 EXTERNAL_SCRIPTS.add_items([
     (
-        "all",
+        "authn",
+        "CookieYesScriptLoader",
+    ),
+    (
+        "account",
         "CookieYesScriptLoader",
     ),
 ])
