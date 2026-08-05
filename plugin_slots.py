@@ -243,13 +243,10 @@ class CookieYesScriptLoader {
 
 EXTERNAL_SCRIPTS.add_items([
     (
-        "authn",
+        MFE,
         "CookieYesScriptLoader",
-    ),
-    (
-        "account",
-        "CookieYesScriptLoader",
-    ),
+    )
+    for MFE in ["authn", "authoring", "account", "communications", "discussions", "gradebook", "learner-dashboard", "learning", "ora-grading", "profile", "catalog"]
 ])
 
 @MFE_APPS.add()
