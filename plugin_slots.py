@@ -236,10 +236,11 @@ class CookieYesScriptLoader {
 }
 """
 
-hooks.Filters.ENV_PATCHES.add_item(
+hooks.Filters.ENV_PATCHES.add_items([
     ("mfe-env-config-buildtime-definitions", CUSTOM_SCRIPT_LOADER),
     ("mfe-site-custom-app-definitions", CUSTOM_SCRIPT_LOADER),
-)
+])
+
 
 EXTERNAL_SCRIPTS.add_items(["all", "CookieYesScriptLoader"])
 
