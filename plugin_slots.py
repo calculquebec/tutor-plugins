@@ -218,29 +218,71 @@ hooks.Filters.ENV_PATCHES.add_item(
 
 # Add hook to insert external CookieYes script
 from tutormfe.hooks import EXTERNAL_SCRIPTS
-CUSTOM_SCRIPT_LOADER = """
+CUSTOM_SCRIPT_LOADER_TSX = """
+export interface CookieYesConfig {
+  COOKIEYES_SCRIPT_URL?: string;
+  [key: string]: unknown;
+}
+
+export interface CookieYesScriptLoaderOptions {
+  config: CookieYesConfig;
+}
+
+export class CookieYesScriptLoader {
+  private config: CookieYesConfig;
+
+  constructor({ config }: CookieYesScriptLoaderOptions) {
+    this.config = config;
+  }
+
+  public loadScript(): void {
+    const scriptUrl = this.config['COOKIEYES_SCRIPT_URL'];
+    if (!scriptUrl) {
+      return;
+    }
+    const script = document.createElement('script');
+    script.id = 'cookieyes';
+    script.src = scriptUrl;
+    script.type = 'text/javascript';
+    document.head.appendChild(script);
+
+    const script_lang = document.createElement('script');
+    script_lang.id = 'cookieyes_lang';
+    script_lang.type = 'text/javascript';
+    script_lang.innerHTML = "const languageCookie = document.cookie.split('; ').find((cookie) => cookie.startsWith('openedx-language-preference=')); const browserLang = navigator.languages?.[0] || navigator.language || null; const language = languageCookie ? decodeURIComponent(languageCookie.split('=')[1]) : browserLang; window.ckySettings = {documentLang: language};";
+    document.head.appendChild(script_lang);
+  }
+}
+"""
+CUSTOM_SCRIPT_LOADER_JSX = """
 class CookieYesScriptLoader {
   constructor({ config }) {
     this.config = config;
   }
 
   loadScript() {
-    if (!this.config.COOKIEYES_SCRIPT_URL) {
+    if (!this.config['COOKIEYES_SCRIPT_URL']) {
       return;
     }
     const script = document.createElement('script');
-    script.id = 'custom-script';
-    script.src = this.config.COOKIEYES_SCRIPT_URL;
+    script.id = 'cookieyes';
+    script.src = this.config['COOKIEYES_SCRIPT_URL'];
+    script.type = 'text/javascript';
     document.head.appendChild(script);
+
+    const script_lang = document.createElement('script');
+    script_lang.id = 'cookieyes_lang';
+    script_lang.type = 'text/javascript';
+    script_lang.innerHTML = "const languageCookie = document.cookie.split('; ').find((cookie) => cookie.startsWith('openedx-language-preference=')); const browserLang = navigator.languages?.[0] || navigator.language || null; const language = languageCookie ? decodeURIComponent(languageCookie.split('=')[1]) : browserLang; window.ckySettings = {documentLang: language};";
+    document.head.appendChild(script_lang);
   }
 }
 """
 
 hooks.Filters.ENV_PATCHES.add_items([
-    ("mfe-env-config-buildtime-definitions", CUSTOM_SCRIPT_LOADER),
-    ("mfe-site-custom-app-definitions", CUSTOM_SCRIPT_LOADER),
+    ("mfe-env-config-buildtime-definitions", CUSTOM_SCRIPT_LOADER_JSX),
+    ("mfe-site-custom-app-definitions", CUSTOM_SCRIPT_LOADER_TSX),
 ])
-
 
 EXTERNAL_SCRIPTS.add_items(["all", "CookieYesScriptLoader"])
 
