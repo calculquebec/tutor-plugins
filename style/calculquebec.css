@@ -1,348 +1,358 @@
-    @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
-    :root {
-      /* Primary colors */
-      --primary-blue: #72aee0;
-      --secondary-blue: #013d5b;
-      --dark-blue: #052147;
-      --pale-grey: #f7f7f7f7;
+/* ==========================================================================
+   1. Design System & CSS Variables
+   ========================================================================== */
+:root {
+  /* Primary & Brand Colors */
+  --primary-blue: #72aee0;
+  --accent-blue: #5b94e1;
+  --secondary-blue: #013d5b;
+  --dark-blue: #052147;
 
-      /* Overlay colors */
-      --banner-overlay: rgba(10, 45, 93, 0.7);
-      --dark-mode-overlay: rgba(255, 255, 255, 0.1);
+  /* Neutral Colors */
+  --text-light: #ffffff;
+  --text-dark: #052147;
+  --light-grey: #f7f7f7;
+  --muted-grey: #bbbbbb;
+  --subtitles-grey: #aaaaaa;
+  --code-bg-blue: #e8f1fc;
 
-      /* Text colors */
-      --text-light: #ffffff;
-      --text-dark: #052147;
+  /* Overlay Colors */
+  --banner-overlay: rgba(10, 45, 93, 0.7);
+  --dark-mode-overlay: rgba(255, 255, 255, 0.1);
 
-      /* State colors */
-      --hover-border-color: var(--dark-blue);
-      --active-link-color: var(--primary-blue);
-    }
+  /* Interactive States */
+  --hover-border-color: var(--dark-blue);
+  --active-link-color: var(--primary-blue);
+}
 
-    * {
-      font-family: "Roboto", sans-serif;
-      font-optical-sizing: auto;
-    }
+/* ==========================================================================
+   2. Global Typography & General Resets
+   ========================================================================== */
+* {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+}
 
-    #root header.site-h</svg>eader-desktop .logo img,
-    body.indigo-dark-theme #root header.site-header-desktop .logo img {
-      height: 30px;
-    }
-
-    #root header.site-header-desktop .main-nav a.nav-link.active {
-      color: var(--active-link-color) !important;
-      border-bottom: 2px solid var(--active-link-color) !important;
-    }
-
-    #root header.site-header-desktop .main-nav a.nav-link:hover {
-      border-bottom: 2px solid var(--hover-border-color);
-    }
-
-/* hide register link */
-a.btn.mr-2.btn-outline-primary
-{
+/* Hide registration link */
+a.btn.mr-2.btn-outline-primary {
   display: none;
 }
 
-    .masquerade-bar {
-      justify-content: center;
-    }
+.masquerade-bar {
+  justify-content: center;
+}
 
-    .banner {
-      background: url("https://raw.githubusercontent.com/calculquebec/tutor-plugins/refs/heads/cq/ulmo.dev/theming/templates/lms/static/images/image_bandeau.png")
-        no-repeat center 40% !important;
-      background-size: cover !important;
-      height: 170px;
-      position: relative;
-    }
+/* ==========================================================================
+   3. Header & Main Navigation
+   ========================================================================== */
+#root header.site-header-desktop .logo img,
+body.indigo-dark-theme #root header.site-header-desktop .logo img {
+  height: 30px;
+}
 
-    .banner .cover-filter {
-      background-size: cover;
-      height: 170px;
-    }
+#root header.site-header-desktop .main-nav a.nav-link.active {
+  color: var(--active-link-color) !important;
+  border-bottom: 2px solid var(--active-link-color) !important;
+}
 
-    .banner img {
-      max-width: 527px;
-      max-height: 100%;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
+#root header.site-header-desktop .main-nav a.nav-link:hover {
+  border-bottom: 2px solid var(--hover-border-color);
+}
 
-    .page-title {
-      font-size: 30px;
-      color: var(--dark-blue);
-      font-weight: 400;
-      line-height: 30px;
-      margin: 0;
-      display: none;
-    }
+/* ==========================================================================
+   4. Banners & Structural Containers
+   ========================================================================== */
+.banner {
+  background: url("https://raw.githubusercontent.com/calculquebec/tutor-plugins/refs/heads/cq/ulmo.dev/theming/templates/lms/static/images/image_bandeau.png")
+    no-repeat center 40% !important;
+  background-size: cover !important;
+  height: 170px;
+  position: relative;
+}
 
-    .page-back {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      padding: 24px 48px;
-    }
+.banner .cover-filter {
+  background-size: cover;
+  height: 170px;
+}
 
-    .back-icon {
-      display: none;
-      padding: 8px;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      border-radius: 20px;
-      border: 2px solid var(--primary-blue);
-    }
+.banner img {
+  max-width: 527px;
+  max-height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
-    .back-icon svg path {
-      fill: var(--primary-blue);
-    }
+.page-title {
+  font-size: 30px;
+  color: var(--dark-blue);
+  font-weight: 400;
+  line-height: 30px;
+  margin: 0;
+  display: none;
+}
 
-    .back-icon:hover {
-      background-color: var(--primary-blue);
-    }
+.page-back {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 24px 48px;
+}
 
-    .back-icon:hover svg,
-    .back-icon:hover svg path {
-      fill: var(--text-light);
-    }
+/* Unused/Hidden back icon styling preserved for structural compatibility */
+.back-icon {
+  display: none;
+  padding: 8px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  border: 2px solid var(--primary-blue);
+}
 
+.back-icon svg path {
+  fill: var(--primary-blue);
+}
+
+.back-icon:hover {
+  background-color: var(--primary-blue);
+}
+
+.back-icon:hover svg {
+  fill: var(--text-light);
+}
+
+/* ==========================================================================
+   5. Buttons & Controls
+   ========================================================================== */
 .secondary-menu-container .btn-link {
   font-weight: var(--pgn-typography-font-weight-normal);
-  -webkit-text-decoration: var(--pgn-typography-link-decoration-base);
   text-decoration: var(--pgn-typography-link-decoration-base);
-  background: #052047;
-  color: #ffffff;
+  background-color: var(--dark-blue);
+  color: var(--text-light);
 }
 
 .secondary-menu-container .btn-link:hover {
-  color: #052047;
-  background: #ffffff;
-  border: #052047 solid 1px;
+  color: var(--dark-blue);
+  background-color: var(--text-light);
+  border: 1px solid var(--dark-blue);
   text-decoration: none !important;
 }
 
-    body.indigo-dark-theme #root,
-    body.indigo-dark-theme main,
-    body.indigo-dark-theme .page-back,
-    body.indigo-dark-theme .footer,
-    body.indigo-dark-theme #no-courses-content-view,
-    body.indigo-dark-theme .pgn__card {
-      background-color: var(--dark-blue) !important;
-      background: var(--dark-blue) !important;
-      color: var(--text-light);
-    }
+.theme-toggle-button {
+  display: none;
+  gap: 0.5rem;
+}
 
-    body.indigo-dark-theme #root header.site-header-desktop {
-      background-color: var(--dark-blue) !important;
-      box-shadow: 0 1px 2px 0 #0000000f, 0 1px 3px 0 #0000001a;
-    }
+.theme-toggle-button .toggle-switch .switch .slider {
+  background-color: var(--primary-blue) !important;
+}
 
-    body.indigo-dark-theme .banner img {
-      background-color: transparent !important;
-    }
+body.indigo-dark-theme .theme-toggle-button .toggle-switch .switch .slider:before {
+  background-color: var(--dark-blue) !important;
+}
 
-    body.indigo-dark-theme #root header.site-header-desktop .menu button {
-      background-color: var(--primary-blue) !important;
-    }
+.pgn-transition-replace-group,
+.form-group {
+  border-color: var(--primary-blue) !important;
+}
 
-    body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content a {
-      background-color: var(--dark-blue) !important;
-      color: var(--text-light) !important;
-    }
+/* ==========================================================================
+   6. Dark Theme Overrides (body.indigo-dark-theme)
+   ========================================================================== */
+body.indigo-dark-theme #root,
+body.indigo-dark-theme main,
+body.indigo-dark-theme .page-back,
+body.indigo-dark-theme .footer,
+body.indigo-dark-theme #no-courses-content-view,
+body.indigo-dark-theme .pgn__card {
+  background-color: var(--dark-blue) !important;
+  color: var(--text-light);
+}
 
-    body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content {
-      background-color: var(--dark-blue) !important;
-      box-shadow: none !important;
-    }
+body.indigo-dark-theme #root header.site-header-desktop {
+  background-color: var(--dark-blue) !important;
+  box-shadow: 0 1px 2px 0 #0000000f, 0 1px 3px 0 #0000001a;
+}
 
-    body.indigo-dark-theme .text-muted:not(svg),
-    body.indigo-dark-theme .page__account-settings .row .col-md-2 .jump-nav ul li a:hover,
-    body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content a:hover {
-      background-color: rgba(255, 255, 255, 0.1) !important;
-    }
+body.indigo-dark-theme .banner img {
+  background-color: transparent !important;
+}
 
-    body.indigo-dark-theme .dropdown-divider {
-      border-color: var(--light-grey, #F7F7F7) !important;
-      opacity: 0.2;
-    }
+body.indigo-dark-theme #root header.site-header-desktop .menu button {
+  background-color: var(--primary-blue) !important;
+}
 
-    .theme-toggle-button {
-      display: none;
-      gap: 0.5rem;
-    }
+body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content a {
+  background-color: var(--dark-blue) !important;
+  color: var(--text-light) !important;
+}
 
-    .theme-toggle-button .toggle-switch .switch .slider {
-      background-color: var(--primary-blue) !important;
-    }
+body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content {
+  background-color: var(--dark-blue) !important;
+  box-shadow: none !important;
+}
 
-    body.indigo-dark-theme
-      .theme-toggle-button
-      .toggle-switch
-      .switch
-      .slider:before {
-      background-color: var(--dark-blue) !important;
-    }
+body.indigo-dark-theme .text-muted:not(svg),
+body.indigo-dark-theme .page__account-settings .row .col-md-2 .jump-nav ul li a:hover,
+body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content a:hover {
+  background-color: var(--dark-mode-overlay) !important;
+}
 
-    .pgn-transition-replace-group,
-    .form-group {
-      border-color: var(--primary-blue) !important;
-    }
+body.indigo-dark-theme .dropdown-divider {
+  border-color: var(--light-grey) !important;
+  opacity: 0.2;
+}
 
-    body.indigo-dark-theme
-      .page__account-settings
-      .pgn-transition-replace-group
-      .form-group
-      .d-flex.align-items-start
-      button,
-    body.indigo-dark-theme
-      .page__account-settings
-      .pgn-transition-replace-group
-      form
-      > p
-      button {
-        background-color: var(--primary-blue) !important;
-        color: var(--dark-blue) !important;
-        border-color: var(--primary-blue) !important;
-    }
+body.indigo-dark-theme .page__account-settings .pgn-transition-replace-group .form-group .d-flex.align-items-start button,
+body.indigo-dark-theme .page__account-settings .pgn-transition-replace-group form > p button {
+  background-color: var(--primary-blue) !important;
+  color: var(--dark-blue) !important;
+  border-color: var(--primary-blue) !important;
+}
 
-    body.indigo-dark-theme
-      .page__account-settings
-      .pgn-transition-replace-group
-      .form-group
-      .d-flex.align-items-start
-      button:hover,
-    body.indigo-dark-theme
-      .page__account-settings
-      .pgn-transition-replace-group
-      form
-      > p
-      button:hover {
-        border-color: var(--dark-blue) !important;
-    }
+body.indigo-dark-theme .page__account-settings .pgn-transition-replace-group .form-group .d-flex.align-items-start button:hover,
+body.indigo-dark-theme .page__account-settings .pgn-transition-replace-group form > p button:hover {
+  border-color: var(--dark-blue) !important;
+}
 
-    body.indigo-dark-theme
-      .page__account-settings
-      .pgn-transition-replace-group
-      form
-      > p
-      button.btn-outline-primary {
-        color: var(--primary-blue) !important;
-        border-color: var(--primary-blue) !important;
-    }
+body.indigo-dark-theme .page__account-settings .pgn-transition-replace-group form > p button.btn-outline-primary {
+  color: var(--primary-blue) !important;
+  border-color: var(--primary-blue) !important;
+}
 
-    .raised-card .rounded-bottom, .raised-card .pgn__data-table-footer {
-      background-color: var(--primary-blue) !important;
-      border-radius: 0 0 8px 0 !important;
-    }
+body.indigo-dark-theme .course-card-banners > div:first-of-type,
+body.indigo-dark-theme div[data-testid=instructor-toolbar] .bg-primary,
+body.indigo-dark-theme .bg-primary,
+body.indigo-dark-theme .course-tabs-navigation + .container-xl > .row > .col-12.col-md-4.p-0.px-md-4 section.mb-4.x-small {
+  background-color: var(--dark-blue) !important;
+}
 
-    #weighted-grade-summary, text {
-      color: white !important;
-    }
+body.indigo-dark-theme .course-tabs-navigation + .container-xl .donut-ring.incomplete-stroke {
+  background-color: var(--dark-mode-overlay) !important;
+}
 
-    body.indigo-dark-theme .course-card-banners > div:first-of-type, body.indigo-dark-theme div[data-testid=instructor-toolbar] .bg-primary, body.indigo-dark-theme .bg-primary, body.indigo-dark-theme .course-tabs-navigation+.container-xl>.row>.col-12.col-md-4.p-0.px-md-4 section.mb-4.x-small {
-      background-color: var(--dark-blue) !important;
-    }
+body.indigo-dark-theme * {
+  accent-color: var(--primary-blue) !important;
+}
 
-    body.indigo-dark-theme .course-tabs-navigation+.container-xl .donut-ring.incomplete-stroke {
-      background-color: var(--dark-mode-overlay) !important;
-    }
+/* ==========================================================================
+   7. Cards & Data Tables
+   ========================================================================== */
+.raised-card .rounded-bottom,
+.raised-card .pgn__data-table-footer {
+  background-color: var(--primary-blue) !important;
+  border-radius: 0 0 8px 0 !important;
+}
 
-    body.indigo-dark-theme * {
-      accent-color: var(--primary-blue) !important;
-    }
+#weighted-grade-summary,
+#weighted-grade-summary text {
+  color: var(--text-light) !important;
+}
 
-/* issue https://github.com/calculquebec/edx/issues/56 */
+/* ==========================================================================
+   8. Specific Element Hiding & Layout Overrides
+   ========================================================================== */
+/* Issue https://github.com/calculquebec/edx/issues/56 */
 section.course-info.about.container {
   padding-top: 25px !important;
 }
 
-    /* hide "Types de cours / Audit" */
+/* Hide "Types de cours / Audit" */
 .pgn__data-table-filters-dropdown-item:nth-child(2) {
   visibility: hidden;
   height: 0;
   padding: 0;
 }
+
 .pgn__data-table-side-filters-item:nth-child(4) {
   visibility: hidden;
   height: 0;
   padding: 0;
 }
-/* hide dates links in various places */
-/* top tab */
+
+/* Hide dates links in various places */
+/* Top tab */
 .nav-underline-tabs .nav-link:nth-child(3) {
   visibility: hidden;
   width: 0;
   padding: 0;
 }
-/* sidebar progress page */
+
+/* Sidebar progress page */
 div.px-md-4 > section.mb-4 > ul.pl-4 > li:nth-child(1) {
   visibility: hidden;
   height: 0;
 }
-/* home page pre-start */
+
+/* Home page pre-start */
 div#courseHome-dates {
   visibility: hidden;
   height: 0;
 }
 
-
-/* style of unit headers */
+/* ==========================================================================
+   9. Unit Headers & XBlock Content Typography
+   ========================================================================== */
 .unit .h2 {
-  color: #052147;
+  color: var(--dark-blue);
   font-size: 2.1rem;
   font-weight: 700;
 }
-/* styles of xblock elements */
+
 .xblock h1,
 .xblock h2,
 .xblock h6 {
-  color: #BBBBBB !important;
+  color: var(--muted-grey) !important;
   font-size: 0.7rem !important;
 }
+
 .xblock h3,
 .xblock h5,
 .xblock p,
 .xblock li,
 .xblock a,
-.xblock code,
-{
-  color: #052147 !important;
+.xblock code {
+  color: var(--dark-blue) !important;
 }
-.xblock h4,
-{
-  color: #5b94e1 !important;
+
+.xblock h4 {
+  color: var(--accent-blue) !important;
 }
+
 .xblock h3,
 .xblock h4,
-.xblock h5,
-{
+.xblock h5 {
   margin-left: 0.5rem !important;
   margin-bottom: 1.4rem !important;
 }
-.xblock p,
-{
-  margin-left: 0.5rem !important;
-}
-.xblock li
-{
-  margin-left: 2rem;
-}
+
 .xblock h3 {
   font-size: 1.8rem !important;
   font-weight: 600 !important;
 }
+
 .xblock h4 {
   font-size: 1.6rem !important;
   font-weight: 500 !important;
 }
+
 .xblock h5 {
   font-size: 1.4rem !important;
   font-weight: 400 !important;
 }
+
+.xblock p {
+  margin-left: 0.5rem !important;
+}
+
+.xblock li {
+  margin-left: 2rem;
+}
+
 .xblock p,
 .xblock li,
 .xblock a,
@@ -350,31 +360,37 @@ div#courseHome-dates {
   font-size: 1.2rem !important;
   line-height: 1.7rem !important;
 }
-/* code with background in grey */
+
 .xblock code {
-  background-color: #e8f1fc !important;
+  background-color: var(--code-bg-blue) !important;
 }
-/* link styling */
+
 .xblock a {
-  border-bottom: 3px solid #5b94e1;
+  border-bottom: 3px solid var(--accent-blue);
 }
+
 .xblock a:hover {
-  color: #5b94e1 !important;
+  color: var(--accent-blue) !important;
   text-decoration: none !important;
 }
-/* ensure the video subtitles in full screen are readable */
+
+/* ==========================================================================
+   10. Component Specific Overrides
+   ========================================================================== */
+/* Video subtitle readability in fullscreen */
 .xmodule_display.xmodule_VideoBlock .video.video-fullscreen .subtitles li {
-  color: #aaa !important;
+  color: var(--subtitles-grey) !important;
 }
-/* ensure popup text is readable */
+
+/* Popup text readability */
 .popup-content p {
   color: inherit !important;
 }
-/* button to open in new window to the right */
-div#jupytermc3 button.btn.btn-pl-primary.btn-base.btn-lti-new-window {
-    margin-top: 1em;
-    margin-right: 0;
-    display: block;
-    margin-left: auto;
-}
 
+/* Align LTI external window button to the right */
+div#jupytermc3 button.btn.btn-pl-primary.btn-base.btn-lti-new-window {
+  margin-top: 1em;
+  margin-right: 0;
+  display: block;
+  margin-left: auto;
+}
