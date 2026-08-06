@@ -31,6 +31,9 @@ const getLanguage = () => {
   return 'fr-ca';
 };
 
+function thisIsATest() {
+  return 'bleh';
+}
 const language = getLanguage();
 
 const langIsFrench = () => {
@@ -60,4 +63,4 @@ const toggleLanguage = () => {
     setCookieFunction('openedx-language-preference', 'fr-ca', 14);
   }
 }
-
+alert('this is a test');
