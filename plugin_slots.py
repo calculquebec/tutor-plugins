@@ -289,6 +289,80 @@ hooks.Filters.ENV_PATCHES.add_items([
 
 EXTERNAL_SCRIPTS.add_item(("all", "ExternalScriptsLoader"))
 
+EXTERNAL_STYLESHEETS_LOADER_TSX = """
+export interface ExternalStylesheetsConfig {
+  EXTERNAL_STYLESHEETS?: Record<string, string>;
+  [key: string]: unknown;
+}
+
+export interface ExternalStylesheetsLoaderOptions {
+  config: ExternalStylesheetsConfig;
+}
+
+declare global {
+  interface Window {
+    ckySettings?: {
+      documentLang: string | null;
+    };
+  }
+}
+
+export class ExternalStylesheetsLoader {
+  private config: ExternalStylesheetsConfig;
+
+  constructor({ config }: ExternalStylesheetsLoaderOptions) {
+    this.config = config;
+  }
+
+  public loadScript(): void {
+    const externalStylesheets = this.config['EXTERNAL_STYLESHEETS'];
+    if (!externalStylesheets) {
+      return;
+    }
+
+    const keys = Object.keys(externalStylesheets);
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+      const stylesheet = document.createElement('link');
+      stylesheet.id = key;
+      stylesheet.rel = 'stylesheet';
+      stylesheet.type = 'text/css';
+      stylesheet.href = externalStylesheets[key];
+      document.head.appendChild(stylesheet);
+    }
+  }
+}
+"""
+EXTERNAL_STYLESHEETS_LOADER_JSX = """
+class ExternalStylesheetsLoader {
+  constructor({ config }) {
+    this.config = config;
+  }
+
+  loadScript() {
+    if (!this.config['EXTERNAL_STYLESHEETS']) {
+      return;
+    }
+    for (var i = 0, keys = Object.keys(this.config['EXTERNAL_STYLESHEETS']), ii = keys.length; i < ii; i++) {
+      const stylesheet = document.createElement('link');
+      stylesheet.id = key;
+      stylesheet.rel = 'stylesheet';
+      stylesheet.type = 'text/css';
+      stylesheet.href = externalStylesheets[key];
+      document.head.appendChild(stylesheet);
+    }
+  }
+}
+"""
+
+hooks.Filters.ENV_PATCHES.add_items([
+    ("mfe-env-config-buildtime-definitions", EXTERNAL_STYLESHEETS_LOADER_JSX),
+    ("mfe-site-custom-app-definitions", EXTERNAL_STYLESHEETS_LOADER_TSX),
+])
+
+EXTERNAL_SCRIPTS.add_item(("all", "ExternalStylesheetsLoader"))
+
+
 @MFE_APPS.add()
 def _add_my_mfe(mfes):
     mfe_version = "cq/verawood.dev"
