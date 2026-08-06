@@ -284,7 +284,7 @@ hooks.Filters.ENV_PATCHES.add_items([
     ("mfe-site-custom-app-definitions", CUSTOM_SCRIPT_LOADER_TSX),
 ])
 
-EXTERNAL_SCRIPTS.add_items(["all", "CookieYesScriptLoader"])
+EXTERNAL_SCRIPTS.add_item(("all", "CookieYesScriptLoader"))
 
 @MFE_APPS.add()
 def _add_my_mfe(mfes):
