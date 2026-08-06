@@ -258,14 +258,6 @@ export class ExternalScriptsLoader {
       script.type = 'text/javascript';
       document.head.appendChild(script);
     }
-
-    const scriptLang = document.createElement('script');
-    scriptLang.defer = true;
-    scriptLang.id = 'cookieyes_lang';
-    scriptLang.type = 'text/javascript';
-    scriptLang.innerHTML =
-      "const languageCookie = document.cookie.split('; ').find((cookie) => cookie.startsWith('openedx-language-preference=')); const browserLang = navigator.languages?.[0] || navigator.language || null; const language = languageCookie ? decodeURIComponent(languageCookie.split('=')[1]) : browserLang; window.ckySettings = {documentLang: language};";
-    document.head.appendChild(scriptLang);
   }
 }
 """
@@ -286,12 +278,6 @@ class ExternalScriptsLoader {
       script.type = 'text/javascript';
       document.head.appendChild(script);
     }
-
-    const script_lang = document.createElement('script');
-    script_lang.id = 'cookieyes_lang';
-    script_lang.type = 'text/javascript';
-    script_lang.innerHTML = "const languageCookie = document.cookie.split('; ').find((cookie) => cookie.startsWith('openedx-language-preference=')); const browserLang = navigator.languages?.[0] || navigator.language || null; const language = languageCookie ? decodeURIComponent(languageCookie.split('=')[1]) : browserLang; window.ckySettings = {documentLang: language};";
-    document.head.appendChild(script_lang);
   }
 }
 """
