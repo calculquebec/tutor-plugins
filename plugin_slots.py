@@ -218,10 +218,7 @@ hooks.Filters.ENV_PATCHES.add_item(
 
 # Add hook to insert external CookieYes script
 from tutormfe.hooks import EXTERNAL_SCRIPTS
-hooks.Filters.ENV_PATCHES.add_item(
-    (
-        "mfe-env-config-buildtime-definitions",
-        """
+CUSTOM_SCRIPT_LOADER = """
 class CookieYesScriptLoader {
   constructor({ config }) {
     this.config = config;
@@ -237,17 +234,14 @@ class CookieYesScriptLoader {
     document.head.appendChild(script);
   }
 }
-""",
-    )
+"""
+
+hooks.Filters.ENV_PATCHES.add_item(
+    ("mfe-env-config-buildtime-definitions", CUSTOM_SCRIPT_LOADER)
+    ("mfe-site-custom-app-definitions", CUSTOM_SCRIPT_LOADER)
 )
 
-EXTERNAL_SCRIPTS.add_items([
-    (
-        MFE,
-        "CookieYesScriptLoader",
-    )
-    for MFE in ["authn", "authoring", "account", "communications", "discussions", "gradebook", "learner-dashboard", "learning", "ora-grading", "profile", "catalog"]
-])
+EXTERNAL_SCRIPTS.add_items(["all", "CookieYesScriptLoader"])
 
 @MFE_APPS.add()
 def _add_my_mfe(mfes):
