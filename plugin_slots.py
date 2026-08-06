@@ -228,14 +228,6 @@ export interface ExternalScriptsLoaderOptions {
   config: ExternalScriptsConfig;
 }
 
-declare global {
-  interface Window {
-    ckySettings?: {
-      documentLang: string | null;
-    };
-  }
-}
-
 export class ExternalScriptsLoader {
   private config: ExternalScriptsConfig;
 
@@ -299,14 +291,6 @@ export interface ExternalStylesheetsLoaderOptions {
   config: ExternalStylesheetsConfig;
 }
 
-declare global {
-  interface Window {
-    ckySettings?: {
-      documentLang: string | null;
-    };
-  }
-}
-
 export class ExternalStylesheetsLoader {
   private config: ExternalStylesheetsConfig;
 
@@ -345,10 +329,10 @@ class ExternalStylesheetsLoader {
     }
     for (var i = 0, keys = Object.keys(this.config['EXTERNAL_STYLESHEETS']), ii = keys.length; i < ii; i++) {
       const stylesheet = document.createElement('link');
-      stylesheet.id = key;
+      stylesheet.id = keys[i];
       stylesheet.rel = 'stylesheet';
       stylesheet.type = 'text/css';
-      stylesheet.href = externalStylesheets[key];
+      stylesheet.href = this.config['EXTERNAL_STYLESHEETS'][keys[i]];
       document.head.appendChild(stylesheet);
     }
   }
