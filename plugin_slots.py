@@ -218,57 +218,74 @@ hooks.Filters.ENV_PATCHES.add_item(
 
 # Add hook to insert external CookieYes script
 from tutormfe.hooks import EXTERNAL_SCRIPTS
-CUSTOM_SCRIPT_LOADER_TSX = """
-export interface CookieYesConfig {
-  COOKIEYES_SCRIPT_URL?: string;
+EXTERNAL_SCRIPTS_LOADER_TSX = """
+export interface ExternalScriptsConfig {
+  EXTERNAL_SCRIPTS?: Record<string, string>;
   [key: string]: unknown;
 }
 
-export interface CookieYesScriptLoaderOptions {
-  config: CookieYesConfig;
+export interface ExternalScriptsLoaderOptions {
+  config: ExternalScriptsConfig;
 }
 
-export class CookieYesScriptLoader {
-  private config: CookieYesConfig;
+declare global {
+  interface Window {
+    ckySettings?: {
+      documentLang: string | null;
+    };
+  }
+}
 
-  constructor({ config }: CookieYesScriptLoaderOptions) {
+export class ExternalScriptsLoader {
+  private config: ExternalScriptsConfig;
+
+  constructor({ config }: ExternalScriptsLoaderOptions) {
     this.config = config;
   }
 
   public loadScript(): void {
-    const scriptUrl = this.config['COOKIEYES_SCRIPT_URL'];
-    if (!scriptUrl) {
+    const externalScripts = this.config['EXTERNAL_SCRIPTS'];
+    if (!externalScripts) {
       return;
     }
-    const script = document.createElement('script');
-    script.id = 'cookieyes';
-    script.src = scriptUrl;
-    script.type = 'text/javascript';
-    document.head.appendChild(script);
 
-    const script_lang = document.createElement('script');
-    script_lang.id = 'cookieyes_lang';
-    script_lang.type = 'text/javascript';
-    script_lang.innerHTML = "const languageCookie = document.cookie.split('; ').find((cookie) => cookie.startsWith('openedx-language-preference=')); const browserLang = navigator.languages?.[0] || navigator.language || null; const language = languageCookie ? decodeURIComponent(languageCookie.split('=')[1]) : browserLang; window.ckySettings = {documentLang: language};";
-    document.head.appendChild(script_lang);
+    const keys = Object.keys(externalScripts);
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+      const script = document.createElement('script');
+      script.id = key;
+      script.src = externalScripts[key];
+      script.type = 'text/javascript';
+      document.head.appendChild(script);
+    }
+
+    const scriptLang = document.createElement('script');
+    scriptLang.defer = true;
+    scriptLang.id = 'cookieyes_lang';
+    scriptLang.type = 'text/javascript';
+    scriptLang.innerHTML =
+      "const languageCookie = document.cookie.split('; ').find((cookie) => cookie.startsWith('openedx-language-preference=')); const browserLang = navigator.languages?.[0] || navigator.language || null; const language = languageCookie ? decodeURIComponent(languageCookie.split('=')[1]) : browserLang; window.ckySettings = {documentLang: language};";
+    document.head.appendChild(scriptLang);
   }
 }
 """
-CUSTOM_SCRIPT_LOADER_JSX = """
-class CookieYesScriptLoader {
+EXTERNAL_SCRIPTS_LOADER_JSX = """
+class ExternalScriptsLoader {
   constructor({ config }) {
     this.config = config;
   }
 
   loadScript() {
-    if (!this.config['COOKIEYES_SCRIPT_URL']) {
+    if (!this.config['EXTERNAL_SCRIPTS']) {
       return;
     }
-    const script = document.createElement('script');
-    script.id = 'cookieyes';
-    script.src = this.config['COOKIEYES_SCRIPT_URL'];
-    script.type = 'text/javascript';
-    document.head.appendChild(script);
+    for (var i = 0, keys = Object.keys(this.config['EXTERNAL_SCRIPTS']), ii = keys.length; i < ii; i++) {
+      const script = document.createElement('script');
+      script.id = keys[i];
+      script.src = this.config['EXTERNAL_SCRIPTS'][keys[i]];
+      script.type = 'text/javascript';
+      document.head.appendChild(script);
+    }
 
     const script_lang = document.createElement('script');
     script_lang.id = 'cookieyes_lang';
@@ -280,11 +297,11 @@ class CookieYesScriptLoader {
 """
 
 hooks.Filters.ENV_PATCHES.add_items([
-    ("mfe-env-config-buildtime-definitions", CUSTOM_SCRIPT_LOADER_JSX),
-    ("mfe-site-custom-app-definitions", CUSTOM_SCRIPT_LOADER_TSX),
+    ("mfe-env-config-buildtime-definitions", EXTERNAL_SCRIPTS_LOADER_JSX),
+    ("mfe-site-custom-app-definitions", EXTERNAL_SCRIPTS_LOADER_TSX),
 ])
 
-EXTERNAL_SCRIPTS.add_item(("all", "CookieYesScriptLoader"))
+EXTERNAL_SCRIPTS.add_item(("all", "ExternalScriptsLoader"))
 
 @MFE_APPS.add()
 def _add_my_mfe(mfes):
