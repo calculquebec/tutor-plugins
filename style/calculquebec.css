@@ -575,7 +575,7 @@ body.indigo-dark-theme .footer .line, body.indigo-dark-theme .footer .vertical-l
 }
 .footer__nav {
     list-style: none;
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 .footer__list-item {
     display: inline-block;
@@ -730,4 +730,8 @@ body.indigo-dark-theme .footer .line, body.indigo-dark-theme .footer .vertical-l
 }
 .icon-linkedin:before {
     content: "\f0e1";
+}
+footer[role=contentinfo]
+{
+    display: none !important;
 }
