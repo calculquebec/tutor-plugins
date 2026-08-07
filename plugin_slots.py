@@ -3,33 +3,44 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from tutormfe.hooks import PLUGIN_SLOTS, FRONTEND_SLOTS
 from theming.utils import load_file
+from tutormfe.hooks import MFE_APPS
+from tutor import hooks
 
-def hideSlots(slots):
-    mfe_operations = []
-    frontend_operations = []
+hooks.Filters.ENV_PATCHES.add_items([
+    ("mfe-site-custom-app-definitions", """
+import { WidgetOperationTypes } from '@openedx/frontend-base';
+""")
+])
+
+def hideMFESlots(slots):
+    operations = []
     for mfe_name, slot_name, widgetId in slots:
-        mfe_operations += [(
+        operations += [(
             mfe_name, slot_name,
             f"""
             {{
               op: PLUGIN_OPERATIONS.Hide,
               widgetId: 'widgetId',
             }}""")]
+    PLUGIN_SLOTS.add_items(operations)
 
-        frontend_operations += [
+def hideFrontendSlots(slots):
+    operations = []
+    for slot_name, widgetId in slots:
+        operations += [
             f"""
             {{
               slotId: '{slot_name}',
-              op: 'widgetRemove',
-              id: '{widgetId}'
+              op: WidgetOperationTypes.REMOVE,
+              relatedId: '{widgetId}'
             }}
             """
         ]
-    PLUGIN_SLOTS.add_items(mfe_operations)
-#    FRONTEND_SLOTS.add_items(frontend_operations)
+    FRONTEND_SLOTS.add_items(operations)
 
 def insertSlots(slots, content, extra = ''):
     mfe_operations = []
+    frontend_operations = []
     for mfe_name, slot_name in slots:
         mfe_operations += [(
             mfe_name, slot_name,
@@ -61,7 +72,7 @@ def insertSlots(slots, content, extra = ''):
     PLUGIN_SLOTS.add_items(mfe_operations)
 #    FRONTEND_SLOTS.add_items(frontend_operations)
 
-hideSlots([
+hideMFESlots([
     ('all', 'desktop_header_slot', 'desktop_header_slot'),
     ('all', 'mobile_header_slot', 'mobile_header_slot'),
     ('all', 'footer_slot', 'default_contents'),
@@ -69,6 +80,12 @@ hideSlots([
     ('catalog', 'org.openedx.frontend.catalog.home_page.banner', 'default_contents'),
     ('learning', 'org.openedx.frontend.layout.header_learning_help.v1', 'default_contents'),
     ('learning', 'org.openedx.frontend.learning.unit_title.v1', 'default_contents'),
+    ])
+
+hideFrontendSlots([
+    ('org.openedx.frontend.slot.header.desktop.v1', 'defaultContent'),
+    ('org.openedx.frontend.slot.header.mobile.v1', 'defaultContent'),
+    ('org.openedx.frontend.slot.footer.desktop.v1', 'defaultContent')
     ])
 
 insertSlots(
@@ -79,7 +96,7 @@ insertSlots(
     load_file('header/header.jsx'))
 
 insertSlots([('all', 'mobile_header_slot')], load_file('header/mobileHeader.jsx'))
-insertSlots([('all', 'footer_slot')], load_file('footer/footer.jsx'), 'priority=3,')
+insertSlots([('all', 'footer_slot')], load_file('footer/footer.jsx'), 'priority: 3,')
 
 # replace home banner in catalog
 insertSlots([('catalog', 'org.openedx.frontend.catalog.home_page.banner')], load_file('home_banner/home_banner.jsx'))
@@ -137,8 +154,6 @@ slots += [
 
 PLUGIN_SLOTS.add_items(slots)
 
-from tutormfe.hooks import MFE_APPS
-from tutor import hooks
 hooks.Filters.ENV_PATCHES.add_item(
     (
         "mfe-dockerfile-post-npm-install-authn",
@@ -262,4 +277,3 @@ const modifyLogoHref = ( widget ) => {
 
 for item in env_items:
     hooks.Filters.ENV_PATCHES.add_item(item)
-
