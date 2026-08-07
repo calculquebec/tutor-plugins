@@ -4,13 +4,13 @@
    1. Design System & CSS Variables
    ========================================================================== */
 :root {
-  /* Brand & Primary Colors */
+  /* Primary & Brand Colors */
   --primary-blue: #72aee0;
   --accent-blue: #5b94e1;
   --secondary-blue: #013d5b;
   --dark-blue: #052147;
 
-  /* Neutral & Functional Colors */
+  /* Neutral Colors */
   --text-light: #ffffff;
   --text-dark: #052147;
   --light-grey: #f7f7f7;
@@ -18,22 +18,19 @@
   --subtitles-grey: #aaaaaa;
   --code-bg-blue: #e8f1fc;
 
-  /* Overlays & Interactive States */
+  /* Overlay Colors */
+  --banner-overlay: rgba(10, 45, 93, 0.7);
   --dark-mode-overlay: rgba(255, 255, 255, 0.1);
+
+  /* Interactive States */
   --hover-border-color: var(--dark-blue);
   --active-link-color: var(--primary-blue);
-  --dark-mode-link-hover: #6095c1;
 }
 
 /* ==========================================================================
-   2. Global Resets & Typography
+   2. Global Typography & General Resets
    ========================================================================== */
-html,
-body,
-input,
-select,
-textarea,
-button {
+* {
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
 }
@@ -90,12 +87,12 @@ body.indigo-dark-theme #root header.site-header-desktop .logo img {
 }
 
 .page-title {
-  display: none;
   font-size: 30px;
   color: var(--dark-blue);
   font-weight: 400;
   line-height: 30px;
   margin: 0;
+  display: none;
 }
 
 .page-back {
@@ -105,7 +102,7 @@ body.indigo-dark-theme #root header.site-header-desktop .logo img {
   padding: 24px 48px;
 }
 
-/* Preserved for structural compatibility */
+/* Unused/Hidden back icon styling preserved for structural compatibility */
 .back-icon {
   display: none;
   padding: 8px;
@@ -136,14 +133,12 @@ body.indigo-dark-theme #root header.site-header-desktop .logo img {
   text-decoration: var(--pgn-typography-link-decoration-base);
   background-color: var(--dark-blue);
   color: var(--text-light);
-  border: 1px solid transparent;
-  transition: all 0.2s ease-in-out;
 }
 
 .secondary-menu-container .btn-link:hover {
   color: var(--dark-blue);
   background-color: var(--text-light);
-  border-color: var(--dark-blue);
+  border: 1px solid var(--dark-blue);
   text-decoration: none !important;
 }
 
@@ -166,7 +161,141 @@ body.indigo-dark-theme .theme-toggle-button .toggle-switch .switch .slider:befor
 }
 
 /* ==========================================================================
-   6. Unit Headers & XBlock Content Typography
+   6. Dark Theme Overrides (body.indigo-dark-theme)
+   ========================================================================== */
+body.indigo-dark-theme #root,
+body.indigo-dark-theme main,
+body.indigo-dark-theme .page-back,
+body.indigo-dark-theme .footer,
+body.indigo-dark-theme #no-courses-content-view,
+body.indigo-dark-theme .pgn__card {
+  background-color: var(--dark-blue) !important;
+  color: var(--text-light);
+}
+
+body.indigo-dark-theme #root header.site-header-desktop {
+  background-color: var(--dark-blue) !important;
+  box-shadow: 0 1px 2px 0 #0000000f, 0 1px 3px 0 #0000001a;
+}
+
+body.indigo-dark-theme .banner img {
+  background-color: transparent !important;
+}
+
+body.indigo-dark-theme #root header.site-header-desktop .menu button {
+  background-color: var(--primary-blue) !important;
+}
+
+body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content a {
+  background-color: var(--dark-blue) !important;
+  color: var(--text-light) !important;
+}
+
+body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content {
+  background-color: var(--dark-blue) !important;
+  box-shadow: none !important;
+}
+
+body.indigo-dark-theme .text-muted:not(svg),
+body.indigo-dark-theme .page__account-settings .row .col-md-2 .jump-nav ul li a:hover,
+body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content a:hover {
+  background-color: var(--dark-mode-overlay) !important;
+}
+
+body.indigo-dark-theme .dropdown-divider {
+  border-color: var(--light-grey) !important;
+  opacity: 0.2;
+}
+
+body.indigo-dark-theme .page__account-settings .pgn-transition-replace-group .form-group .d-flex.align-items-start button,
+body.indigo-dark-theme .page__account-settings .pgn-transition-replace-group form > p button {
+  background-color: var(--primary-blue) !important;
+  color: var(--dark-blue) !important;
+  border-color: var(--primary-blue) !important;
+}
+
+body.indigo-dark-theme .page__account-settings .pgn-transition-replace-group .form-group .d-flex.align-items-start button:hover,
+body.indigo-dark-theme .page__account-settings .pgn-transition-replace-group form > p button:hover {
+  border-color: var(--dark-blue) !important;
+}
+
+body.indigo-dark-theme .page__account-settings .pgn-transition-replace-group form > p button.btn-outline-primary {
+  color: var(--primary-blue) !important;
+  border-color: var(--primary-blue) !important;
+}
+
+body.indigo-dark-theme .course-card-banners > div:first-of-type,
+body.indigo-dark-theme div[data-testid=instructor-toolbar] .bg-primary,
+body.indigo-dark-theme .bg-primary,
+body.indigo-dark-theme .course-tabs-navigation + .container-xl > .row > .col-12.col-md-4.p-0.px-md-4 section.mb-4.x-small {
+  background-color: var(--dark-blue) !important;
+}
+
+body.indigo-dark-theme .course-tabs-navigation + .container-xl .donut-ring.incomplete-stroke {
+  background-color: var(--dark-mode-overlay) !important;
+}
+
+body.indigo-dark-theme * {
+  accent-color: var(--primary-blue) !important;
+}
+
+/* ==========================================================================
+   7. Cards & Data Tables
+   ========================================================================== */
+.raised-card .rounded-bottom,
+.raised-card .pgn__data-table-footer {
+  background-color: var(--primary-blue) !important;
+  border-radius: 0 0 8px 0 !important;
+}
+
+#weighted-grade-summary,
+#weighted-grade-summary text {
+  color: var(--text-light) !important;
+}
+
+/* ==========================================================================
+   8. Specific Element Hiding & Layout Overrides
+   ========================================================================== */
+/* Issue https://github.com/calculquebec/edx/issues/56 */
+section.course-info.about.container {
+  padding-top: 25px !important;
+}
+
+/* Hide "Types de cours / Audit" */
+.pgn__data-table-filters-dropdown-item:nth-child(2) {
+  visibility: hidden;
+  height: 0;
+  padding: 0;
+}
+
+.pgn__data-table-side-filters-item:nth-child(4) {
+  visibility: hidden;
+  height: 0;
+  padding: 0;
+}
+
+/* Hide dates links in various places */
+/* Top tab */
+.nav-underline-tabs .nav-link:nth-child(3) {
+  visibility: hidden;
+  width: 0;
+  padding: 0;
+}
+
+/* Sidebar progress page */
+div.px-md-4 > section.mb-4 > ul.pl-4 > li:nth-child(1) {
+  visibility: hidden;
+  height: 0;
+}
+
+/* Home page pre-start */
+div#courseHome-dates {
+  visibility: hidden;
+  height: 0;
+}
+
+/* ==========================================================================
+   9. Unit Headers & XBlock Content Typography
    ========================================================================== */
 .unit .h2 {
   color: var(--dark-blue);
@@ -246,45 +375,8 @@ body.indigo-dark-theme .theme-toggle-button .toggle-switch .switch .slider:befor
 }
 
 /* ==========================================================================
-   7. Cards, Data Tables & Element Overrides
+   10. Component Specific Overrides
    ========================================================================== */
-.raised-card .rounded-bottom,
-.raised-card .pgn__data-table-footer {
-  background-color: var(--primary-blue) !important;
-  border-radius: 0 0 8px 0 !important;
-}
-
-#weighted-grade-summary,
-#weighted-grade-summary text {
-  color: var(--text-light) !important;
-}
-
-/* Issue https://github.com/calculquebec/edx/issues/56 */
-section.course-info.about.container {
-  padding-top: 25px !important;
-}
-
-/* Hide "Types de cours / Audit" */
-.pgn__data-table-filters-dropdown-item:nth-child(2),
-.pgn__data-table-side-filters-item:nth-child(4) {
-  visibility: hidden;
-  height: 0;
-  padding: 0;
-}
-
-/* Hide dates links in various places */
-.nav-underline-tabs .nav-link:nth-child(3) {
-  visibility: hidden;
-  width: 0;
-  padding: 0;
-}
-
-div.px-md-4 > section.mb-4 > ul.pl-4 > li:nth-child(1),
-div#courseHome-dates {
-  visibility: hidden;
-  height: 0;
-}
-
 /* Video subtitle readability in fullscreen */
 .xmodule_display.xmodule_VideoBlock .video.video-fullscreen .subtitles li {
   color: var(--subtitles-grey) !important;
@@ -299,296 +391,6 @@ div#courseHome-dates {
 div#jupytermc3 button.btn.btn-pl-primary.btn-base.btn-lti-new-window {
   margin-top: 1em;
   margin-right: 0;
-  margin-left: auto;
   display: block;
-}
-
-/* Hide standard Open edX footer wrapper when custom footer is present */
-.wrapper-footer {
-  display: none !important;
-}
-
-/* ==========================================================================
-   8. Custom Footer & Social Navigation
-   ========================================================================== */
-.footer {
-  overflow: hidden;
-  margin-top: 0;
-  height: 94px;
-  line-height: 94px;
-  background: var(--dark-blue);
-  padding: 0 19px;
-  color: var(--text-light);
-}
-
-.footer .social-nav__link {
-  color: #000;
-}
-
-.footer .container {
-  display: flex;
-  justify-content: center;
-}
-
-.footer .container:after {
-  display: none;
-}
-
-.footer__nav {
-  list-style: none;
-  font-size: 0.875em;
-  padding-left: 0;
-}
-
-.footer__list-item {
-  display: inline-block;
-}
-
-.footer__list-item .footer__link {
-  display: inline-block;
-  height: 24px;
-  line-height: 22px;
-  border-right: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-.footer__list-item:first-child .footer__link {
-  padding-left: 0;
-}
-
-.footer__list-item:last-child .footer__link {
-  border-right: 0;
-  padding-right: 0;
-}
-
-.footer__link {
-  font-weight: 700;
-  padding: 0 19px;
-  text-decoration: none;
-  color: var(--text-light);
-  opacity: 1;
-  transition: all 0.25s;
-}
-
-.footer__link:hover {
-  color: var(--text-light);
-  opacity: 1;
-  text-decoration: underline;
-}
-
-.footer__copy {
-  font-weight: 900;
-  opacity: 0.5;
-}
-
-.post-footer {
-  background: var(--text-light);
-}
-
-.post-footer-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-  padding: 20px 0;
-}
-
-.post-footer-wrapper a {
-  width: 50%;
-}
-
-.post-footer-wrapper img {
-  max-width: 500px;
-  height: auto;
-  max-height: 80px;
-}
-
-/* Social Navigation Links */
-.social-nav {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.social-nav__item,
-.social-nav__link {
-  display: inline-block;
-}
-
-.social-nav__item:first-child .social-nav__link {
-  margin-left: 0;
-}
-
-.social-nav__item:last-child .social-nav__link {
-  margin-right: 0;
-}
-
-.social-nav__link {
-  position: relative;
-  text-decoration: none;
-  box-sizing: border-box;
-  margin: 0 5px;
-  color: var(--text-light);
-  vertical-align: middle;
-  border: 2px solid var(--accent-blue);
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  line-height: 41px;
-  text-align: center;
-  transition: 0.25s;
-}
-
-.social-nav__link .icon {
-  color: var(--text-light);
-}
-
-.social-nav__link:hover {
-  background-color: var(--accent-blue);
-  color: var(--text-light);
-}
-
-/* Icon Font Definitions */
-.icon-facebook:before,
-.icon-linkedin:before {
-  font-family: "FontAwesome", "Font Awesome 5 Free", sans-serif;
-  font-weight: 900;
-  font-style: normal;
-}
-
-.icon-facebook:before {
-  content: "\f09a";
-}
-
-.icon-linkedin:before {
-  content: "\f0e1";
-}
-
-/* Responsive Footer Media Queries */
-@media (max-width: 1200px) {
-  .footer {
-    height: auto;
-    line-height: 1em;
-    margin-top: 0;
-  }
-
-  .footer .container {
-    flex-wrap: wrap;
-  }
-
-  .footer .container > * {
-    text-align: center;
-    flex-basis: 100%;
-  }
-
-  .footer .footer__list-item {
-    text-align: center;
-    display: block;
-    margin: 0;
-    line-height: 1em;
-    border: none;
-  }
-
-  .footer .footer__list-item .footer__link {
-    border: none;
-    padding: 5px;
-  }
-
-  .footer .footer__copy {
-    line-height: 1em;
-    margin: 19px 0 38px;
-  }
-
-  .footer .social-nav {
-    margin: 38px 0 19px;
-  }
-}
-
-@media (max-width: 937px) {
-  .post-footer-wrapper {
-    display: block;
-  }
-}
-
-/* ==========================================================================
-   9. Dark Theme Overrides (body.indigo-dark-theme)
-   ========================================================================== */
-body.indigo-dark-theme #root,
-body.indigo-dark-theme main,
-body.indigo-dark-theme .page-back,
-body.indigo-dark-theme .footer,
-body.indigo-dark-theme #no-courses-content-view,
-body.indigo-dark-theme .pgn__card {
-  background-color: var(--dark-blue) !important;
-  color: var(--text-light);
-}
-
-body.indigo-dark-theme #root header.site-header-desktop {
-  background-color: var(--dark-blue) !important;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.06), 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-}
-
-body.indigo-dark-theme .banner img {
-  background-color: transparent !important;
-}
-
-body.indigo-dark-theme #root header.site-header-desktop .menu button {
-  background-color: var(--primary-blue) !important;
-}
-
-body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content {
-  background-color: var(--dark-blue) !important;
-  box-shadow: none !important;
-}
-
-body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content a {
-  background-color: var(--dark-blue) !important;
-  color: var(--text-light) !important;
-}
-
-body.indigo-dark-theme .text-muted:not(svg),
-body.indigo-dark-theme .page__account-settings .row .col-md-2 .jump-nav ul li a:hover,
-body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content a:hover {
-  background-color: var(--dark-mode-overlay) !important;
-}
-
-body.indigo-dark-theme .dropdown-divider {
-  border-color: var(--light-grey) !important;
-  opacity: 0.2;
-}
-
-body.indigo-dark-theme .page__account-settings .pgn-transition-replace-group .form-group .d-flex.align-items-start button,
-body.indigo-dark-theme .page__account-settings .pgn-transition-replace-group form > p button {
-  background-color: var(--primary-blue) !important;
-  color: var(--dark-blue) !important;
-  border-color: var(--primary-blue) !important;
-}
-
-body.indigo-dark-theme .page__account-settings .pgn-transition-replace-group .form-group .d-flex.align-items-start button:hover,
-body.indigo-dark-theme .page__account-settings .pgn-transition-replace-group form > p button:hover {
-  border-color: var(--dark-blue) !important;
-}
-
-body.indigo-dark-theme .page__account-settings .pgn-transition-replace-group form > p button.btn-outline-primary {
-  color: var(--primary-blue) !important;
-  border-color: var(--primary-blue) !important;
-}
-
-body.indigo-dark-theme .course-card-banners > div:first-of-type,
-body.indigo-dark-theme div[data-testid=instructor-toolbar] .bg-primary,
-body.indigo-dark-theme .bg-primary,
-body.indigo-dark-theme .course-tabs-navigation + .container-xl > .row > .col-12.col-md-4.p-0.px-md-4 section.mb-4.x-small {
-  background-color: var(--dark-blue) !important;
-}
-
-body.indigo-dark-theme .course-tabs-navigation + .container-xl .donut-ring.incomplete-stroke {
-  background-color: var(--dark-mode-overlay) !important;
-}
-
-body.indigo-dark-theme .footer a:hover {
-  text-decoration: underline !important;
-  color: var(--dark-mode-link-hover) !important;
-}
-
-body.indigo-dark-theme * {
-  accent-color: var(--primary-blue) !important;
+  margin-left: auto;
 }
