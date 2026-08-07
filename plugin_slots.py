@@ -4,142 +4,62 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from tutormfe.hooks import PLUGIN_SLOTS
 from theming.utils import load_file
 
-header = [
-    (
-        "all",
-        "desktop_header_slot",
-        """
-        {
-          op: PLUGIN_OPERATIONS.Hide,
-          widgetId: 'desktop_header_slot',
-        }"""
-    ),
-    (
-        "all",
-        "desktop_header_slot",
-        f"""
-        {{
-          op: PLUGIN_OPERATIONS.Insert,
-          widget: {{
-            id: 'custom_header',
-            type: DIRECT_PLUGIN,
-            RenderWidget: () => {{
-                {load_file("header/header.jsx")}
-            }},
-          }},
-        }}"""
-    )
-]
+def replaceSlotsWithContent(slots, content):
+    operations = []
+    for mfe_name, slot_name in slots:
+        operations += [(
+            mfe_name, slot_name,
+            f"""
+            {{
+              op: PLUGIN_OPERATIONS.Hide,
+              widgetId: 'default_contents',
+            }}""")]
+        if content:
+            operations += [(
+                mfe_name, slot_name,
+                f"""
+                {{
+                  op: PLUGIN_OPERATIONS.Insert,
+                  widget: {{
+                    id: 'custom_{slot_name}',
+                    type: DIRECT_PLUGIN,
+                    RenderWidget: () => {{
+                        {content}
+                    }},
+                  }}
+                }}"""
+                )]
+    PLUGIN_SLOTS.add_items(operations)
 
-mobile_header = [
-    (
-        "all",
-        "mobile_header_slot",
-        """
-        {
-          op: PLUGIN_OPERATIONS.Hide,
-          widgetId: 'mobile_header_slot',
-        }"""
-    ),
-    (
-        "all",
-        "mobile_header_slot",
-        f"""
-        {{
-          op: PLUGIN_OPERATIONS.Insert,
-          widget: {{
-            id: 'custom_mobile_header',
-            type: DIRECT_PLUGIN,
-            RenderWidget: () => {{
-                {load_file("header/mobileHeader.jsx")}
-            }},
-          }},
-        }}"""
-    )
-]
+replaceSlotsWithContent(
+    [('all', 'desktop_header_slot'),
+     ('all', 'header_slot'),
+     ('discussions', 'org.openedx.frontend.layout.header_discussions.v1'),
+    ],
+    load_file('header/header.jsx'))
 
-learning_header = [
-    (
-        "all",
-        "desktop_header_slot",
-        """
-        {
-          op: PLUGIN_OPERATIONS.Hide,
-          widgetId: 'desktop_header_slot',
-        }"""
-    ),
-    (
-        "all",
-        "header_slot",
-        f"""
-        {{
-          op: PLUGIN_OPERATIONS.Insert,
-          widget: {{
-            id: 'custom_header',
-            type: DIRECT_PLUGIN,
-            RenderWidget: () => {{
-                {load_file("header/header.jsx")}
-            }},
-          }},
-        }}"""
-    )
-]
+replaceSlotsWithContent(
+    [('all', 'mobile_header_slot')],
+    load_file('header/mobileHeader.jsx')
+)
 
-footer = [(
-        "all",
-        "footer_slot",
-        """
-        {
-          op: PLUGIN_OPERATIONS.Hide,
-          widgetId: 'default_contents',
-        }"""
-    ),
-    (
-        "all",
-        "footer_slot",
-        f"""
-        {{
-          op: PLUGIN_OPERATIONS.Insert,
-          widget: {{
-            id: 'custom_footer',
-            type: DIRECT_PLUGIN,
-            RenderWidget: () => {{
-                {load_file("footer/footer.jsx")}
-            }},
-            priority: 3,
-          }},
-        }}"""
-    )
-]
+replaceSlotsWithContent(
+    [('all', 'footer_slot')],
+    load_file('footer/footer.jsx')
+)
 
-home_banner = [
-    (
-        "catalog",
-        "org.openedx.frontend.catalog.home_page.banner",
-        """
-        {
-          op: PLUGIN_OPERATIONS.Hide,
-          widgetId: 'default_contents',
-        }"""
-    ),
-    (
-        "catalog",
-        "org.openedx.frontend.catalog.home_page.banner",
-        f"""
-        {{
-          op: PLUGIN_OPERATIONS.Insert,
-          widget: {{
-            id: 'custom_home_banner',
-            type: DIRECT_PLUGIN,
-            RenderWidget: () => {{
-                {load_file("home_banner/home_banner.jsx")}
-            }},
-          }},
-        }}"""
-    )
-]
+# replace home banner in catalog
+replaceSlotsWithContent(
+    [('catalog', 'org.openedx.frontend.catalog.home_page.banner')],
+    load_file('home_banner/home_banner.jsx')
+)
 
-logo_href = [
+# remove help link in learning MFE
+replaceSlotsWithContent([('learning', 'org.openedx.frontend.layout.header_learning_help.v1')], '')
+
+slots = []
+# logo href
+slots += [
     (
         "all",
         "org.openedx.frontend.layout.header_logo.v1",
@@ -152,20 +72,7 @@ logo_href = [
         """
     ),
 ]
-
-help_slot = [
-    (
-        "learning",
-        "org.openedx.frontend.layout.header_learning_help.v1",
-        """
-        {
-          op: PLUGIN_OPERATIONS.Hide,
-          widgetId: 'default_contents',
-        }"""
-    )
-]
-
-unit_title_slot = [
+slots += [
     (
         "learning",
         "org.openedx.frontend.learning.unit_title.v1",
@@ -200,11 +107,8 @@ unit_title_slot = [
         """
     )
 ]
-#comment to trigger a rebuild
 
-PLUGIN_SLOTS.add_items(
-    header + mobile_header + learning_header + footer + home_banner + logo_href + help_slot + unit_title_slot
-)
+PLUGIN_SLOTS.add_items(slots)
 
 from tutormfe.hooks import MFE_APPS
 from tutor import hooks
