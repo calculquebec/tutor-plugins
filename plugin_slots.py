@@ -218,55 +218,21 @@ hooks.Filters.ENV_PATCHES.add_item(
 
 # Add hook to insert external CookieYes script
 from tutormfe.hooks import EXTERNAL_SCRIPTS
-EXTERNAL_SCRIPTS_LOADER_TSX = """
-export interface ExternalScriptsConfig {
-  EXTERNAL_SCRIPTS?: Record<string, string>;
-  [key: string]: unknown;
-}
-
-export interface ExternalScriptsLoaderOptions {
-  config: ExternalScriptsConfig;
-}
-
-export class ExternalScriptsLoader {
-  private config: ExternalScriptsConfig;
-
-  constructor({ config }: ExternalScriptsLoaderOptions) {
-    this.config = config;
-  }
-
-  public loadScript(): void {
-    const externalScripts = this.config['EXTERNAL_SCRIPTS'];
-    if (!externalScripts) {
-      return;
-    }
-
-    const keys = Object.keys(externalScripts);
-    for (let i = 0; i < keys.length; i++) {
-      const key = keys[i];
-      const script = document.createElement('script');
-      script.id = key;
-      script.src = externalScripts[key];
-      script.type = 'text/javascript';
-      document.head.appendChild(script);
-    }
-  }
-}
-"""
-EXTERNAL_SCRIPTS_LOADER_JSX = """
+EXTERNAL_SCRIPTS_LOADER = """
 class ExternalScriptsLoader {
+  externalScripts = {};
   constructor({ config }) {
-    this.config = config;
+    this.externalScripts = config['EXTERNAL_SCRIPTS'];
   }
 
   loadScript() {
-    if (!this.config['EXTERNAL_SCRIPTS']) {
+    if (!this.externalScripts) {
       return;
     }
-    for (var i = 0, keys = Object.keys(this.config['EXTERNAL_SCRIPTS']), ii = keys.length; i < ii; i++) {
+    for (var i = 0, keys = Object.keys(this.externalScripts), ii = keys.length; i < ii; i++) {
       const script = document.createElement('script');
       script.id = keys[i];
-      script.src = this.config['EXTERNAL_SCRIPTS'][keys[i]];
+      script.src = this.externalScripts[keys[i]];
       script.type = 'text/javascript';
       document.head.appendChild(script);
     }
@@ -275,64 +241,29 @@ class ExternalScriptsLoader {
 """
 
 hooks.Filters.ENV_PATCHES.add_items([
-    ("mfe-env-config-buildtime-definitions", EXTERNAL_SCRIPTS_LOADER_JSX),
-    ("mfe-site-custom-app-definitions", EXTERNAL_SCRIPTS_LOADER_TSX),
+    ("mfe-env-config-buildtime-definitions", EXTERNAL_SCRIPTS_LOADER),
+    ("mfe-site-custom-app-definitions", EXTERNAL_SCRIPTS_LOADER),
 ])
 
 EXTERNAL_SCRIPTS.add_item(("all", "ExternalScriptsLoader"))
 
-EXTERNAL_STYLESHEETS_LOADER_TSX = """
-export interface ExternalStylesheetsConfig {
-  EXTERNAL_STYLESHEETS?: Record<string, string>;
-  [key: string]: unknown;
-}
-
-export interface ExternalStylesheetsLoaderOptions {
-  config: ExternalStylesheetsConfig;
-}
-
-export class ExternalStylesheetsLoader {
-  private config: ExternalStylesheetsConfig;
-
-  constructor({ config }: ExternalStylesheetsLoaderOptions) {
-    this.config = config;
-  }
-
-  public loadScript(): void {
-    const externalStylesheets = this.config['EXTERNAL_STYLESHEETS'];
-    if (!externalStylesheets) {
-      return;
-    }
-
-    const keys = Object.keys(externalStylesheets);
-    for (let i = 0; i < keys.length; i++) {
-      const key = keys[i];
-      const stylesheet = document.createElement('link');
-      stylesheet.id = key;
-      stylesheet.rel = 'stylesheet';
-      stylesheet.type = 'text/css';
-      stylesheet.href = externalStylesheets[key];
-      document.head.appendChild(stylesheet);
-    }
-  }
-}
-"""
-EXTERNAL_STYLESHEETS_LOADER_JSX = """
+EXTERNAL_STYLESHEETS_LOADER = """
 class ExternalStylesheetsLoader {
+  externalSheets = {}
   constructor({ config }) {
-    this.config = config;
+    this.externalSheets = config['EXTERNAL_STYLESHEETS'];
   }
 
   loadScript() {
-    if (!this.config['EXTERNAL_STYLESHEETS']) {
+    if (!this.externalSheets) {
       return;
     }
-    for (var i = 0, keys = Object.keys(this.config['EXTERNAL_STYLESHEETS']), ii = keys.length; i < ii; i++) {
+    for (var i = 0, keys = Object.keys(this.externalSheets), ii = keys.length; i < ii; i++) {
       const stylesheet = document.createElement('link');
       stylesheet.id = keys[i];
       stylesheet.rel = 'stylesheet';
       stylesheet.type = 'text/css';
-      stylesheet.href = this.config['EXTERNAL_STYLESHEETS'][keys[i]];
+      stylesheet.href = this.externalSheets[keys[i]];
       document.head.appendChild(stylesheet);
     }
   }
@@ -340,12 +271,11 @@ class ExternalStylesheetsLoader {
 """
 
 hooks.Filters.ENV_PATCHES.add_items([
-    ("mfe-env-config-buildtime-definitions", EXTERNAL_STYLESHEETS_LOADER_JSX),
-    ("mfe-site-custom-app-definitions", EXTERNAL_STYLESHEETS_LOADER_TSX),
+    ("mfe-env-config-buildtime-definitions", EXTERNAL_STYLESHEETS_LOADER),
+    ("mfe-site-custom-app-definitions", EXTERNAL_STYLESHEETS_LOADER),
 ])
 
 EXTERNAL_SCRIPTS.add_item(("all", "ExternalStylesheetsLoader"))
-
 
 @MFE_APPS.add()
 def _add_my_mfe(mfes):
