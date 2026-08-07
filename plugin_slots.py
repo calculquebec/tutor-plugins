@@ -1,25 +1,37 @@
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from tutormfe.hooks import PLUGIN_SLOTS
+from tutormfe.hooks import PLUGIN_SLOTS, FRONTEND_SLOTS
 from theming.utils import load_file
 
 def hideSlots(slots):
-    operations = []
+    mfe_operations = []
+    frontend_operations = []
     for mfe_name, slot_name, widgetId in slots:
-        operations += [(
+        mfe_operations += [(
             mfe_name, slot_name,
             f"""
             {{
               op: PLUGIN_OPERATIONS.Hide,
               widgetId: 'widgetId',
             }}""")]
-    PLUGIN_SLOTS.add_items(operations)
+
+        frontend_operations += [
+            f"""
+            {{
+              slotId: '{slot_name}',
+              op: 'widgetRemove',
+              id: '{widgetId}'
+            }}
+            """
+        ]
+    PLUGIN_SLOTS.add_items(mfe_operations)
+    FRONTEND_SLOTS.add_items(frontend_operations)
 
 def insertSlots(slots, content, extra = ''):
-    operations = []
+    mfe_operations = []
     for mfe_name, slot_name in slots:
-        operations += [(
+        mfe_operations += [(
             mfe_name, slot_name,
             f"""
             {{
@@ -34,7 +46,20 @@ def insertSlots(slots, content, extra = ''):
               }}
             }}"""
             )]
-    PLUGIN_SLOTS.add_items(operations)
+        frontend_operations += [
+            f"""
+            {{
+              slotId: '{slot_name}',
+              op: 'widgetAppend',
+              id: 'custom_{slot_name}',
+              element: (
+                {content}
+              )
+            }}
+            """
+        ]
+    PLUGIN_SLOTS.add_items(mfe_operations)
+    FRONTEND_SLOTS.additems(frontend_operations)
 
 hideSlots([
     ('all', 'desktop_header_slot', 'desktop_header_slot'),
