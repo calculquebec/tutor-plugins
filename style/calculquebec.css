@@ -575,7 +575,7 @@ body.indigo-dark-theme .footer .line, body.indigo-dark-theme .footer .vertical-l
 }
 .footer__nav {
     list-style: none;
-    font-size: 0.875em;
+    font-size: 0.9rem;
 }
 .footer__list-item {
     display: inline-block;
