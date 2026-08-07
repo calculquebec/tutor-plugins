@@ -4,58 +4,59 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from tutormfe.hooks import PLUGIN_SLOTS
 from theming.utils import load_file
 
-def replaceSlotsWithContent(slots, content):
+def hideSlots(slots):
+    operations = []
+    for mfe_name, slot_name, widgetId in slots:
+        operations += [(
+            mfe_name, slot_name,
+            f"""
+            {{
+              op: PLUGIN_OPERATIONS.Hide,
+              widgetId: 'widgetId',
+            }}""")]
+    PLUGIN_SLOTS.add_items(operations)
+
+def insertSlots(slots, content, extra = ''):
     operations = []
     for mfe_name, slot_name in slots:
         operations += [(
             mfe_name, slot_name,
             f"""
             {{
-              op: PLUGIN_OPERATIONS.Hide,
-              widgetId: 'default_contents',
-            }}""")]
-        if content:
-            operations += [(
-                mfe_name, slot_name,
-                f"""
-                {{
-                  op: PLUGIN_OPERATIONS.Insert,
-                  widget: {{
-                    id: 'custom_{slot_name}',
-                    type: DIRECT_PLUGIN,
-                    RenderWidget: () => {{
-                        {content}
-                    }},
-                  }}
-                }}"""
-                )]
+              op: PLUGIN_OPERATIONS.Insert,
+              widget: {{
+                id: 'custom_{slot_name}',
+                type: DIRECT_PLUGIN,
+                RenderWidget: () => {{
+                  {content}
+                }},
+                {extra}
+              }}
+            }}"""
+            )]
     PLUGIN_SLOTS.add_items(operations)
 
-replaceSlotsWithContent(
+hideSlots([
+    ('all', 'desktop_header_slot', 'desktop_header_slot'),
+    ('all', 'mobile_header_slot', 'mobile_header_slot'),
+    ('all', 'footer_slot', 'default_contents'),
+    ('discussions', 'org.openedx.frontend.layout.header_discussions.v1', 'default_contents'),
+    ('catalog', 'org.openedx.frontend.catalog.home_page.banner', 'default_contents'),
+    ('learning', 'org.openedx.frontend.layout.header_learning_help.v1', 'default_contents'),
+    ('learning', 'org.openedx.frontend.learning.unit_title.v1', 'default_contents'),
+    ])
+
+insertSlots(
     [('all', 'desktop_header_slot'),
      ('all', 'header_slot'),
      ('discussions', 'org.openedx.frontend.layout.header_discussions.v1'),
     ],
     load_file('header/header.jsx'))
 
-replaceSlotsWithContent(
-    [('all', 'mobile_header_slot')],
-    load_file('header/mobileHeader.jsx')
-)
-
-replaceSlotsWithContent(
-    [('all', 'footer_slot')],
-    load_file('footer/footer.jsx')
-)
+insertSlots([('all', 'mobile_header_slot')], load_file('header/mobileHeader.jsx'))
 
 # replace home banner in catalog
-replaceSlotsWithContent(
-    [('catalog', 'org.openedx.frontend.catalog.home_page.banner')],
-    load_file('home_banner/home_banner.jsx')
-)
-
-# remove help link in learning MFE
-replaceSlotsWithContent([('learning', 'org.openedx.frontend.layout.header_learning_help.v1')], '')
+insertSlots([('catalog', 'org.openedx.frontend.catalog.home_page.banner')], load_file('home_banner/home_banner.jsx'))
 
 slots = []
 # logo href
