@@ -26,7 +26,7 @@ def hideSlots(slots):
             """
         ]
     PLUGIN_SLOTS.add_items(mfe_operations)
-    FRONTEND_SLOTS.add_items(frontend_operations)
+#    FRONTEND_SLOTS.add_items(frontend_operations)
 
 def insertSlots(slots, content, extra = ''):
     mfe_operations = []
@@ -59,7 +59,7 @@ def insertSlots(slots, content, extra = ''):
             """
         ]
     PLUGIN_SLOTS.add_items(mfe_operations)
-    FRONTEND_SLOTS.additems(frontend_operations)
+#    FRONTEND_SLOTS.add_items(frontend_operations)
 
 hideSlots([
     ('all', 'desktop_header_slot', 'desktop_header_slot'),
@@ -79,6 +79,7 @@ insertSlots(
     load_file('header/header.jsx'))
 
 insertSlots([('all', 'mobile_header_slot')], load_file('header/mobileHeader.jsx'))
+insertSlots([('all', 'footer_slot')], load_file('footer/footer.jsx'), 'priority=3,')
 
 # replace home banner in catalog
 insertSlots([('catalog', 'org.openedx.frontend.catalog.home_page.banner')], load_file('home_banner/home_banner.jsx'))
