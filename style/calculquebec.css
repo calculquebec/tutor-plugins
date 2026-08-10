@@ -624,6 +624,11 @@ body.indigo-dark-theme .footer .line, body.indigo-dark-theme .footer .vertical-l
 	margin-top: 0;
     }
 }
+@media (min-width: 1000px) {
+    .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+	max-width: 1600px;
+    }
+}
 
 .post-footer {
     background: #FFFFFF;
