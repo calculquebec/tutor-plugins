@@ -274,25 +274,6 @@ section.course-info.about.container {
   padding: 0;
 }
 
-/* Hide dates links in various places */
-/* Top tab */
-.nav-underline-tabs .nav-link:nth-child(3) {
-  visibility: hidden;
-  width: 0;
-  padding: 0;
-}
-
-/* Sidebar progress page */
-div.px-md-4 > section.mb-4 > ul.pl-4 > li:nth-child(1) {
-  visibility: hidden;
-  height: 0;
-}
-
-/* Home page pre-start */
-div#courseHome-dates {
-  visibility: hidden;
-  height: 0;
-}
 
 /* ==========================================================================
    9. Unit Headers & XBlock Content Typography
@@ -752,3 +733,4 @@ footer[role=contentinfo]
 .cq-title {
   font-size: 1.5em;
 }
+
