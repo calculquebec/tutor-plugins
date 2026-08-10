@@ -146,7 +146,6 @@ hideMFESlots([
     ('all', 'desktop_header_slot', 'desktop_header_slot'),
     ('all', 'mobile_header_slot', 'mobile_header_slot'),
     ('all', 'footer_slot', 'default_contents'),
-    ('discussions', 'org.openedx.frontend.layout.header_discussions.v1', 'default_contents'),
     ('catalog', 'org.openedx.frontend.catalog.home_page.banner', 'default_contents'),
     ('all', 'org.openedx.frontend.layout.header_learning_help.v1', 'default_contents'),
     ('learning', 'org.openedx.frontend.learning.unit_title.v1', 'default_contents'),
