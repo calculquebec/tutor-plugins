@@ -1,7 +1,7 @@
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from tutormfe.hooks import PLUGIN_SLOTS, FRONTEND_SLOTS, MFE_APPS, FRONTEND_APPS
+from tutormfe.hooks import PLUGIN_SLOTS, FRONTEND_SLOTS, MFE_APPS, FRONTEND_APPS, EXTERNAL_SCRIPTS
 from theming.utils import load_file
 from tutor import hooks
 
@@ -11,13 +11,73 @@ def _enable_core_apps(apps):
 #    apps["learner-dashboard"]["enabled"] = True
     return apps
 
+@MFE_APPS.add()
+def _add_my_mfe(mfes):
+    mfe_version = "cq/verawood.dev"
+    mfes["authn"]["repository"] = "https://github.com/calculquebec/frontend-app-authn.git"  # your public/private repo link
+    mfes["authn"]["version"] = mfe_version
+    mfes["account"]["repository"] = "https://github.com/calculquebec/frontend-app-account.git"  # your public/private repo link
+    mfes["account"]["version"] = mfe_version
+#    mfes["catalog"] = {}
+#    mfes["catalog"]["repository"] = "https://github.com/calculquebec/frontend-app-catalog.git"  # your public/private repo link
+#    mfes["catalog"]["version"] = mfe_version
+#    mfes["catalog"]["port"] = 1998
+#    mfes["discussions"]["repository"] = "https://github.com/calculquebec/frontend-app-discussions.git"  # your public/private repo link
+#    mfes["discussions"]["version"] = mfe_version
+#    mfes["learner-dashboard"]["repository"] = "https://github.com/calculquebec/frontend-app-learner-dashboard.git"  # your public/private repo link
+#    mfes["learner-dashboard"]["version"] = mfe_version
+#    mfes["learning"]["repository"] = "https://github.com/calculquebec/frontend-app-learning.git"  # your public/private repo link
+#    mfes["learning"]["version"] = mfe_version
+    mfes["profile"]["repository"] = "https://github.com/calculquebec/frontend-app-profile.git"  # your public/private repo link
+    mfes["profile"]["version"] = mfe_version
+    return mfes
+
+#@MFE_APPS.add()
+#def _add_catalog_mfe(mfes):
+#    mfes["catalog"] = {
+#        "repository": "https://github.com/openedx/frontend-app-catalog.git",
+#        "port": 1998,
+#        "version": "master", # optional, will default to the Open edX current tag.
+#    }
 
 hooks.Filters.ENV_PATCHES.add_items([
+    (
+        "openedx-common-settings",
+"""FEATURES["ENABLE_FEEDBACK_INSTRUCTOR_VIEW"] = True
+OPEN_EDX_FILTERS_CONFIG = {
+    "org.openedx.learning.instructor.dashboard.render.started.v1": {
+        "fail_silently": False,
+        "pipeline": [
+            "feedback.extensions.filters.AddFeedbackTab",
+        ]
+    },
+}"""
+    ),
+    ("mfe-dockerfile-post-npm-install-authn", "RUN npm install '@edx/brand@github:@edly-io/brand-openedx#ulmo/indigo'"),
+    # for Frontend base apps
     ("mfe-site-custom-app-definitions", """
 import { WidgetOperationTypes } from '@openedx/frontend-base';
 """),
     ("mfe-site-custom-app-definitions", load_file('calculquebec.tsx')),
+    ("mfe-site-custom-app-definitions", load_file('external_loaders.tsx')),
+    # for MFEs
+    ("mfe-env-config-buildtime-definitions", """
+const modifyLogoHref = ( widget ) => {
+  widget.content.href = '/';
+  return widget;
+};
+"""),
+    ("mfe-env-config-buildtime-definitions", load_file('calculquebec.tsx')),
+    ("mfe-env-config-buildtime-definitions", load_file('external_loaders.tsx')),
 ])
+
+# Add hook to insert external CookieYes script
+EXTERNAL_SCRIPTS.add_items([
+    ("all", "ExternalScriptsLoader"),
+    ("all", "ExternalStylesheetsLoader"),
+])
+
+
 
 def hideMFESlots(slots):
     operations = []
@@ -175,128 +235,3 @@ slots += [
 ]
 
 PLUGIN_SLOTS.add_items(slots)
-
-hooks.Filters.ENV_PATCHES.add_item(
-    (
-        "mfe-dockerfile-post-npm-install-authn",
-        "RUN npm install '@edx/brand@github:@edly-io/brand-openedx#ulmo/indigo'",
-    )
-)
-
-
-# Add hook to insert external CookieYes script
-from tutormfe.hooks import EXTERNAL_SCRIPTS
-EXTERNAL_SCRIPTS_LOADER = """
-class ExternalScriptsLoader {
-  externalScripts = {};
-  constructor({ config }) {
-    this.externalScripts = config['EXTERNAL_SCRIPTS'];
-  }
-
-  loadScript() {
-    if (!this.externalScripts) {
-      return;
-    }
-    for (var i = 0, keys = Object.keys(this.externalScripts), ii = keys.length; i < ii; i++) {
-      const script = document.createElement('script');
-      script.id = keys[i];
-      script.src = this.externalScripts[keys[i]];
-      script.type = 'text/javascript';
-      document.head.appendChild(script);
-    }
-  }
-}
-"""
-
-hooks.Filters.ENV_PATCHES.add_items([
-    ("mfe-env-config-buildtime-definitions", EXTERNAL_SCRIPTS_LOADER),
-    ("mfe-site-custom-app-definitions", EXTERNAL_SCRIPTS_LOADER),
-])
-
-EXTERNAL_SCRIPTS.add_item(("all", "ExternalScriptsLoader"))
-
-EXTERNAL_STYLESHEETS_LOADER = """
-class ExternalStylesheetsLoader {
-  externalSheets = {}
-  constructor({ config }) {
-    this.externalSheets = config['EXTERNAL_STYLESHEETS'];
-  }
-
-  loadScript() {
-    if (!this.externalSheets) {
-      return;
-    }
-    for (var i = 0, keys = Object.keys(this.externalSheets), ii = keys.length; i < ii; i++) {
-      const stylesheet = document.createElement('link');
-      stylesheet.id = keys[i];
-      stylesheet.rel = 'stylesheet';
-      stylesheet.type = 'text/css';
-      stylesheet.href = this.externalSheets[keys[i]];
-      document.head.appendChild(stylesheet);
-    }
-  }
-}
-"""
-
-hooks.Filters.ENV_PATCHES.add_items([
-    ("mfe-env-config-buildtime-definitions", EXTERNAL_STYLESHEETS_LOADER),
-    ("mfe-site-custom-app-definitions", EXTERNAL_STYLESHEETS_LOADER),
-])
-
-EXTERNAL_SCRIPTS.add_item(("all", "ExternalStylesheetsLoader"))
-
-@MFE_APPS.add()
-def _add_my_mfe(mfes):
-    mfe_version = "cq/verawood.dev"
-    mfes["authn"]["repository"] = "https://github.com/calculquebec/frontend-app-authn.git"  # your public/private repo link
-    mfes["authn"]["version"] = mfe_version
-    mfes["account"]["repository"] = "https://github.com/calculquebec/frontend-app-account.git"  # your public/private repo link
-    mfes["account"]["version"] = mfe_version
-#    mfes["catalog"] = {}
-#    mfes["catalog"]["repository"] = "https://github.com/calculquebec/frontend-app-catalog.git"  # your public/private repo link
-#    mfes["catalog"]["version"] = mfe_version
-#    mfes["catalog"]["port"] = 1998
-#    mfes["discussions"]["repository"] = "https://github.com/calculquebec/frontend-app-discussions.git"  # your public/private repo link
-#    mfes["discussions"]["version"] = mfe_version
-#    mfes["learner-dashboard"]["repository"] = "https://github.com/calculquebec/frontend-app-learner-dashboard.git"  # your public/private repo link
-#    mfes["learner-dashboard"]["version"] = mfe_version
-#    mfes["learning"]["repository"] = "https://github.com/calculquebec/frontend-app-learning.git"  # your public/private repo link
-#    mfes["learning"]["version"] = mfe_version
-    mfes["profile"]["repository"] = "https://github.com/calculquebec/frontend-app-profile.git"  # your public/private repo link
-    mfes["profile"]["version"] = mfe_version
-    return mfes
-
-#@MFE_APPS.add()
-#def _add_catalog_mfe(mfes):
-#    mfes["catalog"] = {
-#        "repository": "https://github.com/openedx/frontend-app-catalog.git",
-#        "port": 1998,
-#        "version": "master", # optional, will default to the Open edX current tag.
-#    }
-
-env_items = [
-    (
-        "openedx-common-settings",
-"""FEATURES["ENABLE_FEEDBACK_INSTRUCTOR_VIEW"] = True
-OPEN_EDX_FILTERS_CONFIG = {
-    "org.openedx.learning.instructor.dashboard.render.started.v1": {
-        "fail_silently": False,
-        "pipeline": [
-            "feedback.extensions.filters.AddFeedbackTab",
-        ]
-    },
-}"""
-    ),
-    (
-        "mfe-env-config-buildtime-definitions",
-        """
-const modifyLogoHref = ( widget ) => {
-  widget.content.href = '/';
-  return widget;
-};"""
-    ),
-    ("mfe-env-config-buildtime-definitions", load_file('calculquebec.tsx')),
-]
-
-for item in env_items:
-    hooks.Filters.ENV_PATCHES.add_item(item)
