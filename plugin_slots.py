@@ -1,16 +1,22 @@
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from tutormfe.hooks import PLUGIN_SLOTS, FRONTEND_SLOTS
+from tutormfe.hooks import PLUGIN_SLOTS, FRONTEND_SLOTS, MFE_APPS, FRONTEND_APPS
 from theming.utils import load_file
-from tutormfe.hooks import MFE_APPS
 from tutor import hooks
+
+@FRONTEND_APPS.add()
+def _enable_core_apps(apps):
+#    apps["authn"]["enabled"] = True
+#    apps["learner-dashboard"]["enabled"] = True
+    return apps
+
 
 hooks.Filters.ENV_PATCHES.add_items([
     ("mfe-site-custom-app-definitions", """
 import { WidgetOperationTypes } from '@openedx/frontend-base';
 """),
-    ("mfe-site-custom-app-definitions", load_file('languages.tsx')),
+    ("mfe-site-custom-app-definitions", load_file('calculquebec.tsx')),
 ])
 
 def hideMFESlots(slots):
@@ -106,12 +112,13 @@ insertMFESlots(
      ('all', 'header_slot'),
      ('discussions', 'org.openedx.frontend.layout.header_discussions.v1'),
     ],
-    load_file('header/header.jsx'))
+    wrapTSXLiteral(load_file('header/header.tsx')))
 
-insertMFESlots([('all', 'mobile_header_slot')], load_file('header/mobileHeader.jsx'))
+insertMFESlots([('all', 'mobile_header_slot')], wrapTSXLiteral(load_file('header/header.tsx')))
 insertMFESlots([('all', 'footer_slot')], wrapTSXLiteral(load_file('footer/footer.tsx')), 'priority: 3,')
 
 insertFrontendSlots([('org.openedx.frontend.slot.footer.desktop.v1')], load_file('footer/footer.tsx'))
+insertFrontendSlots([('org.openedx.frontend.slot.header.desktop.v1')], load_file('header/header.tsx'))
 
 # replace home banner in catalog
 insertMFESlots([('catalog', 'org.openedx.frontend.catalog.home_page.banner')], load_file('home_banner/home_banner.jsx'))
@@ -288,7 +295,7 @@ const modifyLogoHref = ( widget ) => {
   return widget;
 };"""
     ),
-    ("mfe-env-config-buildtime-definitions", load_file('languages.tsx')),
+    ("mfe-env-config-buildtime-definitions", load_file('calculquebec.tsx')),
 ]
 
 for item in env_items:
