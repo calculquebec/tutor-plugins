@@ -87,6 +87,9 @@ const languages = {
     bulletins: "BULLETINS D'INFORMATION",
     langswitch: "ENGLISH",
     langswitchcode: 'javascript:setLanguage("en")',
+    bannerwelcome: "Bienvenue sur evolo",
+    bannerplatform: "la plateforme de formation gratuite de Calcul Québec destinée à la communauté de la recherche.",
+    bannercomeback: "Revenez régulièrement : de nouveaux cours sont en préparation !",
   },
   en: {
     help: "Help",
@@ -100,5 +103,8 @@ const languages = {
     bulletins: "SUBSCRIBE TO OUR NEWSLETTERS",
     langswitch: "FRANÇAIS",
     langswitchcode: 'javascript:setLanguage("fr-ca")',
+    bannerwelcome: "Welcome to evolo",
+    bannerplatform: "Calcul Québec's free learning platform aimed at the research community.",
+    bannercomeback: "Come back often: new content is being prepared!",
   },
 };

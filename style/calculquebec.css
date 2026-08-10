@@ -735,3 +735,20 @@ footer[role=contentinfo]
 {
     display: none !important;
 }
+
+.cq-banner {
+  display: block;
+  background-color: #E4E9EB;
+  color: #000000;
+  text-align: center;
+  padding: 1.2em;
+  font-size: 1.0em;
+}
+@media (max-width: 937px) {
+  .cq-banner {
+    display: none;
+  }
+}
+.cq-title {
+  font-size: 1.5em;
+}

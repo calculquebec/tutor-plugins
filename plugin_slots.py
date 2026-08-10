@@ -8,7 +8,7 @@ from tutor import hooks
 @FRONTEND_APPS.add()
 def _enable_core_apps(apps):
 #    apps["authn"]["enabled"] = True
-#    apps["learner-dashboard"]["enabled"] = True
+    apps["learner-dashboard"]["enabled"] = True
     return apps
 
 @MFE_APPS.add()
@@ -87,7 +87,7 @@ def hideMFESlots(slots):
             f"""
             {{
               op: PLUGIN_OPERATIONS.Hide,
-              widgetId: 'widgetId',
+              widgetId: '{widgetId}',
             }}""")]
     PLUGIN_SLOTS.add_items(operations)
 
@@ -148,16 +148,15 @@ hideMFESlots([
     ('all', 'footer_slot', 'default_contents'),
     ('discussions', 'org.openedx.frontend.layout.header_discussions.v1', 'default_contents'),
     ('catalog', 'org.openedx.frontend.catalog.home_page.banner', 'default_contents'),
-    ('learning', 'org.openedx.frontend.layout.header_learning_help.v1', 'default_contents'),
+    ('all', 'org.openedx.frontend.layout.header_learning_help.v1', 'default_contents'),
     ('learning', 'org.openedx.frontend.learning.unit_title.v1', 'default_contents'),
     ])
 
 hideFrontendSlots([
-#    ('org.openedx.frontend.slot.header.desktop.v1', 'org.openedx.frontend.widget.header.desktopLayout.v1'),
-    ('dorg.openedx.frontend.slot.header.desktop.v1', 'defaultContent'),
-#    ('org.openedx.frontend.slot.header.mobile.v1', 'org.openedx.frontend.widget.header.mobileLayout.v1'),
+    ('org.openedx.frontend.slot.header.desktop.v1', 'defaultContent'),
     ('org.openedx.frontend.slot.header.mobile.v1', 'defaultContent'),
-    ('org.openedx.frontend.slot.footer.desktop.v1', 'org.openedx.frontend.widget.footer.desktopLayout.v1')
+    ('org.openedx.frontend.slot.footer.desktop.v1', 'org.openedx.frontend.widget.footer.desktopLayout.v1'),
+    ('org.openedx.frontend.slot.header.secondaryLinks.v1', 'org.openedx.frontend.widget.header.help.v1'),
     ])
 
 def wrapTSXLiteral(code):
@@ -172,16 +171,16 @@ insertMFESlots(
      ('all', 'header_slot'),
      ('discussions', 'org.openedx.frontend.layout.header_discussions.v1'),
     ],
-    wrapTSXLiteral(load_file('header/header.tsx')))
+    wrapTSXLiteral(load_file('header.tsx')))
 
-insertMFESlots([('all', 'mobile_header_slot')], wrapTSXLiteral(load_file('header/header.tsx')))
-insertMFESlots([('all', 'footer_slot')], wrapTSXLiteral(load_file('footer/footer.tsx')), 'priority: 3,')
+insertMFESlots([('all', 'mobile_header_slot')], wrapTSXLiteral(load_file('header.tsx')))
+insertMFESlots([('all', 'footer_slot')], wrapTSXLiteral(load_file('footer.tsx')), 'priority: 3,')
 
-insertFrontendSlots([('org.openedx.frontend.slot.footer.desktop.v1')], load_file('footer/footer.tsx'))
-insertFrontendSlots([('org.openedx.frontend.slot.header.desktop.v1')], load_file('header/header.tsx'))
+insertFrontendSlots([('org.openedx.frontend.slot.header.desktop.v1')], load_file('header.tsx'))
+insertFrontendSlots([('org.openedx.frontend.slot.footer.desktop.v1')], load_file('footer.tsx'))
 
 # replace home banner in catalog
-insertMFESlots([('catalog', 'org.openedx.frontend.catalog.home_page.banner')], load_file('home_banner/home_banner.jsx'))
+insertMFESlots([('catalog', 'org.openedx.frontend.catalog.home_page.banner')], wrapTSXLiteral(load_file('home_banner.tsx')))
 
 slots = []
 # logo href
