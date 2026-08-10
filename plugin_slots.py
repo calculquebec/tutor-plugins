@@ -13,7 +13,7 @@ def _enable_core_apps(apps):
 
 @MFE_APPS.add()
 def _add_my_mfe(mfes):
-    mfe_version = "cq/verawood.dev"
+    mfe_version = "cq/verawood.prod"
     mfes["authn"]["repository"] = "https://github.com/calculquebec/frontend-app-authn.git"  # your public/private repo link
     mfes["authn"]["version"] = mfe_version
     mfes["account"]["repository"] = "https://github.com/calculquebec/frontend-app-account.git"  # your public/private repo link
