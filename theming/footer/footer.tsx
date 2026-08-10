@@ -1,110 +1,3 @@
-type SupportedLanguage = 'fr-ca' | 'en';
-
-interface TranslationContent {
-  help: string;
-  contact: string;
-  about: string;
-  terms: string;
-  policies: string;
-  poweredBy: string;
-  wiki: string;
-  serverstatus: string;
-  bulletins: string;
-  langswitch: string;
-  langswitchcode: string;
-}
-
-const getLanguage = (): SupportedLanguage => {
-  // Fonction utilitaire pour normaliser les codes de langue
-  const normalizeLang = (lang: string | null | undefined): SupportedLanguage | null => {
-    if (!lang) return null;
-
-    const lower = lang.toLowerCase();
-
-    if (lower === 'fr' || lower.startsWith('fr-')) {
-      return 'fr-ca';
-    }
-
-    if (lower === 'en' || lower.startsWith('en-')) {
-      return 'en';
-    }
-
-    return null;
-  };
-
-  // On essaye d'abord de récupérer la langue depuis le cookie
-  const languageCookie = document.cookie.split('; ').find((cookie: string) => cookie.startsWith('openedx-language-preference='));
-  const languageFromCookie = languageCookie ? decodeURIComponent(languageCookie.split('=')[1]) : null;
-  const fromCookie = normalizeLang(languageFromCookie);
-  if (fromCookie) return fromCookie;
-
-  // Ensuite, on essaye de récupérer la langue depuis le navigateur
-  const browserLang = navigator.languages?.[0] || navigator.language || null;
-  const fromBrowser = normalizeLang(browserLang);
-  if (fromBrowser) return fromBrowser;
-
-  // Par défaut, on retourne 'fr-ca'
-  return 'fr-ca';
-};
-
-const language: SupportedLanguage = getLanguage();
-
-const langIsFrench = (): boolean => {
-  return language === 'fr-ca';
-};
-
-const setCookieFunction = (name: string, value: string, days?: number): void => {
-  let expires = '';
-  if (days) {
-    const date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    expires = '; expires=' + date.toUTCString();
-  }
-  const domainParts = (window.location.hostname + '').split('.');
-  domainParts.shift();
-  const domain = '; domain=.' + domainParts.join('.');
-  document.cookie = name + '=' + value + expires + domain + '; path=/';
-  window.location.reload();
-};
-
-const toggleLanguage = (): void => {
-  if (langIsFrench()) {
-    setCookieFunction('openedx-language-preference', 'en', 14);
-  } else {
-    setCookieFunction('openedx-language-preference', 'fr-ca', 14);
-  }
-};
-
-const languages: Record<SupportedLanguage, TranslationContent> = {
-  'fr-ca': {
-    help: 'Aide',
-    contact: 'NOUS CONTACTER',
-    about: 'À propos',
-    terms: "Conditions d'utilisation",
-    policies: 'Politiques et publications',
-    poweredBy: 'Propulsé par',
-    wiki: 'WIKI TECHNIQUE',
-    serverstatus: 'ETAT DES SERVEURS',
-    bulletins: "BULLETINS D'INFORMATION",
-    langswitch: 'ENGLISH',
-    langswitchcode: 'javascript:setLanguage("en")',
-  },
-  en: {
-    help: 'Help',
-    contact: 'CONTACT US',
-    about: 'About',
-    terms: 'Terms of use',
-    policies: 'Policies and publications',
-    poweredBy: 'Powered by',
-    wiki: 'TECHNICAL WIKI',
-    serverstatus: 'SERVER STATUS',
-    bulletins: 'SUBSCRIBE TO OUR NEWSLETTERS',
-    langswitch: 'FRANÇAIS',
-    langswitchcode: 'javascript:setLanguage("fr-ca")',
-  },
-};
-
-return (
   <>
     <script src="https://kit.fontawesome.com/91003a351d.js" crossOrigin="anonymous"></script>
     <footer className="footer">
@@ -152,10 +45,7 @@ return (
           <li className="footer__list-item">
             <a
               href="#"
-              onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-                e.preventDefault();
-                toggleLanguage();
-              }}
+              onClick={toggleLanguage}
               className="footer__link"
             >
               {languages[language].langswitch}
@@ -229,4 +119,3 @@ return (
       <p className="mobile">&copy; Calcul Québec 2026</p>
     </div>
   </>
-);

@@ -9,7 +9,8 @@ from tutor import hooks
 hooks.Filters.ENV_PATCHES.add_items([
     ("mfe-site-custom-app-definitions", """
 import { WidgetOperationTypes } from '@openedx/frontend-base';
-""")
+"""),
+    ("mfe-site-custom-app-definitions", load_file('languages.tsx')),
 ])
 
 def hideMFESlots(slots):
@@ -38,11 +39,10 @@ def hideFrontendSlots(slots):
         ]
     FRONTEND_SLOTS.add_items(operations)
 
-def insertSlots(slots, content, extra = ''):
-    mfe_operations = []
-    frontend_operations = []
+def insertMFESlots(slots, content, extra = ''):
+    operations = []
     for mfe_name, slot_name in slots:
-        mfe_operations += [(
+        operations += [(
             mfe_name, slot_name,
             f"""
             {{
@@ -57,11 +57,16 @@ def insertSlots(slots, content, extra = ''):
               }}
             }}"""
             )]
-        frontend_operations += [
+    PLUGIN_SLOTS.add_items(operations)
+
+def insertFrontendSlots(slots, content, extra = ''):
+    operations = []
+    for slot_name in slots:
+        operations += [
             f"""
             {{
               slotId: '{slot_name}',
-              op: 'widgetAppend',
+              op: WidgetOperationTypes.APPEND,
               id: 'custom_{slot_name}',
               element: (
                 {content}
@@ -69,8 +74,7 @@ def insertSlots(slots, content, extra = ''):
             }}
             """
         ]
-    PLUGIN_SLOTS.add_items(mfe_operations)
-#    FRONTEND_SLOTS.add_items(frontend_operations)
+    FRONTEND_SLOTS.add_items(operations)
 
 hideMFESlots([
     ('all', 'desktop_header_slot', 'desktop_header_slot'),
@@ -83,23 +87,34 @@ hideMFESlots([
     ])
 
 hideFrontendSlots([
-    ('org.openedx.frontend.slot.header.desktop.v1', 'defaultContent'),
+#    ('org.openedx.frontend.slot.header.desktop.v1', 'org.openedx.frontend.widget.header.desktopLayout.v1'),
+    ('dorg.openedx.frontend.slot.header.desktop.v1', 'defaultContent'),
+#    ('org.openedx.frontend.slot.header.mobile.v1', 'org.openedx.frontend.widget.header.mobileLayout.v1'),
     ('org.openedx.frontend.slot.header.mobile.v1', 'defaultContent'),
-    ('org.openedx.frontend.slot.footer.desktop.v1', 'defaultContent')
+    ('org.openedx.frontend.slot.footer.desktop.v1', 'org.openedx.frontend.widget.footer.desktopLayout.v1')
     ])
 
-insertSlots(
+def wrapTSXLiteral(code):
+    return f"""
+return (
+{code}
+);
+"""
+
+insertMFESlots(
     [('all', 'desktop_header_slot'),
      ('all', 'header_slot'),
      ('discussions', 'org.openedx.frontend.layout.header_discussions.v1'),
     ],
     load_file('header/header.jsx'))
 
-insertSlots([('all', 'mobile_header_slot')], load_file('header/mobileHeader.jsx'))
-insertSlots([('all', 'footer_slot')], load_file('footer/footer.jsx'), 'priority: 3,')
+insertMFESlots([('all', 'mobile_header_slot')], load_file('header/mobileHeader.jsx'))
+insertMFESlots([('all', 'footer_slot')], wrapTSXLiteral(load_file('footer/footer.tsx')), 'priority: 3,')
+
+insertFrontendSlots([('org.openedx.frontend.slot.footer.desktop.v1')], load_file('footer/footer.tsx'))
 
 # replace home banner in catalog
-insertSlots([('catalog', 'org.openedx.frontend.catalog.home_page.banner')], load_file('home_banner/home_banner.jsx'))
+insertMFESlots([('catalog', 'org.openedx.frontend.catalog.home_page.banner')], load_file('home_banner/home_banner.jsx'))
 
 slots = []
 # logo href
@@ -272,7 +287,8 @@ const modifyLogoHref = ( widget ) => {
   widget.content.href = '/';
   return widget;
 };"""
-    )
+    ),
+    ("mfe-env-config-buildtime-definitions", load_file('languages.tsx')),
 ]
 
 for item in env_items:
