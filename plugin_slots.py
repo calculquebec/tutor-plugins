@@ -44,14 +44,13 @@ hooks.Filters.ENV_PATCHES.add_items([
     (
         "openedx-common-settings",
 """FEATURES["ENABLE_FEEDBACK_INSTRUCTOR_VIEW"] = True
-OPEN_EDX_FILTERS_CONFIG = {
-    "org.openedx.learning.instructor.dashboard.render.started.v1": {
+OPEN_EDX_FILTERS_CONFIG["org.openedx.learning.instructor.dashboard.render.started.v1"] = {
         "fail_silently": False,
         "pipeline": [
             "feedback.extensions.filters.AddFeedbackTab",
         ]
     },
-}"""
+"""
     ),
     ("mfe-dockerfile-post-npm-install-authn", "RUN npm install '@edx/brand@github:@edly-io/brand-openedx#ulmo/indigo'"),
     # for Frontend base apps
