@@ -1,3 +1,18 @@
+const setCookieFunction = (name, value, days) => {
+  let expires = "";
+  if (days) {
+    const date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = "; expires=" + date.toUTCString();
+  }
+  let domain_parts = (window.location.hostname + '').split('.');
+  domain_parts.shift();
+  let domain = "";
+  domain = "; domain=." + domain_parts.join('.');
+  document.cookie = name + "=" + value + expires + domain + "; path=/";
+  window.location.reload();
+};
+
 const getLanguage = () => {
   // Fonction utilitaire pour normaliser les codes de langue
   const normalizeLang = (lang) => {
@@ -35,21 +50,6 @@ const language = getLanguage();
 
 const langIsFrench = () => {
   return language === "fr-ca" || language === "fr";
-};
-
-const setCookieFunction = (name, value, days) => {
-  let expires = "";
-  if (days) {
-    const date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    expires = "; expires=" + date.toUTCString();
-  }
-  let domain_parts = (window.location.hostname + '').split('.');
-  domain_parts.shift();
-  let domain = "";
-  domain = "; domain=." + domain_parts.join('.');
-  document.cookie = name + "=" + value + expires + domain + "; path=/";
-  window.location.reload();
 };
 
 const toggleLanguage = () => {
