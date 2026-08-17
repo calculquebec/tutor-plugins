@@ -34,6 +34,33 @@ def _add_my_mfe(mfes):
     mfes["profile"]["version"] = mfe_version
     return mfes
 
+#@FRONTEND_APPS.add()
+#def _add_my_app(apps):
+#    apps["static-pages"] = {
+#        "npm_package": "@calculquebec/frontend-static-pages",
+#        "npm_version": "^1.0.0",
+#        "enabled": True,
+#        "source": "https://github.com/calculquebec/frontend-static-pages.git#cq-static-pages",
+#    }
+#    return apps
+
+#hooks.Filters.ENV_PATCHES.add_items(
+#    [
+#        (
+#            "mfe-site-config-imports",
+#            """
+#import { staticPagesApp } from '@calculquebec/frontend-static-pages';
+#"""
+#        ),
+#        (
+#            "mfe-site-config",
+#            """
+#addApp(siteConfig, staticPagesApp);
+#"""
+#        ),
+#    ]
+#)
+
 #@MFE_APPS.add()
 #def _add_catalog_mfe(mfes):
 #    mfes["catalog"] = {
