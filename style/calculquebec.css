@@ -66,7 +66,7 @@ body.indigo-dark-theme #root header.site-header-desktop .logo img {
    4. Banners & Structural Containers
    ========================================================================== */
 .banner {
-  background: url("https://raw.githubusercontent.com/calculquebec/tutor-plugins/refs/heads/cq/ulmo.dev/theming/templates/lms/static/images/image_bandeau.png")
+  background: url("https://edx.evolo.calculquebec.cloud/asset-v1:CQ+Assets101+2026+type@asset+block@image_bandeau.png")
     no-repeat center 40% !important;
   background-size: cover !important;
   height: 170px;
