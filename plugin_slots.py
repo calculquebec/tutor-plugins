@@ -81,7 +81,8 @@ OPEN_EDX_FILTERS_CONFIG["org.openedx.learning.instructor.dashboard.render.starte
     },
 """
     ),
-    ("mfe-dockerfile-post-npm-install-authn", "RUN npm install '@edx/brand@github:@edly-io/brand-openedx#ulmo/indigo'"),
+    # for theming frontend-base authn app
+    ("mfe-dockerfile-pre-npm-install-site", "RUN npm pkg set 'dependencies.@edx/brand=npm:@arbrandes/indigo-brand-openedx@^2.6.0'"),
     # for Frontend base apps
     ("mfe-site-custom-app-definitions", """
 import { WidgetOperationTypes } from '@openedx/frontend-base';
