@@ -4,11 +4,7 @@
       <div className='banner'>
         <div className='cover-filter'></div>
         <img
-          src={
-            langIsFrench()
-              ? 'https://raw.githubusercontent.com/calculquebec/tutor-plugins/refs/heads/cq/ulmo.dev/theming/templates/lms/static/images/logo_bandeau.png'
-              : 'https://raw.githubusercontent.com/calculquebec/tutor-plugins/refs/heads/cq/ulmo.dev/theming/templates/lms/static/images/logo_bandeau.png'
-          }
+          src='https://edx.evolo.calculquebec.cloud/asset-v1:CQ+Assets101+2026+type@asset+block@logo_bandeau.png'
           alt='Logo'
         />
       </div>

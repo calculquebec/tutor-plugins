@@ -7,15 +7,17 @@ from tutor import hooks
 
 @FRONTEND_APPS.add()
 def _enable_core_apps(apps):
-#    apps["authn"]["enabled"] = True
+    app_version = "cq/verawood-app.prod"
+    apps["authn"]["enabled"] = True
+    apps["authn"]["source"] = f"https://github.com/calculquebec/frontend-app-authn.git#{app_version}"
     apps["learner-dashboard"]["enabled"] = True
     return apps
 
 @MFE_APPS.add()
 def _add_my_mfe(mfes):
     mfe_version = "cq/verawood.prod"
-    mfes["authn"]["repository"] = "https://github.com/calculquebec/frontend-app-authn.git"  # your public/private repo link
-    mfes["authn"]["version"] = mfe_version
+#    mfes["authn"]["repository"] = "https://github.com/calculquebec/frontend-app-authn.git"  # your public/private repo link
+#    mfes["authn"]["version"] = mfe_version
     mfes["account"]["repository"] = "https://github.com/calculquebec/frontend-app-account.git"  # your public/private repo link
     mfes["account"]["version"] = mfe_version
 #    mfes["catalog"] = {}
@@ -31,6 +33,33 @@ def _add_my_mfe(mfes):
     mfes["profile"]["repository"] = "https://github.com/calculquebec/frontend-app-profile.git"  # your public/private repo link
     mfes["profile"]["version"] = mfe_version
     return mfes
+
+#@FRONTEND_APPS.add()
+#def _add_my_app(apps):
+#    apps["static-pages"] = {
+#        "npm_package": "@calculquebec/frontend-static-pages",
+#        "npm_version": "^1.0.0",
+#        "enabled": True,
+#        "source": "https://github.com/calculquebec/frontend-static-pages.git#cq-static-pages",
+#    }
+#    return apps
+
+#hooks.Filters.ENV_PATCHES.add_items(
+#    [
+#        (
+#            "mfe-site-config-imports",
+#            """
+#import { staticPagesApp } from '@calculquebec/frontend-static-pages';
+#"""
+#        ),
+#        (
+#            "mfe-site-config",
+#            """
+#addApp(siteConfig, staticPagesApp);
+#"""
+#        ),
+#    ]
+#)
 
 #@MFE_APPS.add()
 #def _add_catalog_mfe(mfes):
@@ -52,7 +81,8 @@ OPEN_EDX_FILTERS_CONFIG["org.openedx.learning.instructor.dashboard.render.starte
     },
 """
     ),
-    ("mfe-dockerfile-post-npm-install-authn", "RUN npm install '@edx/brand@github:@edly-io/brand-openedx#ulmo/indigo'"),
+    # for theming frontend-base authn app
+    ("mfe-dockerfile-pre-npm-install-site", "RUN npm pkg set 'dependencies.@edx/brand=npm:@arbrandes/indigo-brand-openedx@^2.6.0'"),
     # for Frontend base apps
     ("mfe-site-custom-app-definitions", """
 import { WidgetOperationTypes } from '@openedx/frontend-base';
