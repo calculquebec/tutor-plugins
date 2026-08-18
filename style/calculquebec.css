@@ -26,16 +26,21 @@
   /* Interactive States */
   --hover-border-color: var(--dark-blue);
   --active-link-color: var(--primary-blue);
+
+  /* overrides of paragon colors */
+  --pgn-color-btn-bg-primary: var(--secondary-blue);
+  --pgn-color-primary-base: var(--secondary-blue);
 }
 
 /* ==========================================================================
    2. Global Typography & General Resets
    ========================================================================== */
-* {
-  font-family: "Roboto", sans-serif;
-  font-optical-sizing: auto;
+@layer app {
+*, .text-monospace, body {
+  font-family: "Roboto", sans-serif !important;
+  font-optical-sizing: auto !important;
 }
-
+}
 /* Hide registration link */
 a.btn.mr-2.btn-outline-primary {
   display: none;
@@ -44,24 +49,38 @@ a.btn.mr-2.btn-outline-primary {
 .masquerade-bar {
   justify-content: center;
 }
+.masquerade-bar .btn-brand {
+  opacity: 1;
+}
 
 /* ==========================================================================
    3. Header & Main Navigation
    ========================================================================== */
 #root header.site-header-desktop .logo img,
-body.indigo-dark-theme #root header.site-header-desktop .logo img {
+#root header nav .logo img,
+body.indigo-dark-theme #root header.site-header-desktop .logo img,
+body.indigo-dark-theme #root header.border-bottom .logo img, {
   height: 30px;
 }
 
-#root header.site-header-desktop .main-nav a.nav-link.active {
+#root header.site-header-desktop .main-nav a.nav-link.active,
+#root header nav a.nav-link.active {
   color: var(--active-link-color) !important;
   border-bottom: 2px solid var(--active-link-color) !important;
+  background: var(--secondary-blue);
 }
 
-#root header.site-header-desktop .main-nav a.nav-link:hover {
+#root header.site-header-desktop .main-nav a.nav-link:hover,
+#root header nav a.nav-link:hover {
   border-bottom: 2px solid var(--hover-border-color);
+  color: var(--text-light);
+  background: var(--secondary-blue);
 }
-
+@layer paragon {
+.bg-primary {
+    background-color: var(--secondary-blue) !important;
+}
+}
 /* ==========================================================================
    4. Banners & Structural Containers
    ========================================================================== */
@@ -174,7 +193,8 @@ body.indigo-dark-theme .pgn__card {
   color: var(--text-light);
 }
 
-body.indigo-dark-theme #root header.site-header-desktop {
+body.indigo-dark-theme #root header.site-header-desktop,
+body.indigo-dark-theme #root header.border-bottom {
   background-color: var(--dark-blue) !important;
   box-shadow: 0 1px 2px 0 #0000000f, 0 1px 3px 0 #0000001a;
 }
@@ -183,23 +203,27 @@ body.indigo-dark-theme .banner img {
   background-color: transparent !important;
 }
 
-body.indigo-dark-theme #root header.site-header-desktop .menu button {
+body.indigo-dark-theme #root header.site-header-desktop .menu button,
+body.indigo-dark-theme #root header.border-bottom .menu button {
   background-color: var(--primary-blue) !important;
 }
 
-body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content a {
+body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content a,
+body.indigo-dark-theme #root header.border-bottom .menu .menu-content a {
   background-color: var(--dark-blue) !important;
   color: var(--text-light) !important;
 }
 
-body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content {
+body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content,
+body.indigo-dark-theme #root header.border-bottom .menu .menu-content {
   background-color: var(--dark-blue) !important;
   box-shadow: none !important;
 }
 
 body.indigo-dark-theme .text-muted:not(svg),
 body.indigo-dark-theme .page__account-settings .row .col-md-2 .jump-nav ul li a:hover,
-body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content a:hover {
+body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content a:hover,
+body.indigo-dark-theme #root header.border-bottom .menu .menu-content a:hover {
   background-color: var(--dark-mode-overlay) !important;
 }
 
@@ -231,7 +255,11 @@ body.indigo-dark-theme .bg-primary,
 body.indigo-dark-theme .course-tabs-navigation + .container-xl > .row > .col-12.col-md-4.p-0.px-md-4 section.mb-4.x-small {
   background-color: var(--dark-blue) !important;
 }
-
+@layer app {
+a.course-card-title {
+    color: var(--pgn-color-black) !important;
+}
+}
 body.indigo-dark-theme .course-tabs-navigation + .container-xl .donut-ring.incomplete-stroke {
   background-color: var(--dark-mode-overlay) !important;
 }
