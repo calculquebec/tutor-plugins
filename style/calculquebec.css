@@ -13,7 +13,7 @@
 
   /* Neutral Colors */
   --text-light: #ffffff;
-  --text-dark: #052147;
+  --text-dark: var(--dark-blue);
   --light-grey: #f7f7f7;
   --muted-grey: #bbbbbb;
   --subtitles-grey: #aaaaaa;
@@ -386,7 +386,7 @@ div#jupytermc3 button.btn.btn-pl-primary.btn-base.btn-lti-new-window {
   display: flex;
   justify-content: space-between;
   margin-bottom: 24px;
-  background-color: #052147;
+  background-color: var(--dark-blue);
 }
 
 .top-links {
@@ -418,7 +418,7 @@ div#jupytermc3 button.btn.btn-pl-primary.btn-base.btn-lti-new-window {
 .line {
   width: 100%;
   height: 1px;
-  background-color: #013d5b;
+  background-color: var(--secondary-blue);
   opacity: 0.16;
 }
 
@@ -458,7 +458,7 @@ div#jupytermc3 button.btn.btn-pl-primary.btn-base.btn-lti-new-window {
 
 .bottom-links a {
   text-decoration: none;
-  color: #052147;
+  color: var(--dark-blue);
 }
 
 .logo-list {
@@ -475,7 +475,7 @@ div#jupytermc3 button.btn.btn-pl-primary.btn-base.btn-lti-new-window {
 .logo-list .vertical-line {
   width: 1px;
   height: 12px;
-  background-color: #052147;
+  background-color: var(--dark-blue);
   opacity: 0.8;
   transform: translateY(-2px);
   }
@@ -537,7 +537,7 @@ body.indigo-dark-theme .footer .line, body.indigo-dark-theme .footer .vertical-l
     margin-top: 0;
     height: 94px;
     line-height: 94px;
-    background: #052147;
+    background: var(--dark-blue);
     padding: 0 19px;
     color: #fff;
 }
@@ -678,7 +678,7 @@ body.indigo-dark-theme .footer .line, body.indigo-dark-theme .footer .vertical-l
     margin: 0 5px;
     color: #fff;
     vertical-align: middle;
-    border: 2px solid #5b94e1;
+    border: 2px solid var(--accent-blue);
     border-radius: 50%;
     width: 45px;
     height: 45px;
@@ -691,7 +691,7 @@ body.indigo-dark-theme .footer .line, body.indigo-dark-theme .footer .vertical-l
     color: #fff;
 }
 .social-nav__link:hover {
-    background-color: #5b94e1;
+    background-color: var(--accent-blue);
     color: #fff;
 }
 .social-nav__descriptor {
@@ -742,7 +742,7 @@ footer[role=contentinfo]
 
 @layer paragon {
 #root .layout {
-    background: #052147 !important;
+    background: var(--dark-blue) !important;
 }
 
 #root .layout:before {
@@ -750,7 +750,7 @@ footer[role=contentinfo]
 }
 
 #root .layout .bg-primary-400 h1 .text-accent-a {
-    color: #ffffff !important;
+    color: var(--text-light) !important;
     font-family: 'Open Sans' !important;
 }
 #root .layout .bg-primary-400 h1 img {
