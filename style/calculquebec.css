@@ -36,7 +36,7 @@
    2. Global Typography & General Resets
    ========================================================================== */
 @layer app {
-*, .text-monospace, body {
+.text-monospace, body {
   font-family: "Roboto", sans-serif !important;
   font-optical-sizing: auto !important;
 }
@@ -818,4 +818,35 @@ footer[role=contentinfo]
     flex: 0 0 100%;
     max-width: 100%;
 }
+}
+
+/* certificate page */
+body.layout-accomplishment section.banner.banner-user {
+    background: black !important;
+}
+.accomplishment-signatories {
+	display:none;
+}
+.layout-accomplishment .accomplishment-orgs .organization-logo {
+    width: 100%;
+    max-width: 100%;
+}
+.inline-certificate-metadata {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+.inline-certificate-accomplishment-date, 
+.inline-certificate-accomplishment-id {
+	display: inline-block;
+}
+.inline-certificate-metadata div dl {
+  display: grid;
+  grid-template-columns: max-content auto;
+}
+.inline-certificate-metadata div dt {
+  grid-column-start: 1;
+}
+.inline-certificate-metadata div dd {
+  grid-column-start: 2;
 }
