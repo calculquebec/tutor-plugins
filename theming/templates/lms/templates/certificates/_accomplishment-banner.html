@@ -22,10 +22,14 @@ from openedx.core.djangolib.js_utils import js_escaped_string
                   enrollment_mode: $(this).data('certificate-mode'),
                   certificate_id: '${certificate_id_number | n, js_escaped_string}',
                   certificate_url: window.location.href,
-                  social_network: 'LinkedIn'
+                  social_network: 'LinkedIn',
+		  course_name: $(this).data('course-name'),
+		  course_number: $(this).data('course-number'),
               };
               Logger.log('edx.certificate.shared', data);
-              window.open('${linked_in_url | n, js_escaped_string}', '', 'noopener');
+	      linked_in_url = '${linked_in_url | n, js_escaped_string}';
+	      url = linked_in_url.replace(/name=.*\u0026certUrl/,'name=' + $(this).data('course-name').replace(' ','+') + '\u0026certUrl');
+              window.open(url, '', 'noopener');
           });
       });
 
@@ -68,7 +72,7 @@ from openedx.core.djangolib.js_utils import js_escaped_string
                     %endif
 
                     %if linked_in_url:
-                    <button class="action action-linkedin-profile btn-inverse btn-small icon-only" id="action-share-linkedin" title="${_('Add to LinkedIn Profile')}" data-course-id="${course_id}" data-certificate-mode="${course_mode}">
+                    <button class="action action-linkedin-profile btn-inverse btn-small icon-only" id="action-share-linkedin" title="${_('Add to LinkedIn Profile')}" data-course-id="${course_id}" data-certificate-mode="${course_mode}" data-course-name="${accomplishment_copy_course_name}" data-course-number="${course_number}">
                         <span class="icon fa fa-linkedin" aria-hidden="true"></span>
                         <span class="action-label">${_("Add to LinkedIn Profile")}</span>
                     </button>
