@@ -13,7 +13,7 @@
 
   /* Neutral Colors */
   --text-light: #ffffff;
-  --text-dark: #052147;
+  --text-dark: var(--dark-blue);
   --light-grey: #f7f7f7;
   --muted-grey: #bbbbbb;
   --subtitles-grey: #aaaaaa;
@@ -26,16 +26,21 @@
   /* Interactive States */
   --hover-border-color: var(--dark-blue);
   --active-link-color: var(--primary-blue);
+
+  /* overrides of paragon colors */
+  --pgn-color-btn-bg-primary: var(--secondary-blue);
+  --pgn-color-primary-base: var(--secondary-blue);
 }
 
 /* ==========================================================================
    2. Global Typography & General Resets
    ========================================================================== */
-* {
-  font-family: "Roboto", sans-serif;
-  font-optical-sizing: auto;
+@layer app {
+.text-monospace, body {
+  font-family: "Roboto", sans-serif !important;
+  font-optical-sizing: auto !important;
 }
-
+}
 /* Hide registration link */
 a.btn.mr-2.btn-outline-primary {
   display: none;
@@ -44,24 +49,38 @@ a.btn.mr-2.btn-outline-primary {
 .masquerade-bar {
   justify-content: center;
 }
+.masquerade-bar .btn-brand {
+  opacity: 1;
+}
 
 /* ==========================================================================
    3. Header & Main Navigation
    ========================================================================== */
 #root header.site-header-desktop .logo img,
-body.indigo-dark-theme #root header.site-header-desktop .logo img {
+#root header nav .logo img,
+body.indigo-dark-theme #root header.site-header-desktop .logo img,
+body.indigo-dark-theme #root header.border-bottom .logo img, {
   height: 30px;
 }
 
-#root header.site-header-desktop .main-nav a.nav-link.active {
+#root header.site-header-desktop .main-nav a.nav-link.active,
+#root header nav a.nav-link.active {
   color: var(--active-link-color) !important;
   border-bottom: 2px solid var(--active-link-color) !important;
+  background: var(--secondary-blue);
 }
 
-#root header.site-header-desktop .main-nav a.nav-link:hover {
+#root header.site-header-desktop .main-nav a.nav-link:hover,
+#root header nav a.nav-link:hover {
   border-bottom: 2px solid var(--hover-border-color);
+  color: var(--text-light);
+  background: var(--secondary-blue);
 }
-
+@layer paragon {
+.bg-primary {
+    background-color: var(--secondary-blue) !important;
+}
+}
 /* ==========================================================================
    4. Banners & Structural Containers
    ========================================================================== */
@@ -174,7 +193,8 @@ body.indigo-dark-theme .pgn__card {
   color: var(--text-light);
 }
 
-body.indigo-dark-theme #root header.site-header-desktop {
+body.indigo-dark-theme #root header.site-header-desktop,
+body.indigo-dark-theme #root header.border-bottom {
   background-color: var(--dark-blue) !important;
   box-shadow: 0 1px 2px 0 #0000000f, 0 1px 3px 0 #0000001a;
 }
@@ -183,23 +203,27 @@ body.indigo-dark-theme .banner img {
   background-color: transparent !important;
 }
 
-body.indigo-dark-theme #root header.site-header-desktop .menu button {
+body.indigo-dark-theme #root header.site-header-desktop .menu button,
+body.indigo-dark-theme #root header.border-bottom .menu button {
   background-color: var(--primary-blue) !important;
 }
 
-body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content a {
+body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content a,
+body.indigo-dark-theme #root header.border-bottom .menu .menu-content a {
   background-color: var(--dark-blue) !important;
   color: var(--text-light) !important;
 }
 
-body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content {
+body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content,
+body.indigo-dark-theme #root header.border-bottom .menu .menu-content {
   background-color: var(--dark-blue) !important;
   box-shadow: none !important;
 }
 
 body.indigo-dark-theme .text-muted:not(svg),
 body.indigo-dark-theme .page__account-settings .row .col-md-2 .jump-nav ul li a:hover,
-body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content a:hover {
+body.indigo-dark-theme #root header.site-header-desktop .menu .menu-content a:hover,
+body.indigo-dark-theme #root header.border-bottom .menu .menu-content a:hover {
   background-color: var(--dark-mode-overlay) !important;
 }
 
@@ -231,7 +255,11 @@ body.indigo-dark-theme .bg-primary,
 body.indigo-dark-theme .course-tabs-navigation + .container-xl > .row > .col-12.col-md-4.p-0.px-md-4 section.mb-4.x-small {
   background-color: var(--dark-blue) !important;
 }
-
+@layer app {
+a.course-card-title {
+    color: var(--pgn-color-black) !important;
+}
+}
 body.indigo-dark-theme .course-tabs-navigation + .container-xl .donut-ring.incomplete-stroke {
   background-color: var(--dark-mode-overlay) !important;
 }
@@ -386,7 +414,7 @@ div#jupytermc3 button.btn.btn-pl-primary.btn-base.btn-lti-new-window {
   display: flex;
   justify-content: space-between;
   margin-bottom: 24px;
-  background-color: #052147;
+  background-color: var(--dark-blue);
 }
 
 .top-links {
@@ -418,7 +446,7 @@ div#jupytermc3 button.btn.btn-pl-primary.btn-base.btn-lti-new-window {
 .line {
   width: 100%;
   height: 1px;
-  background-color: #013d5b;
+  background-color: var(--secondary-blue);
   opacity: 0.16;
 }
 
@@ -458,7 +486,7 @@ div#jupytermc3 button.btn.btn-pl-primary.btn-base.btn-lti-new-window {
 
 .bottom-links a {
   text-decoration: none;
-  color: #052147;
+  color: var(--dark-blue);
 }
 
 .logo-list {
@@ -475,7 +503,7 @@ div#jupytermc3 button.btn.btn-pl-primary.btn-base.btn-lti-new-window {
 .logo-list .vertical-line {
   width: 1px;
   height: 12px;
-  background-color: #052147;
+  background-color: var(--dark-blue);
   opacity: 0.8;
   transform: translateY(-2px);
   }
@@ -537,7 +565,7 @@ body.indigo-dark-theme .footer .line, body.indigo-dark-theme .footer .vertical-l
     margin-top: 0;
     height: 94px;
     line-height: 94px;
-    background: #052147;
+    background: var(--dark-blue);
     padding: 0 19px;
     color: #fff;
 }
@@ -678,7 +706,7 @@ body.indigo-dark-theme .footer .line, body.indigo-dark-theme .footer .vertical-l
     margin: 0 5px;
     color: #fff;
     vertical-align: middle;
-    border: 2px solid #5b94e1;
+    border: 2px solid var(--accent-blue);
     border-radius: 50%;
     width: 45px;
     height: 45px;
@@ -691,7 +719,7 @@ body.indigo-dark-theme .footer .line, body.indigo-dark-theme .footer .vertical-l
     color: #fff;
 }
 .social-nav__link:hover {
-    background-color: #5b94e1;
+    background-color: var(--accent-blue);
     color: #fff;
 }
 .social-nav__descriptor {
@@ -742,7 +770,7 @@ footer[role=contentinfo]
 
 @layer paragon {
 #root .layout {
-    background: #052147 !important;
+    background: var(--dark-blue) !important;
 }
 
 #root .layout:before {
@@ -750,7 +778,7 @@ footer[role=contentinfo]
 }
 
 #root .layout .bg-primary-400 h1 .text-accent-a {
-    color: #ffffff !important;
+    color: var(--text-light) !important;
     font-family: 'Open Sans' !important;
 }
 #root .layout .bg-primary-400 h1 img {
@@ -790,4 +818,102 @@ footer[role=contentinfo]
     flex: 0 0 100%;
     max-width: 100%;
 }
+}
+
+/* certificate page */
+.layout-accomplishment .accomplishment-orgs .organization-logo {
+    max-width: 200% !important;
+    max-height: none !important;
+    width: auto;
+    height: auto;
+    padding-top: 6rem;
+    min-width: 10rem;
+    min-height: 7rem;
+    padding-bottom: 0 !important;
+}
+.accomplishment-signatories {
+  display: none;
+}
+.certificate .accomplishment-rendering .deco-corner {
+  display: none;
+}
+.accomplishment-rendering {
+  border-top: 0 !important;
+}
+.accomplishment-rendering .accomplishment-statement-lead {
+  margin-top: -4rem !important;
+}
+.accomplishment-rendering .accomplishment-type-label {
+  font-weight: 400 !important;
+  color: #000000 !important;
+}
+.accomplishment-rendering .accomplishment-summary,
+.accomplishment-rendering .accomplishment-recipient,
+.accomplishment-rendering .accomplishment-statement-lead,
+.accomplishment-rendering .accomplishment-course,
+.accomplishment-rendering .accomplishment-statement-detail {
+  font-family: "Roboto" !important;
+}
+.accomplishment-rendering .accomplishment-summary,
+.accomplishment-rendering .accomplishment-statement-detail {
+  font-size: 1.5rem !important;
+}
+.accomplishment-rendering .accomplishment-summary,
+.accomplishment-rendering .accomplishment-type {
+  margin-bottom: 2rem !important;
+}
+.accomplishment-rendering .accomplishment-recipient,
+.accomplishment-rendering .accomplishment-course {
+  letter-spacing: 0 !important;
+  font-weight: 700 !important;
+}
+.inline-certificate-metadata {
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+  bottom: 0;
+  position: absolute;
+}
+.inline-certificate-accomplishment-date,
+.inline-certificate-accomplishment-id {
+  display: inline-block;
+}
+.inline-certificate-metadata div dl {
+  display: grid;
+  grid-template-columns: max-content auto;
+}
+.inline-certificate-metadata div dt {
+  grid-column-start: 1;
+}
+.inline-certificate-metadata div dd {
+  grid-column-start: 2;
+}
+@media screen {
+  body.layout-accomplishment section.banner.banner-user {
+    background: black !important;
+  }
+  .layout-accomplishment .accomplishment-rendering {
+    height: 50rem;
+  }
+}
+@media print {
+	.accomplishment-rendering .accomplishment-statement {
+		max-width: 90% !important;
+	}
+	.accomplishment-rendering .hd-1 {
+		font-size: 2.375rem;
+	}
+	.accomplishment-rendering .hd-3 {
+		font-size: 1.5rem;
+	}
+	.accomplishment-rendering {
+		height:7.5in;
+		width:11in;
+	}
+	.wrapper-accomplishment-metadata {
+		display: none;
+	}
+	.cky-btn-revisit-wrapper.cky-revisit-bottom-left {
+	    display: none;
+	}
 }
