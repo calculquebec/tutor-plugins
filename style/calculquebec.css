@@ -821,32 +821,86 @@ footer[role=contentinfo]
 }
 
 /* certificate page */
-body.layout-accomplishment section.banner.banner-user {
-    background: black !important;
+.layout-accomplishment .accomplishment-orgs .organization-logo {
+    max-width: 200% !important;
+    width: auto;
+    height: auto;
+    padding-top: 6rem;
+    min-width: 10rem;
+    min-height: 7rem;
+    padding-bottom: 0 !important;
 }
 .accomplishment-signatories {
-	display:none;
+  display: none;
 }
-.layout-accomplishment .accomplishment-orgs .organization-logo {
-    width: 100%;
-    max-width: 100%;
+.certificate .accomplishment-rendering .deco-corner {
+  display: none;
 }
-.inline-certificate-metadata {
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
+.layout-accomplishment .accomplishment-rendering {
+  height: 50rem;
 }
-.inline-certificate-accomplishment-date, 
-.inline-certificate-accomplishment-id {
-	display: inline-block;
+.accomplishment-rendering {
+  border-top: 0 !important;
 }
-.inline-certificate-metadata div dl {
-  display: grid;
-  grid-template-columns: max-content auto;
+.accomplishment-rendering .accomplishment-statement-lead {
+  margin-top: -4rem !important;
 }
-.inline-certificate-metadata div dt {
-  grid-column-start: 1;
+.accomplishment-rendering .accomplishment-type-label {
+  font-weight: 400 !important;
+  color: #000000 !important;
 }
-.inline-certificate-metadata div dd {
-  grid-column-start: 2;
+.accomplishment-rendering .accomplishment-summary,
+.accomplishment-rendering .accomplishment-recipient,
+.accomplishment-rendering .accomplishment-statement-lead,
+.accomplishment-rendering .accomplishment-course,
+.accomplishment-rendering .accomplishment-statement-detail {
+  font-family: "Roboto" !important;
+}
+.accomplishment-rendering .accomplishment-summary,
+.accomplishment-rendering .accomplishment-statement-detail {
+  font-size: 1.5rem !important;
+}
+.accomplishment-rendering .accomplishment-summary,
+.accomplishment-rendering .accomplishment-type {
+  margin-bottom: 2rem !important;
+}
+.accomplishment-rendering .accomplishment-recipient,
+.accomplishment-rendering .accomplishment-course {
+  letter-spacing: 0 !important;
+  font-weight: 700 !important;
+}
+@media screen {
+  body.layout-accomplishment section.banner.banner-user {
+    background: black !important;
+  }
+  .inline-certificate-metadata {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    bottom: 0;
+    position: absolute;
+  }
+  .inline-certificate-accomplishment-date,
+  .inline-certificate-accomplishment-id {
+    display: inline-block;
+  }
+  .inline-certificate-metadata div dl {
+    display: grid;
+    grid-template-columns: max-content auto;
+  }
+  .inline-certificate-metadata div dt {
+    grid-column-start: 1;
+  }
+  .inline-certificate-metadata div dd {
+    grid-column-start: 2;
+  }
+}
+@media print {
+	.accomplishment-rendering {
+		height:8in;
+		width:11in;
+	}
+	.inline-certificate-metadata {
+		display: none;
+	}
 }
