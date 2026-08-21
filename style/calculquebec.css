@@ -823,6 +823,7 @@ footer[role=contentinfo]
 /* certificate page */
 .layout-accomplishment .accomplishment-orgs .organization-logo {
     max-width: 200% !important;
+    max-height: none !important;
     width: auto;
     height: auto;
     padding-top: 6rem;
@@ -835,9 +836,6 @@ footer[role=contentinfo]
 }
 .certificate .accomplishment-rendering .deco-corner {
   display: none;
-}
-.layout-accomplishment .accomplishment-rendering {
-  height: 50rem;
 }
 .accomplishment-rendering {
   border-top: 0 !important;
@@ -873,6 +871,9 @@ footer[role=contentinfo]
   body.layout-accomplishment section.banner.banner-user {
     background: black !important;
   }
+  .layout-accomplishment .accomplishment-rendering {
+    height: 50rem;
+  }
   .inline-certificate-metadata {
     display: flex;
     justify-content: space-between;
@@ -896,11 +897,23 @@ footer[role=contentinfo]
   }
 }
 @media print {
+	.accomplishment-rendering .accomplishment-statement {
+		max-width: 90% !important;
+	}
+	.accomplishment-rendering .hd-1 {
+		font-size: 2.375rem;
+	}
+	.accomplishment-rendering .hd-3 {
+		font-size: 1.5rem;
+	}
 	.accomplishment-rendering {
-		height:8in;
+		height:7in;
 		width:11in;
 	}
 	.inline-certificate-metadata {
 		display: none;
+	}
+	.cky-btn-revisit-wrapper.cky-revisit-bottom-left {
+	    display: none;
 	}
 }
