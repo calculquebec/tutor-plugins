@@ -98,6 +98,7 @@ const modifyLogoHref = ( widget ) => {
 """),
     ("mfe-env-config-buildtime-definitions", load_file('calculquebec.tsx')),
     ("mfe-env-config-buildtime-definitions", load_file('external_loaders.tsx')),
+    ("mfe-env-config-buildtime-definitions", load_file('custom_extra_fields.tsx')),
 ])
 
 # Add hook to insert external CookieYes script
@@ -259,6 +260,23 @@ slots += [
         }
         """
     )
+]
+
+slots += [
+    (
+        "profile",
+        "org.openedx.frontend.profile.additional_profile_fields.v1",
+        """
+        {
+          op: PLUGIN_OPERATIONS.Insert,
+          widget: {
+            id: 'custom_extra_fields',
+            type: DIRECT_PLUGIN,
+            RenderWidget: CustomExtraFields,
+          },
+        }
+        """
+    ),
 ]
 
 PLUGIN_SLOTS.add_items(slots)
