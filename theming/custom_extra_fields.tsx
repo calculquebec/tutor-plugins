@@ -573,4 +573,3 @@ CustomExtraFields.propTypes = {
   }),
 };
 
-export default CustomExtraFields;
