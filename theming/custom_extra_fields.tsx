@@ -301,118 +301,120 @@ const CustomProfileFieldItem = ({
 
   const displayContent = getDisplayContent();
 
+  const switchCases = {
+    editing: (
+      <div role="dialog" aria-labelledby={`${config.fieldName}-label`}>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group m-0 pb-2">
+            <label
+              className="edit-section-header font-weight-bold"
+              htmlFor={config.fieldName}
+              id={`${config.fieldName}-label`}
+            >
+              {labels.title}
+            </label>
+            {labels.helpText && (
+              <p className="text-muted small mb-2">{labels.helpText}</p>
+            )}
+
+            {config.type === 'select' && (
+              <select
+                className="form-control py-10px"
+                id={config.fieldName}
+                name={config.fieldName}
+                value={value || ''}
+                onChange={e => setValue(e.target.value)}
+                disabled={isSaving}
+              >
+                <option value="">{labels.placeholder}</option>
+                {config.options.map(opt => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label[lang] || opt.label.en}
+                  </option>
+                ))}
+              </select>
+            )}
+
+            {config.type === 'boolean' && (
+              <div className="form-check my-2">
+                <input
+                  type="checkbox"
+                  className="form-check-input"
+                  id={config.fieldName}
+                  name={config.fieldName}
+                  checked={value === true || value === 'true' || value === 'True' || value === 1 || value === '1'}
+                  onChange={e => setValue(e.target.checked)}
+                  disabled={isSaving}
+                />
+                <label className="form-check-label ml-2" htmlFor={config.fieldName}>
+                  {labels.checkboxLabel || labels.title}
+                </label>
+              </div>
+            )}
+
+            {error && (
+              <div className="text-danger mt-1 small" role="alert">
+                {error}
+              </div>
+            )}
+          </div>
+
+          <div className="d-flex flex-wrap align-items-center mt-3">
+            <Button
+              variant="outline-primary"
+              className="mr-2"
+              onClick={handleCancel}
+              disabled={isSaving}
+            >
+              {common.cancel}
+            </Button>
+            <Button
+              type="submit"
+              variant="primary"
+              onClick={handleSubmit}
+              disabled={isSaving}
+            >
+              {isSaving ? common.saving : common.save}
+            </Button>
+          </div>
+        </form>
+      </div>
+    ),
+    editable: (
+      <>
+        <div className="row m-0 pb-1.5 align-items-center">
+          <p data-hj-suppress className="h5 font-weight-bold m-0">
+            {labels.title}
+          </p>
+        </div>
+        <EditableItemHeader
+          content={displayContent}
+          showEditButton
+          onClickEdit={() => setFormMode('editing')}
+          showVisibility={false}
+          visibility="private"
+        />
+      </>
+    ),
+    empty: (
+      <>
+        <div className="row m-0 pb-1.5 align-items-center">
+          <p data-hj-suppress className="h5 font-weight-bold m-0">
+            {labels.title}
+          </p>
+        </div>
+        <EmptyContent onClick={() => setFormMode('editing')}>
+          <p className="mb-0">{labels.emptyText}</p>
+        </EmptyContent>
+      </>
+    ),
+  };
+
   return (
     <SwitchContent
       className="pt-40px"
       expression={formMode}
-      cases={{
-        editing: (
-          <div role="dialog" aria-labelledby={`${config.fieldName}-label`}>
-            <form onSubmit={handleSubmit}>
-              <div className="form-group m-0 pb-2">
-                <label
-                  className="edit-section-header font-weight-bold"
-                  htmlFor={config.fieldName}
-                  id={`${config.fieldName}-label`}
-                >
-                  {labels.title}
-                </label>
-                {labels.helpText && (
-                  <p className="text-muted small mb-2">{labels.helpText}</p>
-                )}
-
-                {config.type === 'select' && (
-                  <select
-                    className="form-control py-10px"
-                    id={config.fieldName}
-                    name={config.fieldName}
-                    value={value || ''}
-                    onChange={e => setValue(e.target.value)}
-                    disabled={isSaving}
-                  >
-                    <option value="">{labels.placeholder}</option>
-                    {config.options.map(opt => (
-                      <option key={opt.value} value={opt.value}>
-                        {opt.label[lang] || opt.label.en}
-                      </option>
-                    ))}
-                  </select>
-                )}
-
-                {config.type === 'boolean' && (
-                  <div className="form-check my-2">
-                    <input
-                      type="checkbox"
-                      className="form-check-input"
-                      id={config.fieldName}
-                      name={config.fieldName}
-                      checked={value === true || value === 'true' || value === 'True' || value === 1 || value === '1'}
-                      onChange={e => setValue(e.target.checked)}
-                      disabled={isSaving}
-                    />
-                    <label className="form-check-label ml-2" htmlFor={config.fieldName}>
-                      {labels.checkboxLabel || labels.title}
-                    </label>
-                  </div>
-                )}
-
-                {error && (
-                  <div className="text-danger mt-1 small" role="alert">
-                    {error}
-                  </div>
-                )}
-              </div>
-
-              <div className="d-flex flex-wrap align-items-center mt-3">
-                <Button
-                  variant="outline-primary"
-                  className="mr-2"
-                  onClick={handleCancel}
-                  disabled={isSaving}
-                >
-                  {common.cancel}
-                </Button>
-                <Button
-                  type="submit"
-                  variant="primary"
-                  onClick={handleSubmit}
-                  disabled={isSaving}
-                >
-                  {isSaving ? common.saving : common.save}
-                </Button>
-              </div>
-            </form>
-          </div>
-        ),
-        editable: (
-          <>
-            <div className="row m-0 pb-1.5 align-items-center">
-              <p data-hj-suppress className="h5 font-weight-bold m-0">
-                {labels.title}
-              </p>
-            </div>
-            <EditableItemHeader
-              content={displayContent}
-              showEditButton
-              onClickEdit={() => setFormMode('editing')}
-              showVisibility={false}
-              visibility="private"
-            />
-          </>
-        ),
-        empty: (
-          <>
-            <div className="row m-0 pb-1.5 align-items-center">
-              <p data-hj-suppress className="h5 font-weight-bold m-0">
-                {labels.title}
-              </p>
-            </div>
-            <EmptyContent onClick={() => setFormMode('editing')}>
-              <p className="mb-0">{labels.emptyText}</p>
-            </EmptyContent>
-          </>
-        ),
-      }}
+      cases={switchCases}
     />
   );
 };
