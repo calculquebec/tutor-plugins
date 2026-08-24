@@ -14,15 +14,15 @@ const FIELD_DEFINITIONS = {
     fieldName: 'position',
     labels: {
       'fr-ca': {
-        title: 'Poste',
-        helpText: 'Sélectionnez votre poste.',
-        emptyText: 'Ajouter un poste',
+        title: 'Statut académique',
+        helpText: 'Sélectionnez votre statut académique.',
+        emptyText: 'Ajouter un statut académique',
         placeholder: '-- Sélectionnez une option --',
       },
       en: {
-        title: 'Position',
-        helpText: 'Select your position.',
-        emptyText: 'Add position',
+        title: 'Academic position',
+        helpText: 'Select your academic position.',
+        emptyText: 'Add academic position',
         placeholder: '-- Select an option --',
       },
     },
