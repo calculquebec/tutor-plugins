@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@openedx/paragon';
 import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
+import { getLocale } from '@edx/frontend-platform/i18n';
 
 /**
  * Configuration and options for custom extra fields defined in
@@ -179,15 +180,40 @@ const COMMON_LABELS = {
 };
 
 /**
+ * Utility to parse profileFieldValues prop into a key-value dictionary
+ */
+const parseProfileFieldValues = (profileFieldValues) => {
+  const map = {};
+  if (Array.isArray(profileFieldValues)) {
+    profileFieldValues.forEach((item) => {
+      if (!item) return;
+      const key = item.fieldName || item.field_name;
+      const val = item.fieldValue !== undefined ? item.fieldValue : item.field_value;
+      if (key !== undefined) {
+        map[key] = val;
+      }
+    });
+  } else if (profileFieldValues && typeof profileFieldValues === 'object') {
+    Object.entries(profileFieldValues).forEach(([k, v]) => {
+      map[k] = v;
+    });
+  }
+  return map;
+};
+
+/**
  * Utility to determine current language ('fr-ca' or 'en')
  */
 const detectLanguage = () => {
   try {
-    if (typeof getLanguage === 'function') {
-      return getLanguage();
+    const locale = typeof getLocale === 'function' ? getLocale() : null;
+    if (locale) {
+      const loc = locale.toLowerCase();
+      if (loc.startsWith('fr')) return 'fr-ca';
+      if (loc.startsWith('en')) return 'en';
     }
   } catch (e) {
-    // getLanguage not in scope
+    // getLocale not available or failed
   }
 
   try {
@@ -235,9 +261,11 @@ const CustomProfileFieldItem = ({
   const common = COMMON_LABELS[lang] || COMMON_LABELS.en;
   const labels = config.labels[lang] || config.labels.en;
 
+  const isValueEmpty = (val) => val === '' || val === null || val === undefined;
+
   useEffect(() => {
     setValue(initialValue);
-    if (initialValue === '' || initialValue === null || initialValue === undefined) {
+    if (isValueEmpty(initialValue)) {
       setFormMode('empty');
     } else {
       setFormMode('editable');
@@ -246,7 +274,10 @@ const CustomProfileFieldItem = ({
 
   useEffect(() => {
     if (serverError) {
-      setError(serverError);
+      const errMessage = typeof serverError === 'object' && serverError !== null
+        ? (serverError.user_message || serverError.developer_message || JSON.stringify(serverError))
+        : serverError;
+      setError(errMessage);
       setFormMode('editing');
     }
   }, [serverError]);
@@ -254,7 +285,7 @@ const CustomProfileFieldItem = ({
   const handleCancel = () => {
     setValue(initialValue);
     setError(null);
-    if (initialValue === '' || initialValue === null || initialValue === undefined) {
+    if (isValueEmpty(initialValue)) {
       setFormMode('empty');
     } else {
       setFormMode('editable');
@@ -266,17 +297,32 @@ const CustomProfileFieldItem = ({
     setIsSaving(true);
     setError(null);
 
+    let saveVal = value;
+    if (config.type === 'boolean') {
+      saveVal = value === true || value === 'true' || value === 'True' || value === 1 || value === '1';
+    } else if (saveVal === null || saveVal === undefined) {
+      saveVal = '';
+    }
+
     try {
-      await onSave(config.fieldName, value);
+      await onSave(config.fieldName, saveVal);
       setIsSaving(false);
-      if (value === '' || value === null || value === undefined) {
+      if (isValueEmpty(saveVal)) {
         setFormMode('empty');
       } else {
         setFormMode('editable');
       }
     } catch (err) {
       setIsSaving(false);
-      setError(err?.message || common.errorSaving);
+      const rawError = err?.processedData?.fieldErrors?.[config.fieldName]
+        || err?.response?.data?.field_errors?.[config.fieldName]
+        || err?.user_message
+        || err?.message
+        || common.errorSaving;
+      const errMessage = typeof rawError === 'object' && rawError !== null
+        ? (rawError.user_message || rawError.developer_message || JSON.stringify(rawError))
+        : rawError;
+      setError(errMessage);
       setFormMode('editing');
     }
   };
@@ -422,7 +468,7 @@ const CustomProfileFieldItem = ({
 CustomProfileFieldItem.propTypes = {
   config: PropTypes.object.isRequired,
   initialValue: PropTypes.any,
-  serverError: PropTypes.string,
+  serverError: PropTypes.any,
   onSave: PropTypes.func.isRequired,
   lang: PropTypes.string.isRequired,
   SwitchContent: PropTypes.elementType.isRequired,
@@ -489,26 +535,89 @@ const CustomExtraFields = ({
   const EditableItemHeader = formComponents?.EditableItemHeader || FallbackEditableItemHeader;
   const EmptyContent = formComponents?.EmptyContent || FallbackEmptyContent;
 
+  const [localFieldValues, setLocalFieldValues] = useState(() => parseProfileFieldValues(profileFieldValues));
+
+  useEffect(() => {
+    if (profileFieldValues) {
+      setLocalFieldValues(prev => ({
+        ...parseProfileFieldValues(profileFieldValues),
+        ...prev,
+        ...parseProfileFieldValues(profileFieldValues),
+      }));
+    }
+  }, [profileFieldValues]);
+
   const handleFieldSave = async (fieldName, fieldValue) => {
     const username = authenticatedUser?.username;
     if (!username) {
       throw new Error('Username not available');
     }
 
-    // Call updateUserProfile with extendedProfile payload
-    await updateUserProfile(username, {
-      extendedProfile: [{ fieldName, fieldValue }],
+    // Combine current values from profileFieldValues prop and local state
+    const currentMap = {
+      ...parseProfileFieldValues(profileFieldValues),
+      ...localFieldValues,
+    };
+
+    // Ensure all defined custom fields have a valid defined value (prevent undefined)
+    Object.entries(FIELD_DEFINITIONS).forEach(([key, def]) => {
+      if (currentMap[key] === undefined || currentMap[key] === null) {
+        currentMap[key] = def.type === 'boolean' ? false : '';
+      }
     });
 
-    // Optionally refresh profile in Redux store
+    // Update the specific field being saved
+    currentMap[fieldName] = fieldValue;
+
+    // Build the payload for the server
+    const extendedProfilePayload = Object.entries(currentMap).map(([name, val]) => {
+      let cleanVal = val;
+      if (cleanVal === undefined || cleanVal === null) {
+        cleanVal = FIELD_DEFINITIONS[name]?.type === 'boolean' ? false : '';
+      }
+      return {
+        fieldName: name,
+        fieldValue: cleanVal,
+      };
+    });
+
+    // Update local state immediately so subsequent saves retain these values
+    setLocalFieldValues(currentMap);
+
+    // Call updateUserProfile (handles both (username, payload) and (payload) signatures)
+    let updatedAccount;
+    if (typeof updateUserProfile === 'function') {
+      if (updateUserProfile.length === 1) {
+        updatedAccount = await updateUserProfile({
+          extendedProfile: extendedProfilePayload,
+        });
+      } else {
+        updatedAccount = await updateUserProfile(username, {
+          extendedProfile: extendedProfilePayload,
+        });
+      }
+    }
+
+    if (updatedAccount && (updatedAccount.extendedProfile || updatedAccount.extended_profile)) {
+      const serverReturnedValues = updatedAccount.extendedProfile || updatedAccount.extended_profile;
+      setLocalFieldValues(parseProfileFieldValues(serverReturnedValues));
+    }
+
+    // Refresh profile in Redux store
     if (typeof refreshUserProfile === 'function') {
       await refreshUserProfile(username);
     }
   };
 
   const getFieldValue = (fieldName) => {
-    const field = profileFieldValues?.find(f => f.fieldName === fieldName);
-    return field ? field.fieldValue : '';
+    if (fieldName in localFieldValues && localFieldValues[fieldName] !== undefined && localFieldValues[fieldName] !== null) {
+      return localFieldValues[fieldName];
+    }
+    const propMap = parseProfileFieldValues(profileFieldValues);
+    if (fieldName in propMap && propMap[fieldName] !== undefined && propMap[fieldName] !== null) {
+      return propMap[fieldName];
+    }
+    return '';
   };
 
   return (
@@ -517,7 +626,7 @@ const CustomExtraFields = ({
         key="position"
         config={FIELD_DEFINITIONS.position}
         initialValue={getFieldValue('position')}
-        serverError={profileFieldErrors?.position}
+        serverError={profileFieldErrors?.position || profileFieldErrors?.['position']}
         onSave={handleFieldSave}
         lang={lang}
         SwitchContent={SwitchContent}
@@ -529,7 +638,7 @@ const CustomExtraFields = ({
         key="research_area"
         config={FIELD_DEFINITIONS.research_area}
         initialValue={getFieldValue('research_area')}
-        serverError={profileFieldErrors?.research_area}
+        serverError={profileFieldErrors?.research_area || profileFieldErrors?.['research_area']}
         onSave={handleFieldSave}
         lang={lang}
         SwitchContent={SwitchContent}
@@ -541,7 +650,7 @@ const CustomExtraFields = ({
         key="wants_newsletter"
         config={FIELD_DEFINITIONS.wants_newsletter}
         initialValue={getFieldValue('wants_newsletter')}
-        serverError={profileFieldErrors?.wants_newsletter}
+        serverError={profileFieldErrors?.wants_newsletter || profileFieldErrors?.['wants_newsletter']}
         onSave={handleFieldSave}
         lang={lang}
         SwitchContent={SwitchContent}
@@ -555,17 +664,8 @@ const CustomExtraFields = ({
 CustomExtraFields.propTypes = {
   updateUserProfile: PropTypes.func.isRequired,
   refreshUserProfile: PropTypes.func,
-  profileFieldValues: PropTypes.arrayOf(
-    PropTypes.shape({
-      fieldName: PropTypes.string.isRequired,
-      fieldValue: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.bool,
-        PropTypes.number,
-      ]),
-    }),
-  ),
-  profileFieldErrors: PropTypes.objectOf(PropTypes.string),
+  profileFieldValues: PropTypes.any,
+  profileFieldErrors: PropTypes.objectOf(PropTypes.any),
   formComponents: PropTypes.shape({
     SwitchContent: PropTypes.elementType,
     EditableItemHeader: PropTypes.elementType,
