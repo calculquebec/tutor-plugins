@@ -921,3 +921,8 @@ footer[role=contentinfo]
 	    display: none;
 	}
 }
+
+/* fix display bug in registration page */
+.username__form-group-wrapper > div:first-of-type {
+    margin-bottom: 20px;
+}
