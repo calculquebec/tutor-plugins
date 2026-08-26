@@ -11,13 +11,18 @@ class ExternalScriptsLoader {
     for (var i = 0, keys = Object.keys(this.externalScripts), ii = keys.length; i < ii; i++) {
       const script = document.createElement('script');
       script.id = keys[i];
-      script.src = this.externalScripts[keys[i]];
+      script.src = this.externalScripts[keys[i]]['src'];
       script.type = 'text/javascript';
-      document.head.appendChild(script);
+      if ("defer" in this.externalScripts[keys[i]]) {
+        script.defer = 'defer' in this.externalScripts[keys[i]];
+        document.body.appendChild(script);
+      }
+      else {
+        document.head.appendChild(script);
+      }
     }
   }
 }
-
 class ExternalStylesheetsLoader {
   externalSheets = {}
   constructor({ config }) {
