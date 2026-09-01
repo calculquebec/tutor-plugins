@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@openedx/paragon';
 import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
+import { AppContext } from '@edx/frontend-platform/react';
 import { getLocale } from '@edx/frontend-platform/i18n';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 /**
  * Configuration and options for custom extra fields defined in
@@ -252,6 +255,7 @@ const CustomProfileFieldItem = ({
   SwitchContent,
   EditableItemHeader,
   EmptyContent,
+  isEditable = true,
 }) => {
   const [formMode, setFormMode] = useState('editable');
   const [value, setValue] = useState(initialValue);
@@ -435,7 +439,7 @@ const CustomProfileFieldItem = ({
         </div>
         <EditableItemHeader
           content={displayContent}
-          showEditButton
+          showEditButton={isEditable}
           onClickEdit={() => setFormMode('editing')}
           showVisibility={false}
           visibility="private"
@@ -474,6 +478,7 @@ CustomProfileFieldItem.propTypes = {
   SwitchContent: PropTypes.elementType.isRequired,
   EditableItemHeader: PropTypes.elementType.isRequired,
   EmptyContent: PropTypes.elementType.isRequired,
+  isEditable: PropTypes.bool,
 };
 
 /**
@@ -528,8 +533,52 @@ const CustomExtraFields = ({
   profileFieldErrors = {},
   formComponents = {},
 }) => {
+  const context = useContext(AppContext);
   const authenticatedUser = getAuthenticatedUser();
+  const authenticatedUserName = context?.authenticatedUser?.username || authenticatedUser?.username;
   const lang = detectLanguage();
+
+  const reduxIsAuthenticatedUser = useSelector(
+    (state) => state?.profilePage?.isAuthenticatedUserProfile,
+  );
+  const reduxRequestedUsername = useSelector(
+    (state) => state?.profilePage?.account?.username,
+  );
+
+  let routeUsername = null;
+  try {
+    const params = useParams();
+    routeUsername = params?.username;
+  } catch (e) {
+    // useParams might throw if outside a Router context
+  }
+
+  const requestedUsername = reduxRequestedUsername
+    || routeUsername
+    || (typeof window !== 'undefined' ? window.location.pathname.match(/\/u\/([^/?#]+)/)?.[1] : null);
+
+  const isAuthenticatedUserProfile = () => {
+    if (reduxIsAuthenticatedUser !== undefined) {
+      return Boolean(reduxIsAuthenticatedUser);
+    }
+    if (requestedUsername && authenticatedUserName) {
+      return requestedUsername === authenticatedUserName;
+    }
+    return true;
+  };
+
+  const isBlockVisible = (blockInfo) => isAuthenticatedUserProfile()
+    || (!isAuthenticatedUserProfile() && Boolean(blockInfo));
+
+  const isFieldValueDefined = (fieldName, val) => {
+    if (val === undefined || val === null || val === '') {
+      return false;
+    }
+    if (FIELD_DEFINITIONS[fieldName]?.type === 'boolean') {
+      return val === true || val === 'true' || val === 'True' || val === 1 || val === '1';
+    }
+    return Boolean(val);
+  };
 
   const SwitchContent = formComponents?.SwitchContent || FallbackSwitchContent;
   const EditableItemHeader = formComponents?.EditableItemHeader || FallbackEditableItemHeader;
@@ -548,7 +597,7 @@ const CustomExtraFields = ({
   }, [profileFieldValues]);
 
   const handleFieldSave = async (fieldName, fieldValue) => {
-    const username = authenticatedUser?.username;
+    const username = authenticatedUser?.username || authenticatedUserName;
     if (!username) {
       throw new Error('Username not available');
     }
@@ -620,43 +669,66 @@ const CustomExtraFields = ({
     return '';
   };
 
+  const positionVal = getFieldValue('position');
+  const researchAreaVal = getFieldValue('research_area');
+  const newsletterVal = getFieldValue('wants_newsletter');
+
+  const positionDefined = isFieldValueDefined('position', positionVal);
+  const researchAreaDefined = isFieldValueDefined('research_area', researchAreaVal);
+  const newsletterDefined = isFieldValueDefined('wants_newsletter', newsletterVal);
+
+  const hasAnyData = positionDefined || researchAreaDefined || newsletterDefined;
+
+  if (!isBlockVisible(hasAnyData)) {
+    return null;
+  }
+
   return (
     <div className="custom-extra-fields-section">
-      <CustomProfileFieldItem
-        key="position"
-        config={FIELD_DEFINITIONS.position}
-        initialValue={getFieldValue('position')}
-        serverError={profileFieldErrors?.position || profileFieldErrors?.['position']}
-        onSave={handleFieldSave}
-        lang={lang}
-        SwitchContent={SwitchContent}
-        EditableItemHeader={EditableItemHeader}
-        EmptyContent={EmptyContent}
-      />
+      {isBlockVisible(positionDefined) && (
+        <CustomProfileFieldItem
+          key="position"
+          config={FIELD_DEFINITIONS.position}
+          initialValue={positionVal}
+          serverError={profileFieldErrors?.position || profileFieldErrors?.['position']}
+          onSave={handleFieldSave}
+          lang={lang}
+          SwitchContent={SwitchContent}
+          EditableItemHeader={EditableItemHeader}
+          EmptyContent={EmptyContent}
+          isEditable={isAuthenticatedUserProfile()}
+        />
+      )}
 
-      <CustomProfileFieldItem
-        key="research_area"
-        config={FIELD_DEFINITIONS.research_area}
-        initialValue={getFieldValue('research_area')}
-        serverError={profileFieldErrors?.research_area || profileFieldErrors?.['research_area']}
-        onSave={handleFieldSave}
-        lang={lang}
-        SwitchContent={SwitchContent}
-        EditableItemHeader={EditableItemHeader}
-        EmptyContent={EmptyContent}
-      />
+      {isBlockVisible(researchAreaDefined) && (
+        <CustomProfileFieldItem
+          key="research_area"
+          config={FIELD_DEFINITIONS.research_area}
+          initialValue={researchAreaVal}
+          serverError={profileFieldErrors?.research_area || profileFieldErrors?.['research_area']}
+          onSave={handleFieldSave}
+          lang={lang}
+          SwitchContent={SwitchContent}
+          EditableItemHeader={EditableItemHeader}
+          EmptyContent={EmptyContent}
+          isEditable={isAuthenticatedUserProfile()}
+        />
+      )}
 
-      <CustomProfileFieldItem
-        key="wants_newsletter"
-        config={FIELD_DEFINITIONS.wants_newsletter}
-        initialValue={getFieldValue('wants_newsletter')}
-        serverError={profileFieldErrors?.wants_newsletter || profileFieldErrors?.['wants_newsletter']}
-        onSave={handleFieldSave}
-        lang={lang}
-        SwitchContent={SwitchContent}
-        EditableItemHeader={EditableItemHeader}
-        EmptyContent={EmptyContent}
-      />
+      {isBlockVisible(newsletterDefined) && (
+        <CustomProfileFieldItem
+          key="wants_newsletter"
+          config={FIELD_DEFINITIONS.wants_newsletter}
+          initialValue={newsletterVal}
+          serverError={profileFieldErrors?.wants_newsletter || profileFieldErrors?.['wants_newsletter']}
+          onSave={handleFieldSave}
+          lang={lang}
+          SwitchContent={SwitchContent}
+          EditableItemHeader={EditableItemHeader}
+          EmptyContent={EmptyContent}
+          isEditable={isAuthenticatedUserProfile()}
+        />
+      )}
     </div>
   );
 };
