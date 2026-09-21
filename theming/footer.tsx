@@ -88,6 +88,19 @@
           <a
             href={
               langIsFrench()
+                ? '/ans'
+                : '/sla'
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {languages[language].ans}
+          </a>
+        </li>
+        <li>
+          <a
+            href={
+              langIsFrench()
                 ? 'https://www.calculquebec.ca/a-propos/politiques-et-publications/'
                 : 'https://www.calculquebec.ca/en/about-us/policies-and-publications/'
             }
