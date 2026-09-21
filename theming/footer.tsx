@@ -89,12 +89,12 @@
             href={
               langIsFrench()
                 ? '/ans'
-                : '/sla'
+                : '/ans'
             }
             target="_blank"
             rel="noopener noreferrer"
           >
-            {languages[language].ans}
+            {languages[language].sla}
           </a>
         </li>
         <li>
