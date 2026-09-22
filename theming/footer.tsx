@@ -75,8 +75,8 @@
           <a
             href={
               langIsFrench()
-                ? 'https://www.calculquebec.ca/wp-content/uploads/2024/08/conditions-utilisation.pdf'
-                : 'https://www.calculquebec.ca/wp-content/uploads/2024/08/terms-of-use.pdf'
+                ? 'https://www.calculquebec.ca/conditions-utilisation'
+                : 'https://www.calculquebec.ca/terms-use'
             }
             target="_blank"
             rel="noopener noreferrer"
