@@ -90,6 +90,7 @@ const languages = {
     bannerwelcome: "Bienvenue sur evolo",
     bannerplatform: "la plateforme de formation gratuite de Calcul Québec destinée à la communauté de la recherche.",
     bannercomeback: "Revenez régulièrement : de nouveaux cours sont en préparation !",
+    sla: "Accord de niveau de service",
   },
   en: {
     help: "Help",
@@ -106,5 +107,6 @@ const languages = {
     bannerwelcome: "Welcome to evolo",
     bannerplatform: "Calcul Québec's free learning platform aimed at the research community.",
     bannercomeback: "Come back often: new content is being prepared!",
+    sla: "Service level agreement",
   },
 };
