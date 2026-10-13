@@ -41,6 +41,15 @@
   font-optical-sizing: auto !important;
 }
 }
+@layer paragon {
+/* fix for instructor-dashboard */
+span.badge.bg-primary.fs-6 {
+  background-color: #ffffff !important;
+}
+span.badge.bg-secondary.me-2 {
+  background-color: #ffffff !important;
+}
+}
 /* Hide registration link */
 a.btn.mr-2.btn-outline-primary {
   display: none;

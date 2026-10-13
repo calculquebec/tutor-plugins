@@ -70,17 +70,28 @@ addApp(siteConfig, staticPagesApp);
 #    }
 
 hooks.Filters.ENV_PATCHES.add_items([
-    (
-        "openedx-common-settings",
-"""FEATURES["ENABLE_FEEDBACK_INSTRUCTOR_VIEW"] = True
-OPEN_EDX_FILTERS_CONFIG["org.openedx.learning.instructor.dashboard.render.started.v1"] = {
+        (
+            "openedx-common-settings",
+            """
+try:
+    not OPEN_EDX_FILTERS_CONFIG
+except NameError:
+    OPEN_EDX_FILTERS_CONFIG = {}
+
+if not OPEN_EDX_FILTERS_CONFIG.get("org.openedx.learning.instructor.dashboard.tabs.requested.v1"):
+    OPEN_EDX_FILTERS_CONFIG["org.openedx.learning.instructor.dashboard.tabs.requested.v1"] = {
         "fail_silently": False,
-        "pipeline": [
-            "feedback.extensions.filters.AddFeedbackTab",
-        ]
-    },
+        "pipeline": [],
+    }
+
+_feedback_step = "feedback.extensions.filters.AddFeedbackTabToInstructorDashboard"
+if _feedback_step not in OPEN_EDX_FILTERS_CONFIG["org.openedx.learning.instructor.dashboard.tabs.requested.v1"]["pipeline"]:
+    OPEN_EDX_FILTERS_CONFIG["org.openedx.learning.instructor.dashboard.tabs.requested.v1"]["pipeline"].append(_feedback_step)
 """
-    ),
+        ),
+])
+
+hooks.Filters.ENV_PATCHES.add_items([
     # for theming frontend-base authn app
     ("mfe-dockerfile-pre-npm-install-site", "RUN npm pkg set 'dependencies.@edx/brand=npm:@arbrandes/indigo-brand-openedx@^2.6.0'"),
     # for Frontend base apps
@@ -89,6 +100,7 @@ import { WidgetOperationTypes } from '@openedx/frontend-base';
 """),
     ("mfe-site-custom-app-definitions", load_file('calculquebec.tsx')),
     ("mfe-site-custom-app-definitions", load_file('external_loaders.tsx')),
+    ("mfe-site-custom-app-definitions", load_file('feedback_tab.tsx')),
     # for MFEs
     ("mfe-env-config-buildtime-definitions", """
 const modifyLogoHref = ( widget ) => {
@@ -207,6 +219,10 @@ insertMFESlots([('all', 'footer_slot')], wrapTSXLiteral(load_file('footer.tsx'))
 
 insertFrontendSlots([('org.openedx.frontend.slot.header.desktop.v1')], load_file('header.tsx'))
 insertFrontendSlots([('org.openedx.frontend.slot.footer.desktop.v1')], load_file('footer.tsx'))
+insertFrontendSlots(
+    [('org.openedx.frontend.slot.instructorDashboard.routes.v1')],
+    '<PlaceholderSlot tabId="feedback" content={<FeedbackTab />} />'
+)
 
 # replace home banner in catalog
 insertMFESlots([('catalog', 'org.openedx.frontend.catalog.home_page.banner')], wrapTSXLiteral(load_file('home_banner.tsx')))
