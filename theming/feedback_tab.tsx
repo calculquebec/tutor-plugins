@@ -101,6 +101,11 @@ const FeedbackTab = () => {
     );
   }
 
+  const colComponentStyle = { width: '30%' };
+  const colRatingsStyle = { width: '25%' };
+  const colAverageStyle = { width: '15%' };
+  const colCommentsStyle = { width: '30%' };
+
   return (
     <div className="feedback-instructor-wrapper my-4">
       <h3 className="mb-4">{t.title}</h3>
@@ -108,10 +113,10 @@ const FeedbackTab = () => {
         <table className="table table-striped table-hover table-bordered">
           <thead className="table-light">
             <tr>
-              <th scope="col" style={{ width: '30%' }}>{t.component}</th>
-              <th scope="col" style={{ width: '25%' }}>{t.ratingsCount}</th>
-              <th scope="col" style={{ width: '15%' }}>{t.averageRating}</th>
-              <th scope="col" style={{ width: '30%' }}>{t.comments}</th>
+              <th scope="col" style={colComponentStyle}>{t.component}</th>
+              <th scope="col" style={colRatingsStyle}>{t.ratingsCount}</th>
+              <th scope="col" style={colAverageStyle}>{t.averageRating}</th>
+              <th scope="col" style={colCommentsStyle}>{t.comments}</th>
             </tr>
           </thead>
           <tbody>
