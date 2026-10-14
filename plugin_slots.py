@@ -111,6 +111,7 @@ const modifyLogoHref = ( widget ) => {
     ("mfe-env-config-buildtime-definitions", load_file('calculquebec.tsx')),
     ("mfe-env-config-buildtime-definitions", load_file('external_loaders.tsx')),
     ("mfe-env-config-buildtime-definitions", load_file('custom_extra_fields.tsx')),
+    ("mfe-env-config-buildtime-definitions", load_file('social_share.tsx')),
 ])
 
 # Add hook to insert external CookieYes script
@@ -239,6 +240,19 @@ slots += [
           widgetId: 'default_contents',
           fn: modifyLogoHref,
         }
+        """
+    ),
+]
+slots += [
+    (
+        "catalog",
+        "org.openedx.frontend.catalog.course_about_page.sidebar.social",
+        """
+        {
+            op: PLUGIN_OPERATIONS.Modify,
+            widgetId: 'default_contents',
+            fn: modifySocialLinks,
+        },
         """
     ),
 ]
