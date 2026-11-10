@@ -100,12 +100,12 @@ def _get_multilingual_display():
 
 MULTILINGUAL_LABEL = lazy(_get_multilingual_display, str)()
 
-if "ALL_LANGUAGES" in globals() and not any(lang[0] == "mul" for lang in ALL_LANGUAGES):
+if "ALL_LANGUAGES" in globals() and not any(lang[0] == "mu" for lang in ALL_LANGUAGES):
     pos = next((i for i, lang in enumerate(ALL_LANGUAGES) if lang[0] == "na"), -1)
     if pos != -1:
-        ALL_LANGUAGES.insert(pos, ["mul", MULTILINGUAL_LABEL])
+        ALL_LANGUAGES.insert(pos, ["mu", MULTILINGUAL_LABEL])
     else:
-        ALL_LANGUAGES.append(["mul", MULTILINGUAL_LABEL])
+        ALL_LANGUAGES.append(["mu", MULTILINGUAL_LABEL])
 """
         ),
 ])
