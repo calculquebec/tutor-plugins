@@ -14,9 +14,10 @@ const setCookieFunction = (name, value, days) => {
 };
 
 // Provide display name for custom language code 'mu' (Multilingual / Multilingue)
-if (typeof Intl !== 'undefined' && Intl.DisplayNames && !Intl.DisplayNames._hasCustomOf) {
-  const originalDisplayNamesOf = Intl.DisplayNames.prototype.of;
-  Intl.DisplayNames.prototype.of = function(code) {
+const intlObj = typeof Intl !== 'undefined' ? Intl : null;
+if (intlObj && intlObj.DisplayNames && !intlObj.DisplayNames._hasCustomOf) {
+  const originalDisplayNamesOf = intlObj.DisplayNames.prototype.of;
+  intlObj.DisplayNames.prototype.of = function(code) {
     if (code === 'mu') {
       try {
         const locale = (this.resolvedOptions().locale || '').toLowerCase();
@@ -27,7 +28,7 @@ if (typeof Intl !== 'undefined' && Intl.DisplayNames && !Intl.DisplayNames._hasC
     }
     return originalDisplayNamesOf.call(this, code);
   };
-  Intl.DisplayNames._hasCustomOf = true;
+  intlObj.DisplayNames._hasCustomOf = true;
 }
 
 const getLanguage = () => {
