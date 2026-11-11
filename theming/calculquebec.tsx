@@ -14,21 +14,26 @@ const setCookieFunction = (name, value, days) => {
 };
 
 // Provide display name for custom language code 'mu' (Multilingual / Multilingue)
-const intlAny = typeof Intl !== 'undefined' ? (Intl as any) : null;
-if (intlAny && intlAny.DisplayNames && !intlAny.DisplayNames._hasCustomOf) {
-  const originalDisplayNamesOf = intlAny.DisplayNames.prototype.of;
-  intlAny.DisplayNames.prototype.of = function(code: string) {
-    if (code === 'mu') {
-      try {
-        const locale = (this.resolvedOptions().locale || '').toLowerCase();
-        return locale.startsWith('fr') ? 'Multilingue' : 'Multilingual';
-      } catch (e) {
-        return 'Multilingual';
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const intlObj = typeof Intl !== 'undefined' ? Intl : null;
+if (intlObj && intlObj.DisplayNames) {
+  // @ts-ignore: _hasCustomOf is a custom guard not in the TS Intl type definitions
+  if (!intlObj.DisplayNames._hasCustomOf) {
+    const originalDisplayNamesOf = intlObj.DisplayNames.prototype.of;
+    intlObj.DisplayNames.prototype.of = function(code) {
+      if (code === 'mu') {
+        try {
+          const locale = (this.resolvedOptions().locale || '').toLowerCase();
+          return locale.startsWith('fr') ? 'Multilingue' : 'Multilingual';
+        } catch (e) {
+          return 'Multilingual';
+        }
       }
-    }
-    return originalDisplayNamesOf.call(this, code);
-  };
-  intlAny.DisplayNames._hasCustomOf = true;
+      return originalDisplayNamesOf.call(this, code);
+    };
+    // @ts-ignore: _hasCustomOf is a custom guard not in the TS Intl type definitions
+    intlObj.DisplayNames._hasCustomOf = true;
+  }
 }
 
 const getLanguage = () => {
