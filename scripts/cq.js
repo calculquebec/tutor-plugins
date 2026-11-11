@@ -13,23 +13,6 @@ const setCookieFunction = (name, value, days) => {
   window.location.reload();
 };
 
-// Provide display name for custom language code 'mu' (Multilingual / Multilingue)
-const intlObj = typeof Intl !== 'undefined' ? Intl : null;
-if (intlObj && intlObj.DisplayNames && !intlObj.DisplayNames._hasCustomOf) {
-  const originalDisplayNamesOf = intlObj.DisplayNames.prototype.of;
-  intlObj.DisplayNames.prototype.of = function(code) {
-    if (code === 'mu') {
-      try {
-        const locale = (this.resolvedOptions().locale || '').toLowerCase();
-        return locale.startsWith('fr') ? 'Multilingue' : 'Multilingual';
-      } catch (e) {
-        return 'Multilingual';
-      }
-    }
-    return originalDisplayNamesOf.call(this, code);
-  };
-  intlObj.DisplayNames._hasCustomOf = true;
-}
 
 const getLanguage = () => {
   // Fonction utilitaire pour normaliser les codes de langue

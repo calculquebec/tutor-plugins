@@ -118,6 +118,7 @@ hooks.Filters.ENV_PATCHES.add_items([
 import { WidgetOperationTypes } from '@openedx/frontend-base';
 """),
     ("mfe-site-custom-app-definitions", load_file('calculquebec.tsx')),
+    ("mfe-site-custom-app-definitions", load_file('multilingual.tsx')),
     ("mfe-site-custom-app-definitions", load_file('external_loaders.tsx')),
     ("mfe-site-custom-app-definitions", load_file('feedback_tab.tsx')),
     # for MFEs
@@ -128,6 +129,7 @@ const modifyLogoHref = ( widget ) => {
 };
 """),
     ("mfe-env-config-buildtime-definitions", load_file('calculquebec.tsx')),
+    ("mfe-env-config-buildtime-definitions", load_file('multilingual.tsx')),
     ("mfe-env-config-buildtime-definitions", load_file('external_loaders.tsx')),
     ("mfe-env-config-buildtime-definitions", load_file('custom_extra_fields.tsx')),
     ("mfe-env-config-buildtime-definitions", load_file('social_share.tsx')),
