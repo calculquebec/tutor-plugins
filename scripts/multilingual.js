@@ -136,7 +136,7 @@ if (intlObj && intlObj.DisplayNames && !intlObj.DisplayNames._hasCustomOf) {
   // Intercept document.title setter so dynamic title updates (e.g. from React
   // or any script that assigns to document.title) are also translated.
   const titleDescriptor = Object.getOwnPropertyDescriptor(Document.prototype, 'title');
-  if (titleDescriptor && titleDescriptor.set) {
+  if (titleDescriptor && titleDescriptor.set && titleDescriptor.get) {
     const originalTitleSet = titleDescriptor.set;
     const originalTitleGet = titleDescriptor.get;
     Object.defineProperty(document, 'title', {

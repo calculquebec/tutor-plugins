@@ -143,7 +143,7 @@ if (intlObj && intlObj.DisplayNames) {
   // Intercept document.title setter so React MFEs that set the title dynamically
   // (e.g. via react-helmet or document.title = "...") are also translated.
   const titleDescriptor = Object.getOwnPropertyDescriptor(Document.prototype, 'title');
-  if (titleDescriptor && titleDescriptor.set) {
+  if (titleDescriptor && titleDescriptor.set && titleDescriptor.get) {
     const originalTitleSet = titleDescriptor.set;
     const originalTitleGet = titleDescriptor.get;
     Object.defineProperty(document, 'title', {
