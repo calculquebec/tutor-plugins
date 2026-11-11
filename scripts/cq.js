@@ -13,6 +13,23 @@ const setCookieFunction = (name, value, days) => {
   window.location.reload();
 };
 
+// Provide display name for custom language code 'mu' (Multilingual / Multilingue)
+if (typeof Intl !== 'undefined' && Intl.DisplayNames && !Intl.DisplayNames._hasCustomOf) {
+  const originalDisplayNamesOf = Intl.DisplayNames.prototype.of;
+  Intl.DisplayNames.prototype.of = function(code) {
+    if (code === 'mu') {
+      try {
+        const locale = (this.resolvedOptions().locale || '').toLowerCase();
+        return locale.startsWith('fr') ? 'Multilingue' : 'Multilingual';
+      } catch (e) {
+        return 'Multilingual';
+      }
+    }
+    return originalDisplayNamesOf.call(this, code);
+  };
+  Intl.DisplayNames._hasCustomOf = true;
+}
+
 const getLanguage = () => {
   // Fonction utilitaire pour normaliser les codes de langue
   const normalizeLang = (lang) => {
