@@ -22,6 +22,10 @@ if (intlObj && intlObj.DisplayNames && !intlObj.DisplayNames._hasCustomOf) {
   if (typeof window === 'undefined' || typeof document === 'undefined') {
     return;
   }
+  if (window._hasMultilingualTitlesInit) {
+    return;
+  }
+  window._hasMultilingualTitlesInit = true;
 
   // Only transform in learner-facing views (do not modify in Studio or Authoring MFE)
   const isStudioOrAuthoring = () => {
@@ -123,12 +127,36 @@ if (intlObj && intlObj.DisplayNames && !intlObj.DisplayNames._hasCustomOf) {
         }
       });
 
-      // Walk children
+      // Walk children first (translates plain text nodes)
       let child = node.firstChild;
       while (child) {
         const next = child.nextSibling;
         processNode(child, targetLang);
         child = next;
+      }
+
+      // If inline HTML elements (e.g. <code>, <b>, <i>) were nested inside a
+      // {fr}...{/fr} tag block, the text node walker above won't match because
+      // the opening and closing tags are split across separate text nodes.
+      // Handle leaf-level formatting containers by rewriting innerHTML when safe.
+      if (
+        (tagName === 'P' ||
+          tagName === 'LABEL' ||
+          tagName === 'SPAN' ||
+          tagName === 'LI' ||
+          tagName === 'TD' ||
+          tagName === 'TH' ||
+          tagName === 'FIGCAPTION') &&
+        node.textContent &&
+        node.textContent.indexOf('{') !== -1 &&
+        node.innerHTML &&
+        /\{([a-zA-Z]{2,3})\}[\s\S]*?\{\/\1\}/.test(node.innerHTML) &&
+        !node.querySelector('input, select, textarea, button, iframe')
+      ) {
+        const parsedHtml = parseMultilingualText(node.innerHTML, targetLang);
+        if (parsedHtml !== node.innerHTML) {
+          node.innerHTML = parsedHtml;
+        }
       }
     }
   };
