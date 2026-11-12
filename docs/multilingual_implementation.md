@@ -135,9 +135,12 @@ A client-side DOM walker powered by `MutationObserver` (`tutor-plugins/theming/m
 Native HTML5 `<video>` elements in Google Chrome and Mozilla Firefox do not expose the `AudioTrackList` API, meaning browser users cannot switch audio tracks in standard single-file MP4s without external support.
 
 ### The Solution & Implementation (`xblocks-core/xblock_video`)
-1. **Schema Extension (`xblock_video/block.py`)**:
+1. **Schema Extension & Studio Input (`xblocks-core/video`)**:
    - Added `audio_tracks = List(Scope.settings, default=[])`.
-   - Authors configure an array of audio descriptor objects containing `lang`, `label`, and optional `src`.
+   - In Studio, standard video components lack an "Advanced" tab or raw JSON field for audio tracks. To make configuration natural for course authors:
+     - Authors enter video URLs in Studio's **Basic** tab (**Video URL** and **Fallback videos** / `html5_sources`).
+     - URLs can include `#lang=<code>` fragments (e.g. `video.mp4#lang=fr`) or language filename suffixes (e.g. `video_fr.mp4`), which are automatically parsed into `audioTracks` metadata.
+     - Alternatively, `audio_tracks` can be specified directly via Course OLX (XML).
 
 2. **HLS Audio Renditions Integration (`hls.js`)**:
    - When an HLS source (`.m3u8`) is provided, `hls.js` automatically parses `#EXT-X-MEDIA:TYPE=AUDIO` groups from the playlist manifest.

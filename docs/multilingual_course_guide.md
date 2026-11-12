@@ -54,9 +54,11 @@ Module 1: {fr}Introduction au calcul de pointe{/fr}{en}Introduction to Advanced 
 Videos support both **multiple spoken audio tracks** and **multiple subtitle/caption transcriptions**.
 
 ### A. Multiple Audio Tracks (`xblock_video`)
-Learners can toggle between audio languages via an **Audio** menu in the video player controls. Modern browsers support two workflows:
+Learners can toggle between audio languages via an **Audio** menu in the video player controls.
 
-#### Option 1: Multi-Audio HLS Stream (Recommended for seamless playback)
+Because Studio's video editor does not have an "Advanced" tab or raw JSON field for audio tracks, audio tracks are configured directly using the standard video fields in the **Basic** tab (**Video URL** and **Fallback videos** / `html5_sources`), or via Course OLX (XML).
+
+#### Method 1: Multi-Audio HLS Stream (Recommended for seamless playback)
 Generate an HLS stream where different audio streams are grouped together using FFmpeg:
 ```bash
 ffmpeg -i input_multilang.mp4 \
@@ -68,33 +70,48 @@ ffmpeg -i input_multilang.mp4 \
   -master_pl_name master.m3u8 \
   -f hls "stream_%v.m3u8"
 ```
-In Studio (Video component > **Advanced**):
-- **Video File URLs** (`html5_sources`):
-  ```json
-  ["https://cdn.example.com/videos/master.m3u8"]
+In Studio (**Basic** tab):
+- Enter the master playlist URL in **Video URL**:
   ```
-- **Audio Tracks** (`audio_tracks`):
-  ```json
-  [
-    {"lang": "en", "label": "English"},
-    {"lang": "fr", "label": "Français"}
-  ]
+  https://cdn.example.com/videos/master.m3u8
+  ```
+- **Automatic detection**: The video player (`hls.js`) automatically reads the `#EXT-X-MEDIA:TYPE=AUDIO` groups in the playlist manifest and generates the Audio menu items with localized labels.
+- *(Optional manual language override)*: You can explicitly specify the track codes by appending `#lang=en,fr` to the URL:
+  ```
+  https://cdn.example.com/videos/master.m3u8#lang=en,fr
   ```
 
-#### Option 2: Multiple MP4 Files (Source Swap)
-Upload separate `.mp4` video files for each language. The player maintains the learner's playback timestamp when switching.
-In Studio (Video component > **Advanced**):
-- **Video File URLs** (`html5_sources`):
-  ```json
-  ["https://cdn.example.com/videos/lesson_en.mp4"]
-  ```
-- **Audio Tracks** (`audio_tracks`):
-  ```json
-  [
-    {"lang": "en", "label": "English", "src": "https://cdn.example.com/videos/lesson_en.mp4"},
-    {"lang": "fr", "label": "Français", "src": "https://cdn.example.com/videos/lesson_fr.mp4"}
-  ]
-  ```
+#### Method 2: Multiple MP4 Files (Source Swap)
+Upload separate `.mp4` video files for each language. The player maintains the learner's playback timestamp and play state seamlessly when switching languages.
+
+In Studio (**Basic** tab):
+1. **Using `#lang=` hash fragments (Recommended)**:
+   - In **Video URL**, put the primary language:
+     ```
+     https://cdn.example.com/videos/lesson.mp4#lang=en
+     ```
+   - In **Fallback videos**, add URLs for the alternate languages:
+     ```
+     https://cdn.example.com/videos/lesson_fr.mp4#lang=fr
+     ```
+2. **Using filename suffixes**:
+   - Alternatively, if files end with standard language codes (e.g. `_en.mp4`, `_fr.mp4`), they are automatically detected:
+     - **Video URL**: `https://cdn.example.com/videos/lesson_en.mp4`
+     - **Fallback videos**: `https://cdn.example.com/videos/lesson_fr.mp4`
+
+#### Method 3: Course OLX (XML Export/Import)
+If authoring via Course XML (OLX), the `audio_tracks` attribute can be specified directly on the `<video>` tag:
+```xml
+<video url_name="intro_video"
+       display_name="Course Introduction"
+       download_video="true"
+       html5_sources="[&quot;https://cdn.example.com/videos/master.m3u8&quot;]"
+       audio_tracks="[
+         {&quot;lang&quot;: &quot;en&quot;, &quot;label&quot;: &quot;English&quot;},
+         {&quot;lang&quot;: &quot;fr&quot;, &quot;label&quot;: &quot;Français&quot;}
+       ]">
+</video>
+```
 
 ### B. Multiple Subtitles & Transcriptions (Native Open edX)
 Open edX natively supports multiple transcripts per video:
@@ -142,5 +159,5 @@ In **Studio > Settings > Advanced Settings**:
 | **Course Language** | Code `mu` | Studio > Schedule & Details | Catalog filter shows "Multilingual" / "Multilingue" |
 | **Unit / Section / Title** | `{fr}Titre{/fr}{en}Title{/en}` | Display Name fields in Studio | Title switches automatically with UI language |
 | **Rich Text Content** | `multilingual_text` XBlock | Studio > Advanced Components | Dropdown switcher above text with synchronized choice |
-| **Video Audio** | `audio_tracks` JSON | Video Component > Advanced | Audio menu in player toolbar (instant HLS or MP4 swap) |
+| **Video Audio** | Video URL / Fallbacks (`#lang=` or HLS) | Video Component > Basic | Audio menu in player toolbar (instant HLS or MP4 swap) |
 | **Video Subtitles** | Native Transcripts (`.srt`/`.vtt`) | Video Component > Basic | CC button with language selection list |
