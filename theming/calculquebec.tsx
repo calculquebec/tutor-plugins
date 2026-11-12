@@ -13,6 +13,7 @@ const setCookieFunction = (name, value, days) => {
   window.location.reload();
 };
 
+
 const getLanguage = () => {
   // Fonction utilitaire pour normaliser les codes de langue
   const normalizeLang = (lang) => {

@@ -87,6 +87,25 @@ if not OPEN_EDX_FILTERS_CONFIG.get("org.openedx.learning.instructor.dashboard.ta
 _feedback_step = "feedback.extensions.filters.AddFeedbackTabToInstructorDashboard"
 if _feedback_step not in OPEN_EDX_FILTERS_CONFIG["org.openedx.learning.instructor.dashboard.tabs.requested.v1"]["pipeline"]:
     OPEN_EDX_FILTERS_CONFIG["org.openedx.learning.instructor.dashboard.tabs.requested.v1"]["pipeline"].append(_feedback_step)
+
+# Add 'Multilingual' / 'Multilingue' to course language options
+from django.utils.functional import lazy
+from django.utils.translation import get_language
+
+def _get_multilingual_display():
+    lang = (get_language() or "").lower()
+    if lang.startswith("fr"):
+        return "Multilingue"
+    return "Multilingual"
+
+MULTILINGUAL_LABEL = lazy(_get_multilingual_display, str)()
+
+if "ALL_LANGUAGES" in globals() and not any(lang[0] == "mu" for lang in ALL_LANGUAGES):
+    pos = next((i for i, lang in enumerate(ALL_LANGUAGES) if lang[0] == "na"), -1)
+    if pos != -1:
+        ALL_LANGUAGES.insert(pos, ["mu", MULTILINGUAL_LABEL])
+    else:
+        ALL_LANGUAGES.append(["mu", MULTILINGUAL_LABEL])
 """
         ),
 ])
@@ -99,6 +118,7 @@ hooks.Filters.ENV_PATCHES.add_items([
 import { WidgetOperationTypes } from '@openedx/frontend-base';
 """),
     ("mfe-site-custom-app-definitions", load_file('calculquebec.tsx')),
+    ("mfe-site-custom-app-definitions", load_file('multilingual.tsx')),
     ("mfe-site-custom-app-definitions", load_file('external_loaders.tsx')),
     ("mfe-site-custom-app-definitions", load_file('feedback_tab.tsx')),
     # for MFEs
@@ -109,6 +129,7 @@ const modifyLogoHref = ( widget ) => {
 };
 """),
     ("mfe-env-config-buildtime-definitions", load_file('calculquebec.tsx')),
+    ("mfe-env-config-buildtime-definitions", load_file('multilingual.tsx')),
     ("mfe-env-config-buildtime-definitions", load_file('external_loaders.tsx')),
     ("mfe-env-config-buildtime-definitions", load_file('custom_extra_fields.tsx')),
     ("mfe-env-config-buildtime-definitions", load_file('social_share.tsx')),
