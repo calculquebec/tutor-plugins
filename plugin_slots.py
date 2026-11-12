@@ -88,17 +88,11 @@ _feedback_step = "feedback.extensions.filters.AddFeedbackTabToInstructorDashboar
 if _feedback_step not in OPEN_EDX_FILTERS_CONFIG["org.openedx.learning.instructor.dashboard.tabs.requested.v1"]["pipeline"]:
     OPEN_EDX_FILTERS_CONFIG["org.openedx.learning.instructor.dashboard.tabs.requested.v1"]["pipeline"].append(_feedback_step)
 
-# Add 'Multilingual' / 'Multilingue' to course language options
-from django.utils.functional import lazy
-from django.utils.translation import get_language
-
-def _get_multilingual_display():
-    lang = (get_language() or "").lower()
-    if lang.startswith("fr"):
-        return "Multilingue"
-    return "Multilingual"
-
-MULTILINGUAL_LABEL = lazy(_get_multilingual_display, str)()
+# Add 'Multilingual' to course language options.
+# Use a plain string (not a lazy proxy): ALL_LANGUAGES is JSON-serialized by
+# several code paths (e.g. video block metadata), and lazy proxies break that.
+# The French label ("Multilingue") is applied client-side (see multilingual.js/tsx).
+MULTILINGUAL_LABEL = "Multilingual"
 
 if "ALL_LANGUAGES" in globals() and not any(lang[0] == "mu" for lang in ALL_LANGUAGES):
     pos = next((i for i, lang in enumerate(ALL_LANGUAGES) if lang[0] == "na"), -1)
