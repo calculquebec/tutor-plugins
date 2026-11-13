@@ -1,3 +1,5 @@
+**English** | [Français](multilingual_implementation.fr.md)
+
 # Technical Implementation: Multilingual Support in Evolo (Open edX)
 
 This document details the engineering and architectural implementation of multilingual features across the Evolo Open edX platform, including Tutor plugins, Micro-Frontends (MFEs), Django backend settings, database constraints, and XBlocks.

@@ -1,3 +1,5 @@
+**English** | [Français](multilingual_course_guide.fr.md)
+
 # Guide: Authoring & Configuring Multilingual Courses in Evolo (Open edX)
 
 This guide documents how to create, configure, and maintain multilingual courses on the Calcul Québec Evolo Open edX platform. It covers course metadata, structural course navigation (sections, units, components), video audio & transcriptions, and rich-text content.
